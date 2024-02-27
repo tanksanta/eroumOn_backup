@@ -9,9 +9,14 @@
     }
 
     .swiper-slide {
-      width: 280px;
+      width: 320px;
       margin-left: 20px;
       /* width: calc(100% - 40px); */
+    }
+    
+    /* 375px 이하는 280px  */
+    @media only screen and (max-width: 375px){
+      .swiper-slide {width: 280px;}
     }
     
     .swiper-slide:last-child{
@@ -176,7 +181,7 @@
 
         <div class="h16"></div>
 
-        <div class="card waves-effect w100p">
+        <div class="card waves-effect w100p" onclick="location.href='/matching/simpletest/simple/intro';">
 
           <div class="card-content d-flex justify-content-between align-items-center">
 
@@ -194,7 +199,7 @@
         
         <div class="h16"></div>
 
-        <div class="card waves-effect w100p">
+        <div class="card waves-effect w100p" onclick="location.href='/matching/simpletest/care/intro';">
 
           <div class="card-content d-flex justify-content-between align-items-center">
 
@@ -227,43 +232,14 @@
         <!-- card -->
 
 
-
       </section>
     </main>
-
-    <footer class="page-footer bottomNav">
-
-      <ul class="bottomNav_menu">
-
-        <li class="btn_om ">
-          <a class="waves-effect">
-            <span class="txt">어르신</span>
-          </a>
-        </li>
-        <li class="btn_wel">
-          <a class="waves-effect">
-            <span class="txt">복지용구</span>
-          </a>
-        </li>
-        <li class="btn_service active">
-          <a class="waves-effect">
-            <span class="txt">서비스</span>
-          </a>
-        </li>
-        <li class="btn_guide">
-          <a class="waves-effect">
-            <span class="txt">길잡이</span>
-          </a>
-        </li>
-        <li class="btn_entier">
-          <a class="waves-effect">
-            <span class="txt">전체</span>
-          </a>
-        </li>
-
-      </ul>
-
-    </footer>
+    
+	
+	<!-- 하단 네이비게이션 -->
+	<jsp:include page="/WEB-INF/jsp/app/matching/common/bottomNavigation.jsp">
+		<jsp:param value="service" name="menuName" />
+	</jsp:include>
 
   </div>
   <!-- wrapper -->
@@ -279,16 +255,17 @@
 	      </div>
 	
 	      <div class="modal-content">
-	
-	
-	        <ul class="broad_area om_select">
-	          <c:forEach var="recipientInfo" items="${mbrRecipientsList}" varStatus="status">
-		          <li class="modal-close<c:if test="${ recipientInfo.mainYn eq 'Y' }"> active</c:if>" recipientsNo="${ recipientInfo.recipientsNo }">
-		            <div class="img_flower fl_0${status.index + 1}"></div>
-		            <span>${recipientInfo.recipientsNm}</span>
-		          </li>
-	          </c:forEach>
-	        </ul>
+	      
+			<div class="scrollBox heightAuto" style="max-height: 50vh;">
+		        <ul class="broad_area om_select">
+		          <c:forEach var="recipientInfo" items="${mbrRecipientsList}" varStatus="status">
+			          <li class="modal-close<c:if test="${ recipientInfo.mainYn eq 'Y' }"> active</c:if>" recipientsNo="${ recipientInfo.recipientsNo }">
+			            <div class="img_flower fl_0${status.index + 1}"></div>
+			            <span>${recipientInfo.recipientsNm}</span>
+			          </li>
+		          </c:forEach>
+		        </ul>
+	        </div>
 	        <div class="h20"></div>
 	
 	      </div>
@@ -312,6 +289,11 @@
 		
 		
 		$(function() {
+			//현재 페이지 history 저장 
+			saveCurrentPageHistory();
+			
+			
+			//swiper 퍼블리싱 코드 부분
 			var swiper = new Swiper(".service_Swiper", {
 		      autoHeight: true,
 		      slidesPerView: "auto",
