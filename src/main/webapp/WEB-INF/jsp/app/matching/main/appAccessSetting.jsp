@@ -49,7 +49,15 @@
 
 
 	<script>
+		var clickCtn = 0;
+	
 		function clickConfirmBtn() {
+			if (clickCtn === 1) {
+				location.href = '/matching/kakao/login';
+				return;
+			}
+			
 			sendDataToMobileApp({ actionName: 'requestPermissions', type: 'push' });
+			clickCtn++;
 		}
 	</script>
