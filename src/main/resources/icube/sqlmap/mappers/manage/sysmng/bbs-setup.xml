@@ -10,10 +10,22 @@
 
 	<sql id="listColumn">
 		  bbs_no
+		, srvc_cd
+		, bbs_cd
 		, bbs_nm
 		, bbs_ty
 		, use_yn
 		, ctgry_use_yn
+		, add_column_text01
+		, add_column_text02
+		, add_column_text03
+		, add_column_text04
+		, add_column_text05
+		, add_column_text06
+		, add_column_text07
+		, add_column_chk01
+		, add_column_chk02
+		, add_column_chk03
 	</sql>
 
 	<sql id="listWhere">
@@ -26,6 +38,13 @@
 			</if>
 			<if test="srchUseYn != null and srchUseYn != '' ">
 				AND use_yn = #{srchUseYn}
+			</if>
+
+			<if test="bbsNo != null and bbsNo != '' ">
+				AND bbs_no = #{bbsNo}
+			</if>
+			<if test="srvcCd !=null and srvcCd != '' and bbsCd != null and bbsCd != '' ">
+				AND srvc_cd = #{srvcCd} AND bbs_cd = #{bbsCd}
 			</if>
 		</where>
 	</sql>
@@ -41,12 +60,16 @@
 	<select id="selectBbsSetupListVO" parameterType="java.util.HashMap" resultMap="bbsListMap">
 		/* Query ID : sysmng.bbs.setup.selectBbsSetupListVO */
 		SELECT bbs_no
+			 , srvc_cd
+			 , bbs_cd
 			 , bbs_nm
 			 , bbs_ty
 			 , use_yn
 			 , mbr_authrt_yn
 			 , ctgry_use_yn
 			 , editr_use_yn
+			 , add_column_text01, add_column_text02, add_column_text03, add_column_text04, add_column_text05, add_column_text06, add_column_text07
+			 , add_column_chk01, add_column_chk02, add_column_chk03
 			 , (SELECT COUNT(*) FROM BBS as t WHERE t.bbs_no = bbs.bbs_no AND t.use_yn = 'Y') AS ntt_cnt
 		  FROM BBS_SETUP bbs
 		<include refid="listWhere"/>
@@ -59,6 +82,8 @@
 		/* Query ID : sysmng.bbs.setup.selectBbsSetup */
 		SELECT
 			  bbs_no
+			, srvc_cd
+			, bbs_cd
 			, bbs_nm
 			, bbs_ty
 			, secret_use_yn
@@ -76,8 +101,18 @@
 			, pic_eml_yn
 			, pic_eml
 			, use_yn
+			, add_column_text01
+			, add_column_text02
+			, add_column_text03
+			, add_column_text04
+			, add_column_text05
+			, add_column_text06
+			, add_column_text07
+			, add_column_chk01
+			, add_column_chk02
+			, add_column_chk03
 		FROM BBS_SETUP bbs
-		WHERE bbs_no = #{bbsNo}
+		<include refid="listWhere"/>
 	</select>
 
 
@@ -85,6 +120,8 @@
 		/* Query ID : sysmng.bbs.setup.insertBbsSetup */
 		INSERT INTO BBS_SETUP (
 			  bbs_nm
+			, srvc_cd
+			, bbs_cd
 			, bbs_ty
 			, secret_use_yn
 			, editr_use_yn
@@ -101,12 +138,24 @@
 			, pic_eml_yn
 			, pic_eml
 			, use_yn
+			, add_column_text01
+			, add_column_text02
+			, add_column_text03
+			, add_column_text04
+			, add_column_text05
+			, add_column_text06
+			, add_column_text07
+			, add_column_chk01
+			, add_column_chk02
+			, add_column_chk03
 			, reg_unique_id
 			, reg_id
 			, rgtr
 			, reg_dt
 		) VALUES (
 			#{bbsNm, jdbcType=VARCHAR}
+			, #{srvcCd, jdbcType=VARCHAR}
+			, #{bbsCd, jdbcType=VARCHAR}
 			, #{bbsTy, jdbcType=VARCHAR}
 			, #{secretUseYn, jdbcType=VARCHAR}
 			, #{editrUseYn, jdbcType=VARCHAR}
@@ -123,6 +172,16 @@
 			, #{picEmlYn, jdbcType=VARCHAR}
 			, #{picEml, jdbcType=VARCHAR}
 			, #{useYn, jdbcType=VARCHAR}
+			, #{addColumnText01, jdbcType=VARCHAR}
+			, #{addColumnText02, jdbcType=VARCHAR}
+			, #{addColumnText03, jdbcType=VARCHAR}
+			, #{addColumnText04, jdbcType=VARCHAR}
+			, #{addColumnText05, jdbcType=VARCHAR}
+			, #{addColumnText06, jdbcType=VARCHAR}
+			, #{addColumnText07, jdbcType=VARCHAR}
+			, #{addColumnChk01, jdbcType=VARCHAR}
+			, #{addColumnChk02, jdbcType=VARCHAR}
+			, #{addColumnChk03, jdbcType=VARCHAR}
 			, #{regUniqueId, jdbcType=VARCHAR}
 			, #{regId, jdbcType=VARCHAR}
 			, #{rgtr, jdbcType=VARCHAR}
@@ -138,6 +197,8 @@
 		/* Query ID : sysmng.bbs.setup.updateBbsSetup */
 		UPDATE BBS_SETUP SET
 			bbs_nm = #{bbsNm, jdbcType=VARCHAR}
+			, srvc_cd = #{srvcCd, jdbcType=VARCHAR}
+			, bbs_cd = #{bbsCd, jdbcType=VARCHAR}
 			, bbs_ty = #{bbsTy, jdbcType=VARCHAR}
 			, secret_use_yn = #{secretUseYn, jdbcType=VARCHAR}
 			, editr_use_yn = #{editrUseYn, jdbcType=VARCHAR}
@@ -154,6 +215,16 @@
 			, pic_eml_yn = #{picEmlYn, jdbcType=VARCHAR}
 			, pic_eml = #{picEml, jdbcType=VARCHAR}
 			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, add_column_text01 = #{addColumnText01, jdbcType=VARCHAR}
+			, add_column_text02 = #{addColumnText02, jdbcType=VARCHAR}
+			, add_column_text03 = #{addColumnText03, jdbcType=VARCHAR}
+			, add_column_text04 = #{addColumnText04, jdbcType=VARCHAR}
+			, add_column_text05 = #{addColumnText05, jdbcType=VARCHAR}
+			, add_column_text06 = #{addColumnText06, jdbcType=VARCHAR}
+			, add_column_text07 = #{addColumnText07, jdbcType=VARCHAR}
+			, add_column_chk01 = #{addColumnChk01, jdbcType=VARCHAR}
+			, add_column_chk02 = #{addColumnChk02, jdbcType=VARCHAR}
+			, add_column_chk03 = #{addColumnChk03, jdbcType=VARCHAR}
 		WHERE bbs_no = #{bbsNo}
 	</update>
 

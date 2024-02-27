@@ -22,9 +22,15 @@ public class BbsDAO extends CommonAbstractMapper {
 	public void insertNtt(BbsVO nttVO) throws Exception {
 		insert("bbs.ntt.insertNtt", nttVO);
 	}
+	public void insertNttAddColumn(BbsVO nttVO) throws Exception {
+		insert("bbs.ntt.insertNttAddColumn", nttVO);
+	}
 
 	public void updateNtt(BbsVO nttVO) throws Exception {
 		update("bbs.ntt.updateNtt", nttVO);
+	}
+	public void updateNttAddColumn(BbsVO nttVO) throws Exception {
+		update("bbs.ntt.updateNttAddColumn", nttVO);
 	}
 
 	public void deleteNtt(Map<String, Object> paramMap) throws Exception {

@@ -688,10 +688,13 @@ public class MbrService extends CommonAbstractServiceImpl {
 	 * 일반 로그인 유효성 검사 
 	 */
 	public Map<String, Object> validateForEroumLogin(String mbrId, String encPw, HttpSession session) throws Exception {
+		return this.validateForEroumLogin(RSA_MEMBERSHIP_KEY, mbrId, encPw, session);
+	}
+	public Map<String, Object> validateForEroumLogin(String rsaPriKey, String mbrId, String encPw, HttpSession session) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
 		
-		PrivateKey rsaKey = (PrivateKey) session.getAttribute(RSA_MEMBERSHIP_KEY);
+		PrivateKey rsaKey = (PrivateKey) session.getAttribute(rsaPriKey);
 		String decPw = RSA.decryptRsa(rsaKey, encPw);
 		if (EgovStringUtil.isEmpty(decPw)) {
 			resultMap.put("msg", "패스워드 복호화에 실패하였습니다.");

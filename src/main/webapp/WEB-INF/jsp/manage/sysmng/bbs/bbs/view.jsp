@@ -52,6 +52,66 @@
                             <th scope="row">제목</th>
                             <td>${nttVO.ttl}</td>
                         </tr>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnChk01()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnChk01()}</th>
+                                <td>${nttVO.addValueChk01}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnChk02()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnChk02()}</th>
+                                <td>${nttVO.addValueChk02}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnChk03()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnChk03()}</th>
+                                <td>${nttVO.addValueChk03}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnText01()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnText01()}</th>
+                                <td>${nttVO.addValueText01}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnText02()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnText02()}</th>
+                                <td>${nttVO.addValueText02}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnText03()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnText03()}</th>
+                                <td>${nttVO.addValueText03}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnText04()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnText04()}</th>
+                                <td>${nttVO.addValueText04}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnText05()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnText05()}</th>
+                                <td>${nttVO.addValueText05}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnText06()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnText06()}</th>
+                                <td>${nttVO.addValueText06}</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddColumnText07()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddColumnText07()}</th>
+                                <td>${nttVO.addValueText07}</td>
+                            </tr>
+                        </c:if>
                         <tr>
                             <th scope="row">내용</th>
                             <td>${nttVO.cn}</td>

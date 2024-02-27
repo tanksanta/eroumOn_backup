@@ -1,0 +1,42 @@
+ALTER TABLE BBS_SETUP ADD SRVC_CD VARCHAR(50) NOT NULL DEFAULT '' COMMENT '도메인';
+ALTER TABLE BBS_SETUP ADD BBS_CD VARCHAR(50) NOT NULL DEFAULT '' COMMENT '게시판 코드';
+
+ALTER TABLE BBS_SETUP ADD add_column_text01 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 텍스트 필드01';
+ALTER TABLE BBS_SETUP ADD add_column_text02 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 텍스트 필드02';
+ALTER TABLE BBS_SETUP ADD add_column_text03 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 텍스트 필드03';
+ALTER TABLE BBS_SETUP ADD add_column_text04 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 텍스트 필드04';
+ALTER TABLE BBS_SETUP ADD add_column_text05 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 텍스트 필드05';
+ALTER TABLE BBS_SETUP ADD add_column_text06 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 텍스트 필드06';
+ALTER TABLE BBS_SETUP ADD add_column_text07 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 텍스트 필드07';
+
+ALTER TABLE BBS_SETUP ADD add_column_chk01 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 체크박스 필드01';
+ALTER TABLE BBS_SETUP ADD add_column_chk02 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 체크박스 필드02';
+ALTER TABLE BBS_SETUP ADD add_column_chk03 VARCHAR(255) NULL DEFAULT '' COMMENT '추가 체크박스 필드03';
+
+
+/*--매칭앱 공지사항을 반듯이 만들어야 한다.
+INSERT INTO BBS_SETUP
+machingapp, ntce, 매칭앱 공지사항
+
+1 , eroumon, ntce, 공지사항
+2, eroumon, faq, FAQ 게시판
+*/
+
+CREATE TABLE `BBS_ADDCOLUMN` (
+	`NTT_NO` INT(11) NOT NULL,
+	`BBS_NO` INT(11) NOT NULL,
+	`add_value_text01` VARCHAR(512) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_text02` VARCHAR(512) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_text03` VARCHAR(512) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_text04` VARCHAR(512) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_text05` VARCHAR(512) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_text06` VARCHAR(512) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_text07` VARCHAR(512) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_chk01` CHAR(1) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_chk02` CHAR(1) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	`add_value_chk03` CHAR(1) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci',
+	PRIMARY KEY (`NTT_NO`) USING BTREE
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+;
