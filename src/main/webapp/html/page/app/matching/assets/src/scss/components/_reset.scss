@@ -270,12 +270,6 @@ $--Color-icon-Primitive-inverse: #fff;
 
 
 
-@font-face {
-  font-family: 'SUIT-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
 
 
 * {
@@ -285,7 +279,9 @@ $--Color-icon-Primitive-inverse: #fff;
 }
 
 
-body {font-family: 'SUIT-Regular', sans-serif;color: $--Color-text-primary;
+body {
+  font-family: 'SUIT', sans-serif;
+  color: $--Color-text-primary;
   font-weight: 400;
   display: flex;
   min-height: 100vh;
@@ -302,7 +298,7 @@ body {font-family: 'SUIT-Regular', sans-serif;color: $--Color-text-primary;
 .btn:hover,.btn-large:hover,.btn-small:hover,.btn-floating:hover {box-shadow: none;}
 
 
-button, input, optgroup, select, textarea{font-family: 'SUIT-Regular'}
+button, input, optgroup, select, textarea{font-family: 'SUIT'}
 
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
 
