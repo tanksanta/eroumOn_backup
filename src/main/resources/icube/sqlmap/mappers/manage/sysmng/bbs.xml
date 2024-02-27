@@ -44,6 +44,18 @@
 		, 'THUMB' as thumb_file_ty
 	</sql>
 
+	<sql id="listAddColumn">
+		, ba.add_value_text01
+		, ba.add_value_text02
+		, ba.add_value_text03
+		, ba.add_value_text04
+		, ba.add_value_text05
+		, ba.add_value_text06
+		, ba.add_value_text07
+		, ba.add_value_chk01
+		, ba.add_value_chk02
+		, ba.add_value_chk03
+	</sql>
 
 	<sql id="searchConditions">
 		<if test="srchText != null and srchText != '' ">
@@ -100,8 +112,8 @@
 			, (SELECT bbs_ty FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTy
 			, (SELECT bbs_nm FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTyNm
 			, tbc.ctgry_nm
-		FROM BBS tb LEFT OUTER JOIN BBS_CTGRY tbc
-			ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
+		FROM BBS tb 
+		LEFT OUTER JOIN BBS_CTGRY tbc ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
 		WHERE 1=1
 			<include refid="searchConditions" />
 		ORDER BY ntc_yn DESC
@@ -126,11 +138,13 @@
 		/* Query ID : bbs.ntt.selectNtt */
 		SELECT
 			<include refid="listColumn"/>
+			<include refid="listAddColumn"/>
 			, (SELECT bbs_ty FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTy
 			, (SELECT bbs_nm FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTyNm
 			, tbc.ctgry_nm
-		FROM BBS tb LEFT OUTER JOIN BBS_CTGRY tbc
-			ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
+		FROM BBS tb 
+		LEFT OUTER JOIN BBS_ADDCOLUMN ba ON tb.ntt_no = ba.ntt_no AND tb.bbs_no = ba.bbs_no
+		LEFT OUTER JOIN BBS_CTGRY tbc ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
 		WHERE tb.bbs_no = #{bbsNo}
 		  AND tb.ntt_no = #{nttNo}
 	</select>
@@ -240,6 +254,62 @@
 		  AND ntt_no = #{nttNo}
 
 	</update>
+
+	
+	<insert id="insertNttAddColumn" parameterType="bbsVO">
+		/* Query ID : bbs.ntt.insertNttAddColumn */
+		INSERT INTO BBS_ADDCOLUMN (
+			ntt_no
+			, bbs_no
+			, add_value_text01
+			, add_value_text02
+			, add_value_text03
+			, add_value_text04
+			, add_value_text05
+			, add_value_text06
+			, add_value_text07
+			, add_value_chk01
+			, add_value_chk02
+			, add_value_chk03
+			, rgtr
+		) values (
+			
+			#{nttNo}
+			, #{bbsNo}
+			
+			, #{addValueText01, jdbcType=VARCHAR}
+			, #{addValueText02, jdbcType=VARCHAR}
+			, #{addValueText03, jdbcType=VARCHAR}
+			, #{addValueText04, jdbcType=VARCHAR}
+			, #{addValueText05, jdbcType=VARCHAR}
+			, #{addValueText06, jdbcType=VARCHAR}
+			, #{addValueText07, jdbcType=VARCHAR}
+
+			, #{addValueChk01, jdbcType=VARCHAR}
+			, #{addValueChk02, jdbcType=VARCHAR}
+			, #{addValueChk03, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	
+	<update id="updateNttAddColumn" parameterType="bbsVO">
+		/* Query ID : bbs.ntt.updateNtt */
+		UPDATE BBS_ADDCOLUMN SET
+			add_value_text01 = #{addValueText01, jdbcType=VARCHAR}
+			, add_value_text02 = #{addValueText02, jdbcType=VARCHAR}
+			, add_value_text03 = #{addValueText03, jdbcType=VARCHAR}
+			, add_value_text04 = #{addValueText04, jdbcType=VARCHAR}
+			, add_value_text05 = #{addValueText05, jdbcType=VARCHAR}
+			, add_value_text06 = #{addValueText06, jdbcType=VARCHAR}
+			, add_value_text07 = #{addValueText07, jdbcType=VARCHAR}
+			, add_value_chk01 = #{addValueChk01, jdbcType=VARCHAR}
+			, add_value_chk02 = #{addValueChk02, jdbcType=VARCHAR}
+			, add_value_chk03 = #{addValueChk03, jdbcType=VARCHAR}
+		WHERE bbs_no = #{bbsNo}
+		  AND ntt_no = #{nttNo}
+
+	</update>
+
 
 	<update id="updateDelNtt" parameterType="java.util.HashMap">
 		/* Query ID : bbs.ntt.updateDelNtt */

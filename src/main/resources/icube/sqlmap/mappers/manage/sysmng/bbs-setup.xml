@@ -16,6 +16,16 @@
 		, bbs_ty
 		, use_yn
 		, ctgry_use_yn
+		, add_column_text01
+		, add_column_text02
+		, add_column_text03
+		, add_column_text04
+		, add_column_text05
+		, add_column_text06
+		, add_column_text07
+		, add_column_chk01
+		, add_column_chk02
+		, add_column_chk03
 	</sql>
 
 	<sql id="listWhere">
@@ -58,6 +68,8 @@
 			 , mbr_authrt_yn
 			 , ctgry_use_yn
 			 , editr_use_yn
+			 , add_column_text01, add_column_text02, add_column_text03, add_column_text04, add_column_text05, add_column_text06, add_column_text07
+			 , add_column_chk01, add_column_chk02, add_column_chk03
 			 , (SELECT COUNT(*) FROM BBS as t WHERE t.bbs_no = bbs.bbs_no AND t.use_yn = 'Y') AS ntt_cnt
 		  FROM BBS_SETUP bbs
 		<include refid="listWhere"/>
@@ -89,6 +101,16 @@
 			, pic_eml_yn
 			, pic_eml
 			, use_yn
+			, add_column_text01
+			, add_column_text02
+			, add_column_text03
+			, add_column_text04
+			, add_column_text05
+			, add_column_text06
+			, add_column_text07
+			, add_column_chk01
+			, add_column_chk02
+			, add_column_chk03
 		FROM BBS_SETUP bbs
 		<include refid="listWhere"/>
 	</select>
@@ -116,6 +138,16 @@
 			, pic_eml_yn
 			, pic_eml
 			, use_yn
+			, add_column_text01
+			, add_column_text02
+			, add_column_text03
+			, add_column_text04
+			, add_column_text05
+			, add_column_text06
+			, add_column_text07
+			, add_column_chk01
+			, add_column_chk02
+			, add_column_chk03
 			, reg_unique_id
 			, reg_id
 			, rgtr
@@ -140,6 +172,16 @@
 			, #{picEmlYn, jdbcType=VARCHAR}
 			, #{picEml, jdbcType=VARCHAR}
 			, #{useYn, jdbcType=VARCHAR}
+			, #{addColumnText01, jdbcType=VARCHAR}
+			, #{addColumnText02, jdbcType=VARCHAR}
+			, #{addColumnText03, jdbcType=VARCHAR}
+			, #{addColumnText04, jdbcType=VARCHAR}
+			, #{addColumnText05, jdbcType=VARCHAR}
+			, #{addColumnText06, jdbcType=VARCHAR}
+			, #{addColumnText07, jdbcType=VARCHAR}
+			, #{addColumnChk01, jdbcType=VARCHAR}
+			, #{addColumnChk02, jdbcType=VARCHAR}
+			, #{addColumnChk03, jdbcType=VARCHAR}
 			, #{regUniqueId, jdbcType=VARCHAR}
 			, #{regId, jdbcType=VARCHAR}
 			, #{rgtr, jdbcType=VARCHAR}
@@ -173,6 +215,16 @@
 			, pic_eml_yn = #{picEmlYn, jdbcType=VARCHAR}
 			, pic_eml = #{picEml, jdbcType=VARCHAR}
 			, use_yn = #{useYn, jdbcType=VARCHAR}
+			, add_column_text01 = #{addColumnText01, jdbcType=VARCHAR}
+			, add_column_text02 = #{addColumnText02, jdbcType=VARCHAR}
+			, add_column_text03 = #{addColumnText03, jdbcType=VARCHAR}
+			, add_column_text04 = #{addColumnText04, jdbcType=VARCHAR}
+			, add_column_text05 = #{addColumnText05, jdbcType=VARCHAR}
+			, add_column_text06 = #{addColumnText06, jdbcType=VARCHAR}
+			, add_column_text07 = #{addColumnText07, jdbcType=VARCHAR}
+			, add_column_chk01 = #{addColumnChk01, jdbcType=VARCHAR}
+			, add_column_chk02 = #{addColumnChk02, jdbcType=VARCHAR}
+			, add_column_chk03 = #{addColumnChk03, jdbcType=VARCHAR}
 		WHERE bbs_no = #{bbsNo}
 	</update>
 

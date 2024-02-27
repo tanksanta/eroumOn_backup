@@ -31,10 +31,14 @@ public class BbsService extends CommonAbstractServiceImpl {
 
 	public void insertNtt(BbsVO nttVO) throws Exception {
 		bbsDAO.insertNtt(nttVO);
+
+		bbsDAO.insertNttAddColumn(nttVO);
 	}
 
 	public void updateNtt(BbsVO nttVO) throws Exception {
 		bbsDAO.updateNtt(nttVO);
+
+		bbsDAO.updateNttAddColumn(nttVO);
 	}
 
 	public void deleteNtt(int bbsNo, int nttNo) throws Exception {

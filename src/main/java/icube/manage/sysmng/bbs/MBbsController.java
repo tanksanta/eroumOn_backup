@@ -102,6 +102,7 @@ public class MBbsController extends CommonAbstractController {
 			nttVO.setAnsCn(HtmlUtil.enterToBr(nttVO.getAnsCn()));
 		}
 
+		model.addAttribute("bbsSetupVO", bbsSetupVO);
 		model.addAttribute("nttVO", nttVO);
 		//model.addAttribute("prevNextList", prevNextList);
 		model.addAttribute("boardTyCode", CodeMap.BBS_TY);
@@ -124,7 +125,7 @@ public class MBbsController extends CommonAbstractController {
 			, Model model) throws Exception {
 
 		BbsSetupVO bbsSetupVO = (BbsSetupVO) request.getAttribute("bbsSetupVO");
-
+		
 		if (nttNo == 0) {
 			nttVO.setCrud(CRUD.CREATE);
 			if (bbsSetupVO != null) {
@@ -169,6 +170,8 @@ public class MBbsController extends CommonAbstractController {
 		model.addAttribute("nttVO", nttVO);
 		model.addAttribute("boardTyCode", CodeMap.BBS_TY);
 		model.addAttribute("param", reqMap);
+		model.addAttribute("bbsSetupVO", bbsSetupVO);
+		
 
 		return "/manage/sysmng/bbs/bbs/form";
 	}
