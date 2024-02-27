@@ -16,6 +16,8 @@ import lombok.ToString;
 public class BbsSetupVO extends CommonBaseVO {
 
 	private int bbsNo;
+	private String srvcCd;
+	private String bbsCd;
 	private String bbsNm;
 	private String bbsTy = "1";
 	private String secretUseYn = "N";
@@ -42,5 +44,17 @@ public class BbsSetupVO extends CommonBaseVO {
 	private String[] ctgryTexts;
 
 	private int nttCnt = 0;	//게시물 건수
+
+	private String addColumnText01; //추가 텍스트 필드 01
+	private String addColumnText02; //추가 텍스트 필드 02
+	private String addColumnText03; //추가 텍스트 필드 03
+	private String addColumnText04; //추가 텍스트 필드 04
+	private String addColumnText05; //추가 텍스트 필드 05
+	private String addColumnText06; //추가 텍스트 필드 06
+	private String addColumnText07; //추가 텍스트 필드 07
+
+	private String addColumnChk01; //추가 체크박스 필드 01
+	private String addColumnChk02; //추가 체크박스 필드 02
+	private String addColumnChk03; //추가 체크박스 필드 03
 
 }
