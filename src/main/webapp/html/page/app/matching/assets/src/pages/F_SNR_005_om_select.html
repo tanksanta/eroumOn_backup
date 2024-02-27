@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+    <title>F_SNR_005_om_select.html</title>
+
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css" />
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <script>
+
+        $(function () {
+
+            //동의시 버튼 활성화
+            $('.evt_chk').on('click', function () {
+
+                if ($(this).is(':checked') == true) {
+                    $('.evt_btn').removeClass('btn_disable');
+                    $('.evt_btn').addClass('btn_primary');
+                }
+
+                else {
+                    $('.evt_btn').removeClass('btn_primary');
+                    $('.evt_btn').addClass('btn_disable');
+                }
+
+            });
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <!-- <span class="txt">상담 신청 완료</span> -->
+                </a>
+
+
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="intro">
+
+                <a class="waves-effect waves-light btn btn_primary modal-trigger" href="#modal_om_select">어르신 선택 바텀시트 팝업</a>
+
+
+            </section>
+        </main>
+
+
+    </div>
+    <!-- wrapper -->
+
+
+
+    <!-- Modal modal_om_select -->
+    <div id="modal_om_select" class="modal bottom-sheet modal_om_select">
+
+        <div class="modal_header">
+          <h4 class="modal_title">어르신을 선택해주세요</h4>
+          <div class="close_x modal-close waves-effect"></div>
+        </div>
+  
+        <div class="modal-content">
+  
+          <div class="scrollBox heightAuto" style="max-height: 50vh;">
+            <ul class="broad_area om_select">
+              <li class="modal-close active">
+                <div class="img_flower fl_01"></div>
+                <span>꽃분이</span>
+              </li>
+              <li class="modal-close">
+                <div class="img_flower fl_02"></div>
+                <span>꽃순이</span>
+              </li>
+
+            </ul>
+            
+            <!-- 추가 등록하기 -->
+            <div class="om_add modal-close">
+              <div class="img_flower">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none" opacity="0.5">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8832 5.84656C12.8832 5.43234 12.5474 5.09656 12.1332 5.09656C11.719 5.09656 11.3832 5.43234 11.3832 5.84656V11.3832H5.84653C5.43231 11.3832 5.09653 11.719 5.09653 12.1332C5.09653 12.5474 5.43231 12.8832 5.84653 12.8832H11.3832V18.4199C11.3832 18.8341 11.719 19.1699 12.1332 19.1699C12.5474 19.1699 12.8832 18.8341 12.8832 18.4199V12.8832H18.4199C18.8341 12.8832 19.1699 12.5474 19.1699 12.1332C19.1699 11.719 18.8341 11.3832 18.4199 11.3832H12.8832V5.84656Z" fill="#333333"/>
+                </svg>
+              </div>
+              <span>추가 등록하기</span>
+            </div>
+  
+          </div>
+          <div class="h20"></div>
+  
+        </div>
+  
+      </div>
+  
+
+
+</body>
+
+</html>

@@ -28,11 +28,42 @@
     <!-- style.css -->
     <link rel="stylesheet" href="../css/style.css" />
 
+    <style>
+        h5.title{margin-top: 40px;}
+        .card{padding: 10px;margin-bottom: 10px;border:2px solid transparent;transition: 0.3s all; }
+        .card:hover{background-color: #f8f8f8;border:2px solid #636363;}
+        .pa10{padding: 10px;}
+
+        .sitemap_table col:nth-child(1){width:200px;}
+        .sitemap_table col:nth-child(2){width:300px;}
+        .sitemap_table col:nth-child(3){width:400px;}
+
+        tr:last-child{border: none;}
+    </style>
+
     <script>
 
         $(function () {
 
+            //card로 감쌈
+            $('.sitemap_table').wrap('<div class="card"></div>');
 
+            //colgroup 생성
+            $('.sitemap_table').prepend('<colgroup> <col /> <col /> <col /> <col /> </colgroup');
+
+            //첫 tr/td 에 rowspan 생성
+            $('.sitemap_table').each(function(){
+
+                var thisLength = $(this).find('tr').length;
+
+                $(this).find('tr:first-child td:first-child').attr('rowspan',thisLength);
+
+                //$(this).parents('.card').after('<div>'+thisLength+'</div>')
+
+
+            });
+
+            //주소링크 생성
             $('.addr').each(function () {
 
                 $(this).prop({
@@ -51,25 +82,16 @@
 
 </head>
 
-<body>
-    <div class="wrapper">
+<body class="back_gray">
+    <div class="wrapper" style="padding: 20px;">
 
         <h2>Sitemap</h2>
-        <table>
-            <colgroup>
-                <col style="width:200px;">
-                <col style="width:300px">
-                <col style="width:400px">
-                <col style="">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
+
+
+
+        <h5 class="title color_primary">컴포넌트</h5>
+
+        <table class="sitemap_table">
             <tbody>
 
                 <tr>
@@ -79,6 +101,14 @@
                     <td></td>
                 </tr>
 
+                
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">온보딩 / 앱접근권한</h5>
+        <table class="sitemap_table">
+            <tbody>
+
                 <!-- 온보딩 -->
                 <tr>
                     <td>온보딩</td>
@@ -86,16 +116,29 @@
                     <td><a class="addr" href="">F_ONB_001_onboard01.html</a></td>
                     <td></td>
                 </tr>
+            </tbody>
+        </table>
+
+        <table class="sitemap_table">
+            <tbody>
+
                 <tr>
                     <td>앱 접근권한</td>
                     <td></td>
                     <td><a class="addr" href="">F_ACS_001_appAccess.html</a></td>
                     <td></td>
                 </tr>
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">회원가입 / 로그인</h5>
+
+        <table class="sitemap_table">
+            <tbody>
 
                 <!-- 로그인화면 -->
                 <tr>
-                    <td rowspan="7">로그인화면</td>
+                    <td>로그인화면</td>
                     <td>네이버 카카오 로그인</td>
                     <td><a class="addr" href="">F_SGN_001_login01.html</a></td>
                     <td></td>
@@ -130,10 +173,18 @@
                     <td><a class="addr" href="">F_SGN_006_noConnect.html</a></td>
                     <td></td>
                 </tr>
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">어르신 등록 / 상담 신청</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+
 
                 <!-- 어르신 등록 -->
                 <tr>
-                    <td rowspan="5">어르신 등록</td>
+                    <td>어르신 등록</td>
                     <td>어르신 첫단계 - 여자 일러스트</td>
                     <td><a class="addr" href="">F_SNR_002_eld_regi01.html</a></td>
                     <td></td>
@@ -158,10 +209,34 @@
                     <td><a class="addr" href="">F_SNR_002_eld_regi05_ok.html</a></td>
                     <td></td>
                 </tr>
+            </tbody>
+        </table>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>어르신 선택 바텀시트</td>
+                    <td>팝업</td>
+                    <td>
+                        <a class="addr" href="">F_SNR_005_om_select.html</a>
+                        <br>
+                        <div class="card-panel bder_r8 noPad fs12">
+                            ※서비스 참조<br> <a class="addr" href="">F_SAA_001_service.html</a>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+        </tbody>
+        </table>
+
+
+        <table class="sitemap_table">
+            <tbody>
+
 
                 <!-- 상담신청 -->
                 <tr>
-                    <td rowspan="3">상담신청</td>
+                    <td>상담신청</td>
                     <td>상담 정보 입력</td>
                     <td><a class="addr" href="">F_CSR_001_consInfo.html</a></td>
                     <td></td>
@@ -176,16 +251,82 @@
                     <td><a class="addr" href="">F_CSR_007_consCompOk.html</a></td>
                     <td></td>
                 </tr>
-                
+                <tr>
+                    <td>연락처 수정</td>
+                    <td><a class="addr" href="">F_CSR_001_telMdfy.html</a></td>
+                    <td></td>
+                </tr>
+                      
+            </tbody>
+        </table>
+
+
+
+        <h5 class="title color_primary">어르신 메뉴</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+
+
+                <!-- 어르신 메뉴 -->
+                <tr>
+                    <td>어르신<s class="color_primary">미완</s></td>
+                    <td>어르신서브메인<s class="color_primary">미완</s> </td>
+                    <td><a class="addr" href="">F_SNR_001_om_main.html</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>어르신서브메인<div class="fs13 color_secondary">요양인정번호X, 어르신만 등록</div></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h5 class="title color_primary">서비스(메인) 메뉴</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+
 
                 <!-- 서비스 -->
                 <tr>
-                    <td rowspan="6">서비스</td>
+                    <td>서비스</td>
                     <td>서비스</td>
                     <td><a class="addr" href="">F_SAA_001_service.html</a></td>
                     <td>modal open/close Event</td>
                 </tr>
+
+            </tbody>
+        </table>
+
+
+
+        <h5 class="title color_primary">간략 서비스 소개 </h5>
+
+
+        <table class="sitemap_table">
+            <tbody>
+
+
+                <!-- 간략 서비스 소개 -->
                 <tr>
+                    <td>간략 서비스 소개</td>
+                    <td>간략 서비스 소개</td>
+                    <td><a class="addr" href="">F_SAA_002_br_service_info.html</a></td>
+                    <td></td>
+                </tr>
+ 
+            </tbody>
+        </table>
+
+
+        <table class="sitemap_table">
+            <tbody>
+
+                <tr>
+                    <td>관심 복지용구 </td>
                     <td>관심 복지용구서비스_서브메인</td>
                     <td><a class="addr" href=""></a></td>
                     <td></td>
@@ -195,7 +336,16 @@
                     <td><a class="addr" href=""></a></td>
                     <td></td>
                 </tr>
+
+            </tbody> 
+        </table>
+
+
+        <table class="sitemap_table">
+            <tbody>
+
                 <tr>
+                    <td>간편 테스트</td>
                     <td>간편 테스트01</td>
                     <td><a class="addr" href="">F_SAC_001_simpleTest01.html </a></td>
                     <td></td>
@@ -208,19 +358,27 @@
                 <tr>
                     <td>간편 테스트03</td>
                     <td><a class="addr" href="">F_SAC_001_simpleTest03.html </a></td>
-                    <td></td>
+                    <td>오버레이화면</td>
                 </tr>
+
                 <tr>
                     <td>어르신 돌봄</td>
                     <td><a class="addr" href=""></a></td>
                     <td></td>
                 </tr>
+            </tbody>
+        </table>
 
+
+        <h5 class="title color_primary">그 외 기타 기능 및 오류 화면</h5>
+
+        <table class="sitemap_table">
+            <tbody>
 
 
                 <!-- 오류 및 예외처리 화면 -->
                 <tr>
-                    <td rowspan="5">오류 및 예외처리 화면</td>
+                    <td>오류 및 예외처리 화면</td>
                     <td>네트워크 오류</td>
                     <td><a class="addr" href="">ETC_network_error.html</a></td>
                     <td></td>

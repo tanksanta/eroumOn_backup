@@ -41,7 +41,7 @@
 .w120{width:120px !important;}
 .w150{width:150px !important;}
 
-
+.heightAuto{height: auto !important;}
 
 //간격
 .h08{height: 8px;}
@@ -68,6 +68,8 @@
 .marT-20W-20{margin: -20px -20px 0;}
 
 
+
+.bder_r8{border-radius: 8px;}
 
 .lh18{line-height: 18px !important;}
 
@@ -471,6 +473,7 @@
 //★★위에 폰트구성과 같음.
 //이름 복잡해서 따로 제작
 //_reset.scss 참조
+.color_white{color: #fff !important;}
 .color_primary{color: $--Color-text-Primitive-primary !important;} // = color_tp_p 주황색
 .color_secondary{color: $--Color-text-secondary !important;} // = color_t_s 회색 #616161
 .color_disable{color: $--Color-text-disabled !important;} // = color_t_d
