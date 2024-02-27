@@ -144,7 +144,7 @@ public class MatRegistController extends CommonAbstractController {
 		
 		
 		resultMap.put("success", true);
-		session.setAttribute("returnUrl", "/matching/common/complete?msg=회원가입이<br>완료되었어요&redirectUrl=/matching/simpletest/simple/intro");
+		session.setAttribute("returnUrl", "/matching/common/complete?msg=회원가입이<br>완료되었어요&redirectUrl=/matching/main/service/simple");
 		resultMap.put("location", "/matching/membership/loginAfterAction");
 		return resultMap;
 	}
