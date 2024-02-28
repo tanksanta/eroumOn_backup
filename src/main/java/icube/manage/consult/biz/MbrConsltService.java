@@ -1,6 +1,7 @@
 package icube.manage.consult.biz;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -87,6 +88,12 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("consltNo", consltNo);
 		return mbrConsltDAO.selectMbrConslt(paramMap);
+	}
+	
+	public List<MbrConsltVO> selectMbrConsltByRecipientsNo(int recipientsNo) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srchRecipientsNo", recipientsNo);
+		return mbrConsltDAO.selectMbrConsltAll(paramMap);
 	}
 
 	public Integer insertMbrConslt(MbrConsltVO mbrConsltVO) throws Exception {
@@ -250,5 +257,28 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		} else {
 			mailService.sendMail(sendMail, this.mailTestuser, mailSj, mailForm);
 		}
+	}
+	
+	
+	/**
+	 * 진행중인 상담 리스트 반환
+	 */
+	public List<MbrConsltVO> getConsltInProgress(int recipientsNo) throws Exception {
+		List<MbrConsltVO> result = new ArrayList<>();
+		
+		List<MbrConsltVO> mbrConsltList = selectMbrConsltByRecipientsNo(recipientsNo);
+		if (mbrConsltList.size() > 0) {
+			for (MbrConsltVO consltVO : mbrConsltList) {
+				if ("CS01".equals(consltVO.getConsltSttus()) ||
+					"CS02".equals(consltVO.getConsltSttus()) ||
+					"CS05".equals(consltVO.getConsltSttus()) ||
+					"CS07".equals(consltVO.getConsltSttus()) ||
+					"CS08".equals(consltVO.getConsltSttus())) {
+					result.add(consltVO);
+				}
+			}
+		}
+		
+		return result;
 	}
 }
