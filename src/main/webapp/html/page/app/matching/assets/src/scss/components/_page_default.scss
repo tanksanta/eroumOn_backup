@@ -58,6 +58,14 @@ h2.title{
     }
 }
 
+
+h2.title02{ 
+    
+    @include Suit_Heading_LG;
+    margin: 0;
+
+}
+
 h3.title{
 
     @include Suit_Heading_MD;
@@ -497,10 +505,12 @@ h5.title{
 //지역선택 chip
 .chip_area{display: grid;grid-template-columns: repeat(3, 1fr);gap: 12px;padding-bottom: 20px;align-content: start;}
 .chip_area > * {
-    width:100%;height: 48px;padding: 12px 8px;border-radius: 8px;
+    width:100%;height: 70px;padding: 0 8px;border-radius: 8px;
     border:1px solid $--Color-border-Primitive-secondary;
     background-color: #fff;
     text-align: center;
+    @include Suit_Body_MD_Regular;
+    @include flex_center;
 
     &.active{
         border: 1px solid $--Color-border-Primitive-primary-press;
@@ -721,7 +731,7 @@ h5.title{
 
 }
 
-
+.box_normal{background-color: #fff;padding:32px 20px;}
 
 //progress step
 .progress01{

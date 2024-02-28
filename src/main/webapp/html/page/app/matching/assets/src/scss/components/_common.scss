@@ -55,6 +55,7 @@
 .h32{height: 32px;}
 .h40{height: 40px;}
 .h42{height: 42px;}
+.h48{height: 48px;}
 .h64{height: 64px;}
 .h67{height: 67px !important;;}
 .h75{height: 75px !important;;}
@@ -504,6 +505,8 @@
 .color_primary{color: $--Color-text-Primitive-primary !important;} // = color_tp_p 주황색
 .color_secondary{color: $--Color-text-secondary !important;} // = color_t_s 회색 #616161
 .color_disable{color: $--Color-text-disabled !important;} // = color_t_d
+.color_danger{color: $--Color-text-danger !important;} // = color_t_d
+
 .c_757575{color: #757575 !important;}
 
 

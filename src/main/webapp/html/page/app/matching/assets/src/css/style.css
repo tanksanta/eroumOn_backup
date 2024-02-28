@@ -298,6 +298,10 @@ mark {
   height: 42px;
 }
 
+.h48 {
+  height: 48px;
+}
+
 .h64 {
   height: 64px;
 }
@@ -1101,6 +1105,10 @@ mark {
   color: #BDBDBD !important;
 }
 
+.color_danger {
+  color: #E53935 !important;
+}
+
 .c_757575 {
   color: #757575 !important;
 }
@@ -1759,6 +1767,14 @@ h2.title + .txt {
   letter-spacing: -0.27px;
 }
 
+h2.title02 {
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 38px;
+  letter-spacing: -0.56px;
+  margin: 0;
+}
+
 h3.title {
   font-weight: 800;
   font-size: 24px;
@@ -2270,12 +2286,19 @@ h5.title {
 
 .chip_area > * {
   width: 100%;
-  height: 48px;
-  padding: 12px 8px;
+  height: 70px;
+  padding: 0 8px;
   border-radius: 8px;
   border: 1px solid #E0E0E0;
   background-color: #fff;
   text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px; /* 150% */
+  letter-spacing: -0.27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .chip_area > *.active {
   border: 1px solid #EE6002;
@@ -2511,6 +2534,11 @@ h5.title {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.box_normal {
+  background-color: #fff;
+  padding: 32px 20px;
 }
 
 .progress01 {

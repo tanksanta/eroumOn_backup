@@ -38,7 +38,14 @@
         .sitemap_table col:nth-child(2){width:300px;}
         .sitemap_table col:nth-child(3){width:400px;}
 
+        tr:first-child td:first-child{font-weight: 700;font-size: 16px;}
+
         tr:last-child{border: none;}
+
+        /* 완료 */
+        .chk{position: relative;}
+        .chk::before{position: absolute;top:-8px;left:-12px;content: '';width:40px;height:20px;background-image: url('../images/10om/om_01.svg');background-size: 100%;}
+
     </style>
 
     <script>
@@ -134,7 +141,7 @@
         <h5 class="title color_primary">회원가입 / 로그인</h5>
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
                 <!-- 로그인화면 -->
                 <tr>
@@ -145,7 +152,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><a class="addr" href=""><s>F _SGN_001_login02.html</s></a></td>
+                    <td><a class="addr" href=""><s>F_SGN_001_login02.html</s></a></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -179,7 +186,7 @@
         <h5 class="title color_primary">어르신 등록 / 상담 신청</h5>
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
 
                 <!-- 어르신 등록 -->
@@ -213,7 +220,7 @@
         </table>
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
                 <tr>
                     <td>어르신 선택 바텀시트</td>
                     <td>팝업</td>
@@ -231,7 +238,7 @@
 
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
 
                 <!-- 상담신청 -->
@@ -242,9 +249,9 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>상담 지역 정보</td>
+                    <td>상담 지역 정보 / 상담제공 동의</td>
                     <td><a class="addr" href="">F_CSR_006_consRegion.html</a></td>
-                    <td></td>
+                    <td>시군구</td>
                 </tr>
                 <tr>
                     <td>상담 신청 완료</td>
@@ -284,10 +291,27 @@
         </table>
 
 
-        <h5 class="title color_primary">서비스(메인) 메뉴</h5>
+        <h5 class="title color_primary">복지용구 알아보기</h5>
 
         <table class="sitemap_table">
             <tbody>
+                <!-- 복지용구 알아보기 -->
+                <tr>
+                    <td>복지용구 알아보기</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <h5 class="title color_primary">서비스(메인) 메뉴</h5>
+
+        <table class="sitemap_table">
+            <tbody class="chk">
 
 
                 <!-- 서비스 -->
@@ -302,12 +326,8 @@
         </table>
 
 
-
-        <h5 class="title color_primary">간략 서비스 소개 </h5>
-
-
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
 
                 <!-- 간략 서비스 소개 -->
@@ -323,7 +343,7 @@
 
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
                 <tr>
                     <td>관심 복지용구 </td>
@@ -362,7 +382,7 @@
                 </tr>
                 <tr>
                     <td>간편테스트_대상자</td>
-                    <td><a class="addr" href=""></a>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td>
+                    <td><a class="addr" href="">F_SAC_003_simpleTest_result.html</a></td>
                     <td></td>
                 </tr>
             </tbody> 
@@ -380,11 +400,111 @@
             </tbody>
         </table>
 
+        <h5 class="title color_primary">콘텐츠 메뉴</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>콘텐츠 메뉴</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>어르신 복지</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">전체메뉴</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>전체메뉴</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>설정</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">고객센터</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>고객센터</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">자주 묻는 질문</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>자주 묻는 질문</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">공지사항</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>공지사항</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <h5 class="title color_primary">알림</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>알림</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
 
         <h5 class="title color_primary">그 외 기타 기능 및 오류 화면</h5>
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
 
                 <!-- 오류 및 예외처리 화면 -->
