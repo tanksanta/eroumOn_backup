@@ -119,145 +119,120 @@ $--Color-icon-Primitive-inverse: #fff;
 
 //Suit/Heading
 @mixin Suit_Heading_XL{
-    font-weight: 800;
+    font-weight: 700;
     font-size: 32px;
     line-height: 42px;
     letter-spacing: -0.64px;
 }
 
 @mixin Suit_Heading_LG{
-    font-weight: 800;
+    font-weight: 700;
     font-size: 28px;
     line-height: 38px;
     letter-spacing: -0.56px;
 }
 
 @mixin Suit_Heading_MD{
-    font-weight: 800;
+    font-weight: 700;
     font-size: 24px;
     line-height: 34px;
     letter-spacing: -0.48px;
 }
 
 @mixin Suit_Heading_SM{
-    font-size: 22px;
-    font-weight: 800;
-    line-height: 32px;
-    letter-spacing: -0.44px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.4px;
 }
 
 
 //Suit/Body
 //LG
 @mixin Suit_Body_LG_Bold{
-    font-size: 20px;
     font-weight: 800;
-    line-height: 30px; /* 150% */
-    letter-spacing: -0.3px;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: -0.27px;
 }
 
 @mixin Suit_Body_LG_SemiBold{
-    font-size: 20px;
     font-weight: 700;
-    line-height: 30px; /* 150% */
-    letter-spacing: -0.3px;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: -0.27px;
 }
 
 @mixin Suit_Body_LG_Regular{
-    font-size: 20px;
     font-weight: 400;
-    line-height: 30px; /* 150% */
-    letter-spacing: -0.3px;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: -0.27px;
 }
 
 
 //MD
 @mixin Suit_Body_MD_Bold{
-    font-size: 18px;
-    font-weight: 800;
-    line-height: 27px; /* 150% */
-    letter-spacing: -0.27px;
-}
-
-@mixin Suit_Body_MD_SemiBold{
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 27px; /* 150% */
-    letter-spacing: -0.27px;
-}
-
-@mixin Suit_Body_MD_Regular{
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 27px; /* 150% */
-    letter-spacing: -0.27px;
-}
-
-@mixin Suit_Body_MD_Underline{
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 27px; /* 150% */
-    letter-spacing: -0.27px;
-    text-decoration-line: underline;
-}
-
-@mixin Suit_Body_MD_Strike-through{
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 27px; /* 150% */
-    letter-spacing: -0.27px;
-    text-decoration-line: strikethrough;
-}
-
-
-
-//SM
-@mixin Suit_Body_SM_Bold{
     font-size: 16px;
-    font-style: normal;
     font-weight: 800;
-    line-height: 24px; /* 150% */
+    line-height: 24px;
     letter-spacing: -0.24px;
 }
 
-@mixin Suit_Body_SM_SemiBold{
+@mixin Suit_Body_MD_SemiBold{
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
     letter-spacing: -0.24px;
 }
 
-@mixin Suit_Body_SM_Regular{
+@mixin Suit_Body_MD_Regular{
     font-size: 16px;
     font-weight: 400;
-    line-height: 24px; /* 150% */
+    line-height: 24px;
     letter-spacing: -0.24px;
 }
 
-
-//SS
-@mixin Suit_SS_Bold{
+@mixin Suit_Body_MD_Underline{
+    font-weight: 600;
     font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.24px;
+    text-decoration-line: underline;
+}
+
+@mixin Suit_Body_MD_Strike-through{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.24px;
+    text-decoration-line: line-through;
+    
+}
+
+
+
+//SM
+@mixin Suit_Body_SM_Bold{
+    font-size: 14px;
     font-weight: 800;
-    line-height: 24px; /* 150% */
-    letter-spacing: -0.24px;
+    line-height: 21px;
+    letter-spacing: -0.21px;
 }
 
-@mixin Suit_SS_SemiBold{
-    font-size: 16px;
+@mixin Suit_Body_SM_SemiBold{
+    font-size: 14px;
     font-weight: 700;
-    line-height: 24px; /* 150% */
-    letter-spacing: -0.24px;
+    line-height: 21px;
+    letter-spacing: -0.21px;
 }
 
-@mixin Suit_SS_Regular{
-    font-size: 16px;
+@mixin Suit_Body_SM_Regular{
+    font-size: 14px;
     font-weight: 400;
-    line-height: 24px; /* 150% */
-    letter-spacing: -0.24px;
+    line-height: 21px;
+    letter-spacing: -0.21px;
 }
-
-
 
 
 //Caption
