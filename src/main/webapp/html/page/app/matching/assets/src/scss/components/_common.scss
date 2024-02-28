@@ -16,6 +16,7 @@
 
 }
 
+.justify-content-start{justify-content: start !important;}
 .justify-content-center{justify-content: center;}
 .justify-content-between{justify-content: space-between;}
 .align-items-center{align-items: center;}
@@ -46,35 +47,45 @@
 //간격
 .h08{height: 8px;}
 .h12{height: 12px;}
+.h14{height: 14px;}
 .h16{height: 16px;}
 .h20{height: 20px;}
 .h24{height: 24px;}
+.h28{height: 28px;}
 .h32{height: 32px;}
 .h40{height: 40px;}
 .h42{height: 42px;}
+.h48{height: 48px;}
 .h64{height: 64px;}
+.h67{height: 67px !important;;}
+.h75{height: 75px !important;;}
 
 .noPad{padding: 0 !important;}
 .pad020{padding: 0 20px !important;}
 
 .padR20{padding-right: 20px !important;}
 
-.marR4{margin-right: 4px;}
-.marL4{margin-left: 4px;}
+.marT4{margin-top: 4px !important;}
+.marB4{margin-bottom: 4px !important;}
+
+.marR4{margin-right: 4px !important;}
+.marL4{margin-left: 4px !important;}
+
+
 .marH40{margin: 40px 0;}
 
 .marW-20{margin: 0 -20px;}
 
 .marT-20W-20{margin: -20px -20px 0;}
 
-
+.maxHeightNo{max-height: none !important;}
 
 .bder_r8{border-radius: 8px;}
 
 .lh18{line-height: 18px !important;}
 
 //버튼
-.btn{max-height: 34px;border-radius: 8px;font-weight: 600; font-size: 14px;}
+.btn{max-height: 36px;height: 36px; border-radius: 8px;font-weight: 600; font-size: 14px;}
 
 .btn-middle{
     
@@ -86,7 +97,9 @@
     line-height: 42px;
 
 } 
-.btn-large{height: 55px;max-height: 55px;border-radius: 8px;padding: 0 16px;
+.btn-large{height: 55px;
+    max-height: 55px;
+    border-radius: 8px;padding: 0 16px;
     @include Suit_Body_MD_Bold;
     @include flex_center;
 }
@@ -190,8 +203,8 @@
     
     background-image: url(../images/18icon/chk01_default.svg);
     background-repeat: no-repeat;
-    background-position: left top;
-    background-size: 24px;
+    background-position: left 4px;
+    background-size: 20px;
 
 
 }
@@ -205,8 +218,8 @@
     
     background-image: url(../images/18icon/chk01_default.svg);
     background-repeat: no-repeat;
-    background-position: left top;
-    background-size: 24px;
+    background-position: left 4px;
+    background-size: 20px;
 
 
 }
@@ -214,13 +227,13 @@
 
 
 .chk02+label{
-    @include Suit_Body_SM_Regular;
+    @include Suit_Body_MD_SemiBold;
 
     display: block; padding-left: 28px;
     
     background-image: url(../images/18icon/chk02_default.svg);
     background-repeat: no-repeat;
-    background-position: left top;
+    background-position: left 4px;
     background-size: 20px;
     transition: 0.3s all;
 
@@ -239,7 +252,7 @@
     
     background-image: url(../images/18icon/chk03_default.svg);
     background-repeat: no-repeat;
-    background-position: left top;
+    background-position: left 1px;
     background-size: 20px;
     transition: 0.3s all;
 
@@ -250,13 +263,12 @@
 
 //체크/라디오박스 박스형
 [class^='chk'].large+label{
-    @include Suit_Body_SM_Regular;
 
     min-height: 48px;
-    padding: 12px 8px 12px 40px;
+    padding: 14px 8px 14px 40px;
     background-color: #FFF;
     border:2px solid #fff;
-    background-position: 12px 11px;
+    background-position: 12px 17px;
     
     border-radius: 8px; 
     transition: 0.3s all;
@@ -467,13 +479,13 @@
 
 
 .font_ssb{
-    @include Suit_SS_Bold
+    @include Suit_Body_SS_Bold
 }
 .font_sss{
-    @include Suit_SS_SemiBold
+    @include Suit_Body_SS_SemiBold
 }
 .font_ssr{
-    @include Suit_SS_Regular
+    @include Suit_Body_SS_Regular
 }
 
 
@@ -493,6 +505,8 @@
 .color_primary{color: $--Color-text-Primitive-primary !important;} // = color_tp_p 주황색
 .color_secondary{color: $--Color-text-secondary !important;} // = color_t_s 회색 #616161
 .color_disable{color: $--Color-text-disabled !important;} // = color_t_d
+.color_danger{color: $--Color-text-danger !important;} // = color_t_d
+
 .c_757575{color: #757575 !important;}
 
 
@@ -501,19 +515,26 @@
 .font_h3{@include Suit_Heading_MD;margin: 0;}
 .font_h4{@include Suit_Heading_SM;margin: 0;}
 
-.font_18_1{@include Suit_Body_LG_Bold;}
-.font_18_2{@include Suit_Body_LG_SemiBold;}
-.font_18_3{@include Suit_Body_LG_Regular;}
+.font_20_1{@include Suit_Body_LG_Bold;}
+.font_20_2{@include Suit_Body_LG_SemiBold;}
+.font_20_3{@include Suit_Body_LG_Regular;}
 
-.font_16_1{@include Suit_Body_MD_Bold;}
-.font_16_2{@include Suit_Body_MD_SemiBold;}
-.font_16_3{@include Suit_Body_MD_Regular;}
-.font_16_4{@include Suit_Body_MD_Underline;}
-.font_16_5{@include Suit_Body_MD_Strike-through;}
+.font_18_1{@include Suit_Body_MD_Bold;}
+.font_18_2{@include Suit_Body_MD_SemiBold;}
+.font_18_3{@include Suit_Body_MD_Regular;}
+.font_18_4{@include Suit_Body_MD_Underline;}
+.font_18_5{@include Suit_Body_MD_Strike-through;}
 
-.font_14_1{@include Suit_Body_SM_Bold;}
-.font_14_2{@include Suit_Body_SM_SemiBold;}
-.font_14_3{@include Suit_Body_SM_Regular;}
+.font_16_1{@include Suit_Body_SM_Bold;}
+.font_16_2{@include Suit_Body_SM_SemiBold;}
+.font_16_3{@include Suit_Body_SM_Regular;}
+
+.font_14_1{@include Suit_Body_SS_Bold;}
+.font_14_2{@include Suit_Body_SS_SemiBold;}
+.font_14_3{@include Suit_Body_SS_Regular;}
+
+
+
 
 .font_12_1{@include Suit_Caption_XS;}
 .font_12_2{@include Suit_Caption_XS_Strike-through;}
@@ -602,7 +623,7 @@ mark.mk01::after{z-index: -1;position: absolute;bottom:3px; content: '';display:
 
 
 //간격좁은 테이블
-.table_basic.small td, .table_basic.small th{padding: 4px 0;}
+.table_basic.small td, .table_basic.small th{padding: 6px 0;}
 
 
 
@@ -640,4 +661,4 @@ ul:not(.browser-default)>li.list_dept1{list-style-type: initial;}
 
 
 //오버레이 화면
-.overlay_screen{display: none; z-index: 9999; position: fixed;top:0;left:0; width:100%;height:100%; background-color: rgba(255, 255, 255, 0.8);overflow: initial;}
+.overlay_screen{display: none; z-index: 9999; position: fixed;top:0;left:0; width:100%;height:100%; background-color: rgba(255, 255, 255, 0.1);overflow: initial;}

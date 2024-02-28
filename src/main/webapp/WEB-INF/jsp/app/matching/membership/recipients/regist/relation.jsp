@@ -106,6 +106,10 @@
 
             var jsCommon = new JsCommon();
             var qsMap = jsCommon.fn_queryString_toMap();
+
+            if (qsMap["startStep"] == undefined || qsMap["startStep"].length < 1){
+                qsMap["startStep"] = "relation";
+            }
             
             qsMap['relationCd'] = jobj.attr('code');
 

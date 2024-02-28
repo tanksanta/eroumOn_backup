@@ -12,6 +12,12 @@
        <c:if test="${param != null && !empty param.addButton}">
          <a class="waves-effect top_txt" href="#">${param.addButton}</a>
        </c:if>
+       <c:if test="${param != null && !empty param.addShare}">
+          <div class="icon_btn i_share"></div>
+       </c:if>
+       <c:if test="${param != null && !empty param.addCustom1}">
+          <a class="waves-effect top_txt addCustom1">${param.addCustom1Text}</a> 
+       </c:if>
      </nav>
    </header>
    

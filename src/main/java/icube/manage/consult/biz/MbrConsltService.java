@@ -18,6 +18,8 @@ import icube.common.util.DateUtil;
 import icube.common.util.FileUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonListVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
 @Service("mbrConsltService")
 public class MbrConsltService extends CommonAbstractServiceImpl {
@@ -36,6 +38,9 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 	
 	@Resource(name="mbrConsltChgHistDAO")
 	private MbrConsltChgHistDAO mbrConsltChgHistDAO;
+
+	@Resource(name= "mbrRecipientsService")
+	private MbrRecipientsService mbrRecipientsService;
 	
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
@@ -172,6 +177,38 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		return mbrConsltDAO.selectRecentConsltByRecipientsNo(paramMap);
 	}
 	
+
+	/* 
+		MbrsInfoController.getRecipientConsltSttus 대체
+	*/
+	public Map <String, Object> selectRecipientConsltSttus(String uniqueId, int recipientsNo, String prevPath) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+
+		resultMap.put("isLogin", true);/* MbrsInfoController.getRecipientConsltSttus 와 구조를 맞추기 위해서 값을 넣어줌*/
+
+		//내 수급자 정보 체크가 아니면 그냥 리턴
+		MbrRecipientsVO srchRecipient;
+		srchRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
+		if (srchRecipient == null || EgovStringUtil.equals(srchRecipient.getMbrUniqueId(), uniqueId)){
+			resultMap.put("noRecipient", true);
+			return resultMap;
+		}
+
+		//수급자 최근 상담 조회(진행 중인 상담 체크)
+		MbrConsltVO recipientConslt = this.selectRecentConsltByRecipientsNo(recipientsNo, prevPath);
+		if (recipientConslt != null && (
+				!"CS03".equals(recipientConslt.getConsltSttus()) &&
+				!"CS04".equals(recipientConslt.getConsltSttus()) &&
+				!"CS09".equals(recipientConslt.getConsltSttus()) &&
+				!"CS06".equals(recipientConslt.getConsltSttus())
+				)) {
+			resultMap.put("isExistRecipientConslt", true);
+		} else {
+			resultMap.put("isExistRecipientConslt", false);
+		}
+
+		return resultMap;
+	}
 	
 	/**
 	 * 상담신청 이메일 발송
