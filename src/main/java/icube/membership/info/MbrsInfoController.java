@@ -472,29 +472,7 @@ public class MbrsInfoController extends CommonAbstractController{
 			return resultMap;
 		}
 		
-		//내 수급자 정보 체크가 아니면 그냥 리턴
-		List<MbrRecipientsVO> mbrRecipients = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-		MbrRecipientsVO srchRecipient = mbrRecipients.stream().filter(f -> f.getMbrUniqueId().equals(mbrSession.getUniqueId())).findAny().orElse(null);
-		if (srchRecipient == null) {
-			return resultMap;
-		}
-		
-		
-		//수급자 최근 상담 조회(진행 중인 상담 체크)
-		MbrConsltVO recipientConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo, prevPath);
-		if (recipientConslt != null && (
-				!"CS03".equals(recipientConslt.getConsltSttus()) &&
-				!"CS04".equals(recipientConslt.getConsltSttus()) &&
-				!"CS09".equals(recipientConslt.getConsltSttus()) &&
-				!"CS06".equals(recipientConslt.getConsltSttus())
-				)) {
-			resultMap.put("isExistRecipientConslt", true);
-		} else {
-			resultMap.put("isExistRecipientConslt", false);
-		}
-		
-		resultMap.put("isLogin", true);
-		return resultMap;
+		return mbrConsltService.selectRecipientConsltSttus(mbrSession.getUniqueId(), recipientsNo, prevPath);
 	}
 	
 	/**
