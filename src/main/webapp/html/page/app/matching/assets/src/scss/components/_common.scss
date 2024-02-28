@@ -86,7 +86,10 @@
     line-height: 42px;
 
 } 
-.btn-large{height: 52px;max-height: 52px;border-radius: 8px;font-weight: 600;font-size: 16px;padding: 0 16px;}
+.btn-large{height: 55px;max-height: 55px;border-radius: 8px;padding: 0 16px;
+    @include Suit_Body_MD_Bold;
+    @include flex_center;
+}
 .btn_primary{background: $--Color-bg-Primitive-primary;}
 .btn_cancel{background: $--Color-bg-Primitive-secondary;color: $--Color-text-Primitive-secondary;}
 .btn_default{background: #fff; border: 1px solid $--Color-border-Primitive-secondary; color: $--Color-text-Primitive-secondary;
@@ -460,6 +463,19 @@
 .font_sbsr{
     @include Suit_Body_SM_Regular
 }
+
+
+
+.font_ssb{
+    @include Suit_SS_Bold
+}
+.font_sss{
+    @include Suit_SS_SemiBold
+}
+.font_ssr{
+    @include Suit_SS_Regular
+}
+
 
 
 

@@ -54,7 +54,13 @@ nav.top{
 
      }
 
-    .top_txt{display: flex;align-items: center;font-size: 16px;font-weight: 400;color:$--Color-text-Primitive-secondary;padding: 0 16px;height: $header_elem;}
+    //우측 텍스트
+    .top_txt{
+        height: $header_elem;display: flex;align-items: center;
+        padding: 0 16px;
+        color:$--Color-text-Primitive-secondary;
+        @include Suit_Body_MD_Regular;
+    }
 
     .icon_area{display: inline-block;width: 48px;height: 48px;display: flex;justify-content: center;align-items: center;}
 }
