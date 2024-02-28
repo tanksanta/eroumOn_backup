@@ -16,7 +16,7 @@ import icube.manage.sysmng.bbs.biz.BbsVO;
 
 @Controller
 @RequestMapping(value={"#{props['Globals.Matching.path']}/bbs"})
-public class BbsController  extends CommonAbstractController {
+public class MatBbsController  extends CommonAbstractController {
 	
 	@Resource(name="bbsService")
 	private BbsService bbsService;
