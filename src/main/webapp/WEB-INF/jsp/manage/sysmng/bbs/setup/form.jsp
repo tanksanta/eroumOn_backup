@@ -28,7 +28,20 @@
                                 <tr>
                                     <th scope="row"><label for="bbsNm" class="require">게시판명</label></th>
                                     <td>
-                                        <form:input path="bbsNm" class="form-control w-90" placeholder="게시판명" maxlength="100" />
+                                        <form:input path="bbsNm" class="form-control w-90" title="게시판명" placeholder="게시판명" maxlength="100" />
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <th scope="row"><label for="srvcCd" class="require">서비스</label></th>
+                                    <td>
+                                        <form:input path="srvcCd" class="form-control w-90" title="서비스" placeholder="서비스" maxlength="50" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><label for="bbsCd" class="require">게시판코드</label></th>
+                                    <td>
+                                        <form:input path="bbsCd" class="form-control w-90" title="게시판코드" placeholder="게시판코드" maxlength="50" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -256,6 +269,67 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                <tr style='<c:if test="${empty bbsSetupVO.addColumnText01}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnText01">추가 텍스트 필드01 </label></th>
+                                    <td>
+                                        <form:input path="addColumnText01" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnText02()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnText02">추가 텍스트 필드02 </label></th>
+                                    <td>
+                                        <form:input path="addColumnText02" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnText03()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnText03">추가 텍스트 필드03 </label></th>
+                                    <td>
+                                        <form:input path="addColumnText03" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnText04()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnText04">추가 텍스트 필드04 </label></th>
+                                    <td>
+                                        <form:input path="addColumnText04" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnText05()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnText05">추가 텍스트 필드05 </label></th>
+                                    <td>
+                                        <form:input path="addColumnText05" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnText06()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnText06">추가 텍스트 필드06 </label></th>
+                                    <td>
+                                        <form:input path="addColumnText06" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnText07()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnText07">추가 텍스트 필드07 </label></th>
+                                    <td>
+                                        <form:input path="addColumnText07" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnChk01()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnChk01">추가 체크 필드01 </label></th>
+                                    <td>
+                                        <form:input path="addColumnChk01" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnChk02()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnChk02">추가 체크 필드02 </label></th>
+                                    <td>
+                                        <form:input path="addColumnChk02" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
+                                <tr style='<c:if test="${empty bbsSetupVO.getAddColumnChk03()}">display:none</c:if>'>
+                                    <th scope="row"><label for="addColumnChk03">추가 체크 필드03 </label></th>
+                                    <td>
+                                        <form:input path="addColumnChk03" class="form-control w-90" maxlength="255" />
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </fieldset>
@@ -419,9 +493,13 @@
 	            	    ignore: "input[type='text']:hidden, [contenteditable='true']:not([name])",
 	            	    rules : {
 	            	    	bbsNm	: { required : true }
+                            , srvcCd	: { required : true }
+                            , bbsCd	: { required : true }
 	            	    },
 	            	    messages : {
 	            	    	bbsNm : { required : "<spring:message arguments='" + $("#bbsNm").prop("title") + "' code='errors.required'/>"}
+                            , srvcCd : { required : "<spring:message arguments='" + $("#srvcCd").prop("title") + "' code='errors.required'/>"}
+                            , bbsCd : { required : "<spring:message arguments='" + $("#bbsCd").prop("title") + "' code='errors.required'/>"}
 	            	    },
 	            	    submitHandler: function (frm) {
 	            	    	if(confirm('<spring:message code="action.confirm.save"/>')){

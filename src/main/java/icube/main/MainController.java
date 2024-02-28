@@ -37,8 +37,8 @@ public class MainController extends CommonAbstractController  {
 	@Resource(name = "stdgCdService")
 	private StdgCdService stdgCdService;
 	
-	@Resource(name="bokjiService")
-	private BokjiApiService bokjiService;
+	//@Resource(name="bokjiService")
+	//private BokjiApiService bokjiService;
 	
 	/*@Autowired
 	private MbrSession mbrSession;*/
@@ -66,20 +66,21 @@ public class MainController extends CommonAbstractController  {
 		model.addAttribute("isIndex", true);
 
 		// 복지 제도 개수
-		String bokjisUrl = "/api/partner/v2/bokjis/count";
-		String prvdUrl = "/api/partner/v2/providers/count";
+		//String bokjisUrl = "/api/partner/v2/bokjis/count";
+		//String prvdUrl = "/api/partner/v2/providers/count";
 
-		int bokjisCnt = 0;
-		int prvdCnt = 0;
+		//int bokjisCnt = 0;
+		//int prvdCnt = 0;
 
 		try {// 첫화면 부터 에러나지 않도록..
-			bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
+			//bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
 			//prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
 		}catch(Exception e) {
 			log.debug(e.getMessage());
 		}
 
-		int total = bokjisCnt + prvdCnt;
+		//int total = bokjisCnt + prvdCnt;
+		int total = 0;
 
 		model.addAttribute("total", total);
 		model.addAttribute("selectSido", selectSido);
@@ -108,7 +109,7 @@ public class MainController extends CommonAbstractController  {
 		listVO.setParam("categoryList", category);
 
 		try {// 첫화면 부터 에러나지 않도록..
-			listVO = bokjiService.getSrvcList(listVO);
+			//listVO = bokjiService.getSrvcList(listVO);
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}
@@ -132,7 +133,7 @@ public class MainController extends CommonAbstractController  {
 		BokjiServiceVO bokjiServiceVO = null;
 		if(bokjiId > 0) {
 			try {
-				bokjiServiceVO = bokjiService.getSrvcDtl(bokjiId);
+				//bokjiServiceVO = bokjiService.getSrvcDtl(bokjiId);
 
 				// 로그인 체크> availableKeyword : true
 				/*if(bokjiServiceVO.isAvailableKeyword() && !mbrSession.isLoginCheck()) {
@@ -216,7 +217,7 @@ public class MainController extends CommonAbstractController  {
 		listVO.setParam("categoryList", category);
 
 		try {// 첫화면 부터 에러나지 않도록..
-			listVO = bokjiService.getSrvcList(listVO);
+			//listVO = bokjiService.getSrvcList(listVO);
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 			
@@ -242,7 +243,7 @@ public class MainController extends CommonAbstractController  {
 		BokjiServiceVO bokjiServiceVO = null;
 		if(bokjiId > 0) {
 			try {
-				bokjiServiceVO = bokjiService.getSrvcDtl(bokjiId);
+				//bokjiServiceVO = bokjiService.getSrvcDtl(bokjiId);
 				resultMap.put("bokjiVO", bokjiServiceVO);
 			} catch (Exception e) {
 				log.debug(e.getMessage());

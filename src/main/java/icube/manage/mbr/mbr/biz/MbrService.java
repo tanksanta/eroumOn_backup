@@ -727,6 +727,9 @@ public class MbrService extends CommonAbstractServiceImpl {
 	 * 일반 로그인 유효성 검사 
 	 */
 	public Map<String, Object> validateForEroumLogin(String mbrId, String encPw, HttpSession session) throws Exception {
+		return this.validateForEroumLogin(RSA_MEMBERSHIP_KEY, mbrId, encPw, session);
+	}
+	public Map<String, Object> validateForEroumLogin(String rsaPriKey, String mbrId, String encPw, HttpSession session) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
 		

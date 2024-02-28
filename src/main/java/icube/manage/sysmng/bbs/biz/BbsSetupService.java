@@ -25,11 +25,25 @@ public class BbsSetupService extends CommonAbstractServiceImpl {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("bbsNo", bbsNo);
+		
+		return this.selectBbsSetup(paramMap);
+	}
+
+	public BbsSetupVO selectBbsSetup(String srvcCd, String bbsCd) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("srvcCd", srvcCd);
+		paramMap.put("bbsCd", bbsCd);
+
+		return this.selectBbsSetup(paramMap);
+	}
+
+	protected BbsSetupVO selectBbsSetup(Map<String, Object> paramMap) throws Exception {
 		BbsSetupVO bbsSetupVO = bbsSetupDAO.selectBbsSetup(paramMap);
 
 		// Category
 		if (bbsSetupVO != null && "Y".equals(bbsSetupVO.getCtgryUseYn())) {
-			List<BbsCtgryVO> ctgryList = bbsSetupDAO.listCtgry(bbsNo, "L", "NTT");
+			List<BbsCtgryVO> ctgryList = bbsSetupDAO.listCtgry(bbsSetupVO.getBbsNo(), "L", "NTT");
 			bbsSetupVO.setCtgryList(ctgryList);
 		}
 

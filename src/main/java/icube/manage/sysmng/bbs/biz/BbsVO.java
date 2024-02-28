@@ -47,4 +47,16 @@ public class BbsVO  extends CommonBaseVO {
 	private String bbsTyNm; //게시판 명
 
 	private String[] nttNos; //일괄 처리용
+
+	private String addValueText01; //추가 텍스트 필드 07
+	private String addValueText02; //추가 텍스트 필드 07
+	private String addValueText03; //추가 텍스트 필드 07
+	private String addValueText04; //추가 텍스트 필드 07
+	private String addValueText05; //추가 텍스트 필드 07
+	private String addValueText06; //추가 텍스트 필드 07
+	private String addValueText07; //추가 텍스트 필드 07
+
+	private String addValueChk01; //추가 체크박스 필드 01
+	private String addValueChk02; //추가 체크박스 필드 01
+	private String addValueChk03; //추가 체크박스 필드 01
 }
