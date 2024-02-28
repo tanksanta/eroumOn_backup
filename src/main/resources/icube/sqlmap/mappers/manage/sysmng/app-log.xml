@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.log">
+
+	<sql id="listColumn">
+		al.app_log_no
+		, al.log
+		, al.reg_dt
+	</sql>
+	
+	
+	<insert id="insertAppLog" parameterType="appLogVO">
+		INSERT INTO APP_LOG(
+			log
+			, reg_dt
+		)VALUES(
+			#{log}
+			, SYSDATE()
+		)
+	</insert>
+
+</mapper>
