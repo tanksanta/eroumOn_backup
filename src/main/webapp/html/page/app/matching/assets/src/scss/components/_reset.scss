@@ -236,25 +236,25 @@ $--Color-icon-Primitive-inverse: #fff;
 
 
 //SS
-@mixin Suit_SS_Bold{
-    font-size: 16px;
+@mixin Suit_Body_SS_Bold{
+    font-size: 14px;
     font-weight: 800;
-    line-height: 24px; /* 150% */
-    letter-spacing: -0.24px;
+    line-height: 21px; /* 150% */
+    letter-spacing: -0.21px;
 }
 
-@mixin Suit_SS_SemiBold{
-    font-size: 16px;
+@mixin Suit_Body_SS_SemiBold{
+    font-size: 14px;
     font-weight: 700;
-    line-height: 24px; /* 150% */
-    letter-spacing: -0.24px;
+    line-height: 21px; /* 150% */
+    letter-spacing: -0.21px;
 }
 
-@mixin Suit_SS_Regular{
-    font-size: 16px;
+@mixin Suit_Body_SS_Regular{
+    font-size: 14px;
     font-weight: 400;
-    line-height: 24px; /* 150% */
-    letter-spacing: -0.24px;
+    line-height: 21px; /* 150% */
+    letter-spacing: -0.21px;
 }
 
 
@@ -331,6 +331,9 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
     margin: 0;
 
 }
+
+input[type=time]:not(.browser-default), input[type=date]:not(.browser-default){display: initial;}
+
 
 .btn, .btn-large, .btn-small, .btn-flat{text-transform: none;}
 
