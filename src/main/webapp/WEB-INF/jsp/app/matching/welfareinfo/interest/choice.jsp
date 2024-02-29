@@ -119,8 +119,13 @@
     <footer class="page-footer">
 
         <div class="relative">
-            <a class="waves-effect btn-large btn_primary w100p">혜택 상담받기</a>
-            <a class="waves-effect btn-large btn_primary w100p">상담내역 보기</a>
+            <c:if test="${isExistRecipientConslt}">
+                <a class="waves-effect btn-large btn_primary w100p">상담내역 보기</a>
+            </c:if>
+            <c:if test="${!isExistRecipientConslt}">
+                <a class="waves-effect btn-large btn_primary w100p">혜택 상담받기</a>
+            </c:if>
+            
         </div>
 
     </footer>

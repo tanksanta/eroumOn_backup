@@ -196,7 +196,7 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		//내 수급자 정보 체크가 아니면 그냥 리턴
 		MbrRecipientsVO srchRecipient;
 		srchRecipient = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
-		if (srchRecipient == null || EgovStringUtil.equals(srchRecipient.getMbrUniqueId(), uniqueId)){
+		if (srchRecipient == null || !EgovStringUtil.equals(srchRecipient.getMbrUniqueId(), uniqueId)){
 			resultMap.put("noRecipient", true);
 			return resultMap;
 		}
