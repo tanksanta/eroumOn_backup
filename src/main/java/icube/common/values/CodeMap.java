@@ -1162,6 +1162,14 @@ public class CodeMap{
 			put("equip_ctgry", "복지용구상담");
 		}
 	};
+	// 상담 요청 경로(MVP 앱)
+	public static final HashMap<String, String> PREV_PATH_FOR_APP = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 6124276573961021108L;
+		{
+			put("equip_ctgry", "관심 복지용구");
+			put("test", "간편 테스트");
+		}
+	};
 
 	// 보낸사람 이름
 	public static final HashMap<String, String> MAIL_SENDER_NAME = new LinkedHashMap<String, String>() {
