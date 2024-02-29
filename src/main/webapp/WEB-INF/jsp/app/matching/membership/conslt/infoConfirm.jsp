@@ -49,7 +49,7 @@
         <footer class="page-footer">
 
             <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p">다음</a>
+                <a class="waves-effect btn-large btn_primary w100p" onclick="location.href='/matching/membership/conslt/request'">다음</a>
             </div>
 
         </footer>
@@ -60,6 +60,6 @@
 	
 	<script>
 		$(function() {
-			
+			saveInLocalStorage('consltPrevPath', '${prevPath}');
 		});
 	</script>

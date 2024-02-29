@@ -1,5 +1,6 @@
 package icube.app.matching.membership.info;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,13 +39,14 @@ public class MatMbrConsltController extends CommonAbstractController {
 	
 	@Autowired
 	private MatMbrSession matMbrSession; 
-	 
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 	
 	/**
 	 * 특정 수급자의 진행중인 상담 조회(서비스 > swipe 구성)
 	 */
 	@ResponseBody
-	@RequestMapping("progress")
+	@RequestMapping("progress.json")
 	public Map<String, Object> getConsltInProgress(@RequestParam int recipientsNo) {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("success", false);
@@ -66,22 +69,56 @@ public class MatMbrConsltController extends CommonAbstractController {
 	@RequestMapping(value = "infoConfirm")
 	public String infoConfirm(
 		@RequestParam String prevPath
-		, @RequestParam int recipientsNo 
 		, Model model) throws Exception {
 		
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
-		MbrRecipientsVO recipientInfo = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
-		if (recipientInfo == null) {
+		MbrRecipientsVO mainRecipientInfo = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		if (mainRecipientInfo == null) {
 			model.addAttribute("appMsg", "등록된 수급자가 아닙니다.");
 			model.addAttribute("appLocation", "/matching/main/service");
 			return "/app/matching/common/appMsg";
 		}
 		
 		model.addAttribute("prevPath", prevPath);
-		model.addAttribute("recipientInfo", recipientInfo);
+		model.addAttribute("recipientInfo", mainRecipientInfo);
 		
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
 		return "/app/matching/membership/conslt/infoConfirm";
+	}
+	
+	/**
+	 * 상담신청 페이지
+	 */
+	@RequestMapping(value = "request")
+	public String request() throws Exception {
+		return "/app/matching/membership/conslt/request";
+	}
+	
+	/**
+	 * 상담신청 AJAX
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addMbrConslt.json")
+	public synchronized Map<String, Object> addMbrConslt(
+			@RequestParam String prevPath
+			, @RequestParam String sido
+			, @RequestParam String sigugun) throws Exception {
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		MbrRecipientsVO mainRecipientInfo = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		
+		boolean saveRecipientInfo = false;
+		MbrConsltVO mbrConsltVO = new MbrConsltVO();
+		mbrConsltVO.setPrevPath(prevPath);
+		mbrConsltVO.setRecipientsNo(mainRecipientInfo.getRecipientsNo());
+		mbrConsltVO.setRelationCd(mainRecipientInfo.getRelationCd());
+		mbrConsltVO.setMbrNm(mainRecipientInfo.getRecipientsNm());
+		mbrConsltVO.setMbrTelno(mainRecipientInfo.getTel());
+		mbrConsltVO.setGender(mainRecipientInfo.getGender());
+		mbrConsltVO.setBrdt(mainRecipientInfo.getBrdt());
+		mbrConsltVO.setZip(sido);
+		mbrConsltVO.setAddr(sigugun);
+		
+		return mbrConsltService.addMbrConslt(mbrConsltVO, saveRecipientInfo, matMbrSession);
 	}
 }

@@ -242,7 +242,7 @@
 				
 				//진행중인 상담 조회
 				callPostAjaxIfFailOnlyMsg(
-	        		'/matching/membership/conslt/progress?recipientsNo=' + mainRecipientsNo,
+	        		'/matching/membership/conslt/progress.json?recipientsNo=' + mainRecipientsNo,
 	        		{},
 	        		function(result) {
 	        			//진행중인 상담 유형 swipe는 고정 swipe 앞으로 보내버리기
