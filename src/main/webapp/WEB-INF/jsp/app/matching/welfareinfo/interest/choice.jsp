@@ -22,89 +22,89 @@
 
             <ul class="wel_select_area">
                 
-                <li class="walkerForAdults 10a0 <c:if test='${fn:indexOf(careCtgryList,"10a0") >= 0}'>active</c:if>">
+                <li ctgryCd="10a0" class="walkerForAdults 10a0 <c:if test='${fn:indexOf(careCtgryList,"10a0") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_01.svg" alt="성인용 보행기">
                     </div>
                     <span class="txt">성인용 보행기</span>
                 </li>
-                <li class="wheelchair 2080 <c:if test='${fn:indexOf(careCtgryList,"2080") >= 0}'>active</c:if>">
+                <li ctgryCd="2080" class="wheelchair 2080 <c:if test='${fn:indexOf(careCtgryList,"2080") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_02.svg" alt="수동휠체어">
                     </div>
                     <span class="txt">수동휠체어</span>
                 </li>
-                <li class="cane 1050 <c:if test='${fn:indexOf(careCtgryList,"1050") >= 0}'>active</c:if>">
+                <li ctgryCd="1050" class="cane 1050 <c:if test='${fn:indexOf(careCtgryList,"1050") >= 0}'>active</c:if>">
                     <div class="img_area ">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_03.svg" alt="지팡이">
                     </div>
                     <span class="txt">지팡이</span>
                 </li>
 
-                <li class="safetyHandle 1090 <c:if test='${fn:indexOf(careCtgryList,"1090") >= 0}'>active</c:if>">
+                <li ctgryCd="1090" class="safetyHandle 1090 <c:if test='${fn:indexOf(careCtgryList,"1090") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_04.svg" alt="안전손잡이">
                     </div>
                     <span class="txt">안전손잡이</span>
                 </li>
-                <li class="antiSlipProduct 1080 <c:if test='${fn:indexOf(careCtgryList,"1080") >= 0}'>active</c:if>">
+                <li ctgryCd="1080" class="antiSlipProduct 1080 <c:if test='${fn:indexOf(careCtgryList,"1080") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_05.svg" alt="미끄럼방지 매트">
                     </div>
                     <span class="txt">미끄럼방지<br>매트</span>
                 </li>
-                <li class="antiSlipSocks 1070 <c:if test='${fn:indexOf(careCtgryList,"1070") >= 0}'>active</c:if>">
+                <li ctgryCd="1070" class="antiSlipSocks 1070 <c:if test='${fn:indexOf(careCtgryList,"1070") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_06.svg" alt="미끄럼방지 양말">
                     </div>
                     <span class="txt">미끄럼방지<br>양말</span>
                 </li>
 
-                <li class="mattress 1010 <c:if test='${fn:indexOf(careCtgryList,"1010") >= 0}'>active</c:if>">
+                <li ctgryCd="1010" class="mattress 1010 <c:if test='${fn:indexOf(careCtgryList,"1010") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_07.svg" alt="욕창예방 매트리스">
                     </div>
                     <span class="txt">욕창예방<br>매트리스</span>
                 </li>
-                <li class="cushion 1040 <c:if test='${fn:indexOf(careCtgryList,"1040") >= 0}'>active</c:if>">
+                <li ctgryCd="1040" class="cushion 1040 <c:if test='${fn:indexOf(careCtgryList,"1040") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_08.svg" alt="욕창예방 방석">
                     </div>
                     <span class="txt">욕창예방 방석</span>
                 </li>
-                <li class="changeTool 1030 <c:if test='${fn:indexOf(careCtgryList,"1030") >= 0}'>active</c:if>">
+                <li ctgryCd="1030" class="changeTool 1030 <c:if test='${fn:indexOf(careCtgryList,"1030") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_09.svg" alt="자세변환용구">
                     </div>
                     <span class="txt">자세변환용구</span>
                 </li>
 
-                <li class="panties 1020 <c:if test='${fn:indexOf(careCtgryList,"1020") >= 0}'>active</c:if>">
+                <li ctgryCd="1020" class="panties 1020 <c:if test='${fn:indexOf(careCtgryList,"1020") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_10.svg" alt="요실금 팬티">
                     </div>
                     <span class="txt">요실금 팬티</span>
                 </li>
-                <li class="bathChair 10b0 <c:if test='${fn:indexOf(careCtgryList,"10b0") >= 0}'>active</c:if>">
+                <li ctgryCd="10b0" class="bathChair 10b0 <c:if test='${fn:indexOf(careCtgryList,"10b0") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_11.svg" alt="목욕의자">
                     </div>
                     <span class="txt">목욕의자</span>
                 </li>
-                <li class="mobileToilet 10c0 <c:if test='${fn:indexOf(careCtgryList,"10c0") >= 0}'>active</c:if>">
+                <li ctgryCd="10c0" class="mobileToilet 10c0 <c:if test='${fn:indexOf(careCtgryList,"10c0") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_12.svg" alt="이동변기">
                     </div>
                     <span class="txt">이동변기</span>
                 </li>
 
-                <li class="portableToilet 1060 <c:if test='${fn:indexOf(careCtgryList,"1060") >= 0}'>active</c:if>">
+                <li ctgryCd="1060" class="portableToilet 1060 <c:if test='${fn:indexOf(careCtgryList,"1060") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_13.svg" alt="간이변기">
                     </div>
                     <span class="txt">간이변기</span>
                 </li>
-                <li class="inRunway 10d0 <c:if test='${fn:indexOf(careCtgryList,"10d0") >= 0}'>active</c:if>">
+                <li ctgryCd="10d0" class="inRunway 10d0 <c:if test='${fn:indexOf(careCtgryList,"10d0") >= 0}'>active</c:if>">
                     <div class="img_area">
                         <img src="/html/page/app/matching/assets/src/images/02tool/tool02_14.svg" alt="경사로">
                     </div>
@@ -119,8 +119,9 @@
     <footer class="page-footer">
 
         <div class="relative">
+            <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click()">상담내역 보기</a>
             <c:if test="${isExistRecipientConslt}">
-                <a class="waves-effect btn-large btn_primary w100p">상담내역 보기</a>
+                
             </c:if>
             <c:if test="${!isExistRecipientConslt}">
                 <a class="waves-effect btn-large btn_primary w100p">혜택 상담받기</a>
@@ -388,4 +389,29 @@
             popModal.open();
         });
     });
+
+    function fn_next_click(){
+        if ($(".wel_select_area li.active").length < 1){
+            showAlertPopup("최소 1개를 선택해 주세요.");
+            return;
+        }
+
+        var ctgryCds = [];
+        var ifor, ilen = $(".wel_select_area li.active").length;
+        for(ifor=0 ; ifor<ilen ; ifor++){
+            ctgryCds.push($($(".wel_select_area li.active")[ifor]).attr("ctgryCd"))
+        }
+
+        var url = "addMbrRecipientsGdCds.json";
+        var param = {recipientsNo:"${recipientsNo}", ctgryCds};
+
+
+        callPostAjaxIfFailOnlyMsg(url, param, fn_next_cb);
+    }
+
+    function fn_next_cb(result){
+        showToastMsg('관심복지용구가 설정되었어요', function() {
+            location.replace('/matching');
+        });
+    }
 </script>
