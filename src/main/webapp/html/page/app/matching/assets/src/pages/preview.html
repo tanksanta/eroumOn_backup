@@ -29,11 +29,12 @@
     <link rel="stylesheet" href="../css/style.css" />
 
     <style>
-        h5.title{margin-top: 40px;}
+        h5.title{margin: 50px 0 6px;}
         .card{padding: 10px;margin-bottom: 12px;border:2px solid transparent;transition: 0.3s all; }
         .card:hover{background-color: #f8f8f8;border:2px solid #dbdbdb;}
         .pa10{padding: 10px;}
 
+        .sitemap_table tbody{overflow: hidden;}
         .sitemap_table col:nth-child(1){width:200px;}
         .sitemap_table col:nth-child(2){width:300px;}
         .sitemap_table col:nth-child(3){width:400px;}
@@ -42,9 +43,11 @@
 
         tr:last-child{border: none;}
 
+        .card-panel{margin: 0;}
+
         /* 완료 */
         .chk{position: relative;}
-        .chk::before{position: absolute;top:-8px;left:-12px;content: '';width:40px;height:20px;background-image: url('../images/10om/om_01.svg');background-size: 100%;}
+        .chk::before{position: absolute;top:-40px;left:-40px;content: '';width:50px;height:50px;background-color: #D32F2F;transform: rotate(45deg);}
 
     </style>
 
@@ -92,9 +95,7 @@
 <body class="back_gray">
     <div class="wrapper" style="padding: 20px;">
 
-        <h2>Sitemap</h2>
-
-
+        <h2 class="title">MVP 앱 Sitemap</h2>
 
         <h5 class="title color_primary">컴포넌트</h5>
 
@@ -127,7 +128,7 @@
         </table>
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
                 <tr>
                     <td>앱 접근권한</td>
@@ -362,7 +363,7 @@
 
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
                 <tr>
                     <td>간편 테스트</td>
@@ -385,18 +386,55 @@
                     <td><a class="addr" href="">F_SAC_003_simpleTest_result.html</a></td>
                     <td></td>
                 </tr>
+                <tr>
+                    <td>간편테스트_비대상자</td>
+                    <td><a class="addr" href="">F_SAC_003_simpleTest_result_no.html</a></td>
+                    <td></td>
+                </tr>
             </tbody> 
         </table>
 
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
                 <tr>
                     <td>어르신 돌봄</td>
                     <td>어르신 돌봄</td>
-                    <td><a class="addr" href=""></a></td>
+                    <td><a class="addr" href="">F_SAD_001_om_care.html</a></td>
                     <td></td>
                 </tr>
+                <tr>
+                    <td>어르신 돌봄시간 선택</td>
+                    <td><a class="addr" href="">F_SAD_002_om_care_time.html</a></td>
+                    <td>돌봄이 시간 선택</td>
+                </tr>
+                <tr>
+                    <td>간편 테스트</td>
+                    <td>
+                        <div class="card-panel bder_r8 noPad fs12">
+                            간편 테스트03 참조<br> <a class="addr" href="">F_SAC_001_simpleTest03.html</a>
+                        </div>    
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>테스트결과_비대상자</td>
+                    <td><a class="addr" href="">F_SAD_002_test_result.html</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>테스트결과_비대상자</td>
+                    <td>
+                        <a class="addr" href="">F_SAD_002_test_result_no.html </a>
+                        <div class="card-panel bder_r8 noPad fs12">
+                            간편테스트_비대상자 참조<br> <a class="addr" href="">F_SAC_003_simpleTest_result_no.html</a>
+                        </div>    
+                    </td>
+                    <td></td>
+                </tr>
+
+                
+                         
             </tbody>
         </table>
 

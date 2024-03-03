@@ -32,67 +32,15 @@
 
 
   <style>
-    /* swipe */
-    .swiper-wrapper {
-      margin: 20px 0 32px;
-    }
-
-    .swiper-slide {
-      width: 320px;
-      margin-left: 20px;
-      /* width: calc(100% - 40px); */
-    }
-    
-    /* 375px 이하는 280px  */
-    @media only screen and (max-width: 375px){
-    
-      .swiper-slide {width: 280px;}
-    
-    }
 
 
 
-    .swiper-slide:last-child{
-      margin-right: 20px;
-    }
   </style>
 
 
   <script>
 
     $(function () {
-
-      //어르신 선택시 상단 텍스트 변경
-      $('.broad_area.om_select li').click(function(){
-
-        var thisTxt = $(this).find('span').text();
-
-        $('.btn_back .txtEvt').text(thisTxt);
-
-      });
-
-
-      //modal 오픈시 active 추가
-      var openEvt = function () {
-        $('.top_dropdown_btn').addClass('active');
-      };
-
-      //modal 닫을시 active 삭제
-      var closeEvt = function () {
-        $('.top_dropdown_btn').removeClass('active');
-
-      };
-
-     
-
-
-      $(".modal_om_select").modal({
-        onOpenStart: openEvt,
-        onCloseStart: closeEvt,
-      });
-
-
-
 
 
     });
@@ -111,36 +59,20 @@
       <nav class="top">
         <div class="btn_back">
           <div class="txt">
-            
             <span class="txtEvt">어르신</span>
-
-            <!-- top_dropdown_area -->
-            <div class="top_dropdown_area">
-              <a class="top_dropdown_btn modal-trigger" href="#modal_om_select"></a>
-            </div>
-            <!-- top_dropdown_area end-->
-
-            <span class="color_tp_s font_sbls marL4">님을 위한 서비스</span>
-
           </div>
         </div>
-        <div class="icon_area waves-effect">
-          <div class="icon_btn i_alarm"></div>
-        </div>
-
-
 
       </nav>
     </header>
 
 
     <main>
-      <section class="default back_gray">
-        <h2 class="titel" style="color:red">아직 작업안함</h2>
+      <section class="default">
 
-
-
-
+        <div>
+          ddddddddddddddd
+        </div>
 
         <h4 class="title">어떤 도움을 받고 싶으세요?</h4>
 
@@ -224,7 +156,7 @@
 
       <ul class="bottomNav_menu">
 
-        <li class="btn_om ">
+        <li class="btn_om active">
           <a class="waves-effect">
             <span class="txt">어르신</span>
           </a>
@@ -234,7 +166,7 @@
             <span class="txt">복지용구</span>
           </a>
         </li>
-        <li class="btn_service active">
+        <li class="btn_service ">
           <a class="waves-effect">
             <span class="txt">서비스</span>
           </a>
@@ -258,46 +190,6 @@
 
   </div>
   <!-- wrapper -->
-
-
-
-
-    <!-- Modal modal_om_select -->
-    <div id="modal_om_select" class="modal bottom-sheet modal_om_select">
-
-      <div class="modal_header">
-        <h4 class="modal_title">어르신을 선택해주세요</h4>
-        <div class="close_x modal-close waves-effect"></div>
-      </div>
-
-      <div class="modal-content">
-
-        <div class="scrollBox heightAuto" style="max-height: 50vh;">
-          <ul class="broad_area om_select">
-            <li class="modal-close active">
-              <div class="img_flower fl_01"></div>
-              <span>꽃분이</span>
-            </li>
-            <li class="modal-close">
-              <div class="img_flower fl_02"></div>
-              <span>꽃순이</span>
-            </li>
-            <li class="modal-close">
-              <div class="img_flower fl_03"></div>
-              <span>꽃돌이</span>
-            </li>
-            <li class="modal-close">
-              <div class="img_flower fl_04"></div>
-              <span>꽃박이</span>
-            </li>
-          </ul>
-
-        </div>
-        <div class="h20"></div>
-
-      </div>
-
-    </div>
 
 
 
