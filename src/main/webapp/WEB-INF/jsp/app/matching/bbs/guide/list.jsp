@@ -21,13 +21,10 @@
 
     </main>
     
-		<footer class="page-footer">
-
-            <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p" >다음</a>
-            </div>
-
-        </footer>
+	<!-- 하단 네이비게이션 -->
+	<jsp:include page="/WEB-INF/jsp/app/matching/common/bottomNavigation.jsp">
+		<jsp:param value="service" name="menuName" />
+	</jsp:include>
 </div>
 
 <script>

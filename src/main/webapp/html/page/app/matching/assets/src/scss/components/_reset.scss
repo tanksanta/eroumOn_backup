@@ -164,8 +164,8 @@ $--Color-icon-Primitive-inverse: #fff;
 }
 
 @mixin Suit_Body_LG_Regular{
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 20px !important;
+    font-weight: 400 !important;
     line-height: 30px; /* 150% */
     letter-spacing: -0.3px;
 }
@@ -195,7 +195,7 @@ $--Color-icon-Primitive-inverse: #fff;
 
 @mixin Suit_Body_MD_Underline{
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 27px; /* 150% */
     letter-spacing: -0.27px;
     text-decoration-line: underline;
@@ -203,10 +203,10 @@ $--Color-icon-Primitive-inverse: #fff;
 
 @mixin Suit_Body_MD_Strike-through{
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 27px; /* 150% */
     letter-spacing: -0.27px;
-    text-decoration-line: strikethrough;
+    text-decoration-line: line-through;
 }
 
 
@@ -337,6 +337,7 @@ input[type=time]:not(.browser-default), input[type=date]:not(.browser-default){d
 
 .btn, .btn-large, .btn-small, .btn-flat{text-transform: none;}
 
+
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
@@ -352,7 +353,6 @@ input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
     border: 1px solid #E0E0E0;
     box-shadow: none;
-    transition: 0.3s all;
 }
 
 //input 포커싱
@@ -365,7 +365,7 @@ input[type=date]:focus,
 input[type=datetime]:focus,
 input[type=tel]:focus,
 input[type=number]:focus,
-input[type=search]:focus{border: 1px solid #999999 !important; }
+input[type=search]:focus{border: 2px solid $--Color-text-Primitive-primary !important; }
 
 
 //입력폼 no처리

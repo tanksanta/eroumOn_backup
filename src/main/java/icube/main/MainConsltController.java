@@ -1,13 +1,11 @@
 package icube.main;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,22 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import icube.common.api.biz.BiztalkConsultService;
 import icube.common.api.biz.TilkoApiService;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.mail.MailService;
-import icube.common.values.CodeMap;
 import icube.main.biz.MainService;
-import icube.manage.consult.biz.MbrConsltChgHistVO;
-import icube.manage.consult.biz.MbrConsltGdsService;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
-import icube.manage.mbr.mbr.biz.MbrVO;
-import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
-import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
-import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 import icube.manage.members.bplc.biz.BplcService;
 import icube.manage.members.bplc.biz.BplcVO;
 import icube.market.mbr.biz.MbrSession;
@@ -42,9 +32,6 @@ public class MainConsltController extends CommonAbstractController{
 	@Resource(name = "mainService")
 	private MainService mainService;
 
-	@Resource(name = "mbrConsltService")
-	private MbrConsltService mbrConsltService;
-
 	@Resource(name = "mbrService")
 	private MbrService mbrService;
 
@@ -54,18 +41,12 @@ public class MainConsltController extends CommonAbstractController{
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
 	
-	@Resource(name= "mbrRecipientsGdsService")
-	private MbrRecipientsGdsService mbrRecipientsGdsService;
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
 	
 	@Resource(name= "tilkoApiService")
 	private TilkoApiService tilkoApiService;
 
-	@Resource(name = "biztalkConsultService")
-	private BiztalkConsultService biztalkConsultService;
-
-	@Resource(name = "mbrConsltGdsService")
-	private MbrConsltGdsService mbrConsltGdsService;
-	
 	@Autowired
 	private MbrSession mbrSession;
 
@@ -81,7 +62,6 @@ public class MainConsltController extends CommonAbstractController{
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 	
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 	
 	/**
 	 * 상담신청이 모달방식으로 변경됨에 따라 주석처리
@@ -192,146 +172,6 @@ public class MainConsltController extends CommonAbstractController{
 			MbrConsltVO mbrConsltVO,
 			Boolean saveRecipientInfo
 		)throws Exception {
-
-		Map <String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", false);
-		
-		try {
-			//복지용구상담인데 선택한 복지용구 품목이 없는 경우
-			if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
-				List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(mbrConsltVO.getRecipientsNo());
-				
-				if (recipientsGdsList == null || recipientsGdsList.size() == 0) {
-	                resultMap.put("msg", "관심 복지용구를 선택하세요");
-	                return resultMap;
-				}
-			}
-			
-			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
-			List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
-			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == mbrConsltVO.getRecipientsNo()).findAny().orElse(null);
-			if (mbrRecipient == null) {
-				resultMap.put("msg", "등록되지 않은 수급자입니다.");
-                return resultMap;
-			}
-			//해당 수급자가 본인인 경우 회원의 정보로 상담정보 저장
-			if ("007".equals(mbrRecipient.getRelationCd())) {
-				mbrConsltVO.setRelationCd(mbrRecipient.getRelationCd());
-				mbrConsltVO.setMbrNm(mbrVO.getMbrNm());
-				mbrConsltVO.setMbrTelno(mbrVO.getMblTelno());
-				mbrConsltVO.setAddr(mbrVO.getAddr());
-				if (mbrVO.getBrdt() != null) {
-					mbrConsltVO.setBrdt(dateFormat.format(mbrVO.getBrdt()));
-				}
-				mbrConsltVO.setGender(mbrVO.getGender());
-			}
-			//가족 인경우 수급자 정보로 상담정보 저장(입력 받는 것 제외)
-			else {
-				mbrConsltVO.setRelationCd(mbrRecipient.getRelationCd());
-				mbrConsltVO.setMbrNm(mbrRecipient.getRecipientsNm());
-			}
-			
-			//수급자 정보 저장동의시 수급자명을 다른 수급자와 똑같이 등록하려는 경우
-			if (saveRecipientInfo) {
-	            if (mbrRecipientList.stream().filter(f -> mbrConsltVO.getMbrNm().equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrConsltVO.getRecipientsNo()).count() > 0) {
-	                resultMap.put("msg", "이미 등록한 수급자입니다 (수급자명을 확인하세요)");
-	                return resultMap;
-	            }
-			}
-			
-			//같은 상담(prev_path)중 진행중인 상담이 있다면 불가능
-			//수급자 최근 상담 조회(진행 중인 상담 체크)
-			MbrConsltVO recipientConslt = mbrConsltService.selectRecentConsltByRecipientsNo(mbrRecipient.getRecipientsNo(), mbrConsltVO.getPrevPath());
-			if (recipientConslt != null && (
-					!"CS03".equals(recipientConslt.getConsltSttus()) &&
-					!"CS04".equals(recipientConslt.getConsltSttus()) &&
-					!"CS09".equals(recipientConslt.getConsltSttus()) &&
-					!"CS06".equals(recipientConslt.getConsltSttus())
-					)) {
-				resultMap.put("msg", "진행중인 " + CodeMap.PREV_PATH.get(mbrConsltVO.getPrevPath()) + "이 있습니다.");
-				return resultMap;
-			}
-			
-			//요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
-			// if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
-			// 	Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(mbrConsltVO.getMbrNm(), mbrConsltVO.getRcperRcognNo(), true);
-				
-			// 	Boolean result = (Boolean) returnMap.get("result");
-			// 	if (result == false) {
-			// 		resultMap.put("msg", "유효한 요양인정번호가 아닙니다.");
-			// 		return resultMap;
-			// 	}
-			// }
-			
-			
-			//기존에 L번호가 있는 수급자였다면 L번호 포함 상담정보 저장
-			if ("Y".equals(mbrRecipient.getRecipientsYn())) {
-				mbrConsltVO.setRcperRcognNo(mbrRecipient.getRcperRcognNo());
-			}
-			
-			mbrConsltVO.setRegId(mbrSession.getMbrId());
-			mbrConsltVO.setRegUniqueId(mbrSession.getUniqueId());
-			mbrConsltVO.setRgtr(mbrSession.getMbrNm());
-
-			if(EgovStringUtil.isNotEmpty(mbrConsltVO.getBrdt())) {
-				mbrConsltVO.setBrdt(mbrConsltVO.getBrdt().replace("/", ""));
-			}
-
-			int insertCnt = mbrConsltService.insertMbrConslt(mbrConsltVO);
-
-			if (insertCnt > 0) {
-				//수급자 정보 저장동의시 저장
-				if (saveRecipientInfo) {
-					mbrRecipient.setRelationCd(mbrConsltVO.getRelationCd());
-					mbrRecipient.setRecipientsNm(mbrConsltVO.getMbrNm());
-					if (EgovStringUtil.isNotEmpty(mbrConsltVO.getRcperRcognNo())) {
-						mbrRecipient.setRcperRcognNo(mbrConsltVO.getRcperRcognNo());
-						mbrRecipient.setRecipientsYn("Y");
-					} else {
-						mbrRecipient.setRecipientsYn("N");
-					}
-					mbrRecipient.setTel(mbrConsltVO.getMbrTelno());
-					mbrRecipient.setSido(mbrConsltVO.getZip());
-					mbrRecipient.setSigugun(mbrConsltVO.getAddr());
-					mbrRecipient.setDong(mbrConsltVO.getDaddr());
-					mbrRecipient.setBrdt(mbrConsltVO.getBrdt());
-					mbrRecipient.setGender(mbrConsltVO.getGender());
-					mbrRecipientsService.updateMbrRecipients(mbrRecipient);
-				}
-				
-				//1:1 상담신청 이력 추가
-				Map<String, Object> paramMap = new HashMap<String, Object>();
-				paramMap.put("srchRgtr", mbrConsltVO.getRgtr());
-				paramMap.put("srchUniqueId", mbrConsltVO.getRegUniqueId());
-				MbrConsltVO srchMbrConslt = mbrConsltService.selectLastMbrConsltForCreate(paramMap);
-				
-				MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
-				mbrConsltChgHistVO.setConsltNo(srchMbrConslt.getConsltNo());
-				mbrConsltChgHistVO.setConsltSttusChg(srchMbrConslt.getConsltSttus());
-				mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("접수"));
-				mbrConsltChgHistVO.setMbrUniqueId(mbrSession.getUniqueId());
-				mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
-				mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
-				mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
-				
-				
-				//복지용구상담인 경우 선택 복지용구 정보 추가 저장
-				if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
-					mbrConsltGdsService.insertMbrConsltGds(srchMbrConslt.getRecipientsNo(), srchMbrConslt.getConsltNo());
-				}
-				
-				
-				//1:1 상담신청시 관리자에게 알림 메일 발송
-				mbrConsltService.sendConsltRequestEmail(mbrConsltVO);
-			}
-
-			biztalkConsultService.sendOnTalkCreated(mbrVO, mbrRecipient, insertCnt); 
-
-			resultMap.put("success", true);
-		} catch (Exception ex) {
-			resultMap.put("success", false);
-			resultMap.put("msg", "상담신청에 실패하였습니다");
-		}
-		return resultMap;
+		return mbrConsltService.addMbrConslt(mbrConsltVO, saveRecipientInfo, mbrSession);
 	}
 }

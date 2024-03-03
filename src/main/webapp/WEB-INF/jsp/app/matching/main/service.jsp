@@ -66,92 +66,6 @@
         <!-- Swiper -->
         <div class="swiper service_Swiper marT-20W-20">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-
-              <div class="card waves-effect w100p">
-
-                <div class="service_img_area om_01">
-
-                  <span class="title">인정등급 간편 테스트</span>
-
-                </div>
-
-                <div class="card-content">
-
-                  <h4 class="title">
-                    신체활동이 불편하다면?<br />
-                    복지용구 지원받기
-                  </h4>
-
-                  <div class="tag_area">
-                    <span class="tag">관심 복지용구</span>
-                    <span class="tag">85% ~ 100% 지원</span>
-                  </div>
-
-                </div>
-              </div>
-              <!-- card -->
-
-            </div>
-            <!-- swiper-slide -->
-
-            <div class="swiper-slide">
-
-              <div class="card waves-effect w100p">
-
-                <div class="service_img_area om_02">
-
-                  <span class="title">관심복지용구</span>
-
-                </div>
-
-                <div class="card-content">
-
-                  <h4 class="title">
-                    장기요양보험 혜택 받을 수<br />
-                    있는 지 30초만에 확인하기
-                  </h4>
-
-                  <div class="tag_area">
-                    <span class="tag">인정등급 간편 테스트</span>
-                    <span class="tag">최대 2600만원</span>
-                  </div>
-
-                </div>
-              </div>
-              <!-- card -->
-
-            </div>
-            <!-- swiper-slide -->
-
-            <div class="swiper-slide">
-
-              <div class="card waves-effect w100p">
-
-                <div class="service_img_area om_03">
-
-                  <span class="title">관심복지용구</span>
-
-                </div>
-
-                <div class="card-content">
-
-                  <h4 class="title">
-                    어르신에게 맞는 돌봄 서비스<br />
-                    지원받기
-                  </h4>
-
-                  <div class="tag_area">
-                    <span class="tag">정서케어</span>
-                    <span class="tag">치매케어</span>
-                  </div>
-
-                </div>
-              </div>
-              <!-- card -->
-
-            </div>
-            <!-- swiper-slide -->
 
           </div>
         </div>
@@ -224,11 +138,141 @@
 	    </div>
   	</c:if>
 
+	<!-- swipe 컨텐츠 동적매핑용 -->
+	<div id="swiperContainer" class="disNone">
+            <div id="swiperWelfare" class="swiper-slide">
+
+              <div class="card waves-effect w100p">
+
+                <div class="service_img_area om_01">
+
+                  <span class="title">관심복지용구</span>
+
+                </div>
+
+                <div class="card-content">
+
+                  <h4 class="title">
+                    신체활동이 불편하다면?<br />
+                    복지용구 지원받기
+                  </h4>
+
+                  <div class="tag_area">
+                    <span class="tag">관심 복지용구</span>
+                    <span class="tag">85% ~ 100% 지원</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- card -->
+
+            </div>
+            <!-- swiper-slide -->
+
+            <div id="swiperTest" class="swiper-slide">
+
+              <div class="card waves-effect w100p">
+
+                <div class="service_img_area om_02">
+
+                  <span class="title">인정등급 간편 테스트</span>
+
+                </div>
+
+                <div class="card-content">
+
+                  <h4 class="title">
+                    장기요양보험 혜택 받을 수<br />
+                    있는 지 30초만에 확인하기
+                  </h4>
+
+                  <div class="tag_area">
+                    <span class="tag">인정등급 간편 테스트</span>
+                    <span class="tag">최대 2600만원</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- card -->
+
+            </div>
+            <!-- swiper-slide -->
+
+            <div id="swiperCare" class="swiper-slide">
+
+              <div class="card waves-effect w100p">
+
+                <div class="service_img_area om_03">
+
+                  <span class="title">어르신돌봄</span>
+
+                </div>
+
+                <div class="card-content">
+
+                  <h4 class="title">
+                    어르신에게 맞는 돌봄 서비스<br />
+                    지원받기
+                  </h4>
+
+                  <div class="tag_area">
+                    <span class="tag">정서케어</span>
+                    <span class="tag">치매케어</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- card -->
+
+            </div>
+            <!-- swiper-slide -->
+	</div>
+
+
 	
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<script>
 		var mainRecipientsNo = '${mainRecipient.recipientsNo}';
 	
+		//수급자에 따른 swipe 순서 처리
+		function sortSwipeContents() {
+			if (mainRecipientsNo) {
+				var varOrder = ['swiperWelfare', 'swiperTest']; //순서가 바뀔 수 있는 swipe
+				var fixOrder = ['swiperCare']; //순서 고정
+				
+				//진행중인 상담 조회
+				callPostAjaxIfFailOnlyMsg(
+	        		'/matching/membership/conslt/progress.json?recipientsNo=' + mainRecipientsNo,
+	        		{},
+	        		function(result) {
+	        			//진행중인 상담 유형 swipe는 고정 swipe 앞으로 보내버리기
+	        			if (result.prevPathList) {
+	        				for (var i = 0; i < result.prevPathList.length; i++) {
+		        				if (result.prevPathList[i] === 'equip_ctgry') {
+		        					varOrder.splice(varOrder.findIndex(f => f === 'swiperWelfare'), 1);
+		        					varOrder.push('swiperWelfare');
+		        				} else if (result.prevPathList[i] === 'test') {
+		        					varOrder.splice(varOrder.findIndex(f => f === 'swiperTest'), 1);
+		        					varOrder.push('swiperTest');
+		        				}
+		        			}	
+	        			}
+	        			
+	        			//swipe 그리기
+	        			for (var i = 0; i < varOrder.length; i++) {
+	        				$('.swiper .swiper-wrapper').append($('#' + varOrder[i]));
+	        			}
+	        			for (var i = 0; i < fixOrder.length; i++) {
+	        				$('.swiper .swiper-wrapper').append($('#' + fixOrder[i]));
+	        			}
+	        			$('.swiper-wrapper').css('height', '');
+	        		}
+       			);
+			} else {
+				$('.swiper .swiper-wrapper').html($('#swiperContainer').html());
+			}
+		}
+		
 		//로그아웃
 		function clickLogoutBtn() {
 			callPostAjaxIfFailOnlyMsg('/matching/membership/logoutAction', {}, function() {
@@ -245,6 +289,10 @@
 			
 			//body에 css class 추가
 			$('body').addClass('back_gray');
+			
+			//swipe 컨텐츠 셋팅
+			sortSwipeContents();
+			
 			
 			
 			//swiper 퍼블리싱 코드 부분
@@ -271,6 +319,7 @@
 	        		'/matching/membership/recipients/update/main.json',
 	        		{ recipientsNo:Number(selectedNo), isMatching: 'Y' },
 	        		function(result) {
+	        			mainRecipientsNo = selectedNo;
 	        			showToastMsg('대표 어르신으로 설정되었어요');
 	        		}
        			);

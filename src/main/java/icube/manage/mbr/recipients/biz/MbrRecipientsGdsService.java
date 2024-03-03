@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.annotation.Resource;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.market.mbr.biz.MbrSession;
 
 @Service("mbrRecipientsGdsService")
@@ -49,6 +51,38 @@ public class MbrRecipientsGdsService extends CommonAbstractServiceImpl {
 		paramMap.put("recipientsNo", recipientsNo);
 		paramMap.put("consltGdsTy", consltGdsTy);
 		return mbrRecipientsGdsDAO.deleteMbrRecipientsGds(paramMap);
+	}
+	
+	public int insertMbrRecipientsGdCds(MbrVO mbrVO, int recipientsNo, String[] ctgryCds) throws Exception {
+		
+		MbrRecipientsGdsVO mbrRecipientsGds = new MbrRecipientsGdsVO();
+
+		mbrRecipientsGds.setRecipientsNo(recipientsNo);
+		mbrRecipientsGds.setConsltGdsTy("C"); //품목 상담(카테고리)
+		
+		mbrRecipientsGds.setMbrUniqueId(mbrVO.getUniqueId());
+		mbrRecipientsGds.setMbrId(mbrVO.getMbrId());
+		mbrRecipientsGds.setMbrNm(mbrVO.getMbrNm());
+		
+		int ifor, ilen = ctgryCds.length;
+		String foundKey;
+
+		deleteMbrRecipientsGds(recipientsNo, "C");
+
+		for(ifor=0; ifor<ilen ; ifor++){
+			final String sValue = ctgryCds[ifor];
+			
+			foundKey = CodeMap.CARE_10_CTGRY_CD.entrySet().stream().filter(item-> item.getValue().equals(sValue)).map(Map.Entry::getKey).findAny().orElse(null);
+			if (foundKey == null){
+				foundKey = CodeMap.CARE_20_CTGRY_CD.entrySet().stream().filter(item-> item.getValue().equals(sValue)).map(Map.Entry::getKey).findAny().orElse(null);
+			}
+
+			mbrRecipientsGds.setCtgryNm(foundKey);//CodeMap.CARE_10_CTGRY_CD
+			mbrRecipientsGds.setCareCtgryCd(ctgryCds[ifor]);
+			insertMbrRecipientsGds(mbrRecipientsGds);
+		}
+		
+		return ctgryCds.length;
 	}
 	
 	public void insertMbrRecipientsGds(int recipientsNo, String[] ctgry10Nms, String[] ctgry20Nms) throws Exception {

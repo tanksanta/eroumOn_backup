@@ -61,9 +61,17 @@
 .h75{height: 75px !important;;}
 
 .noPad{padding: 0 !important;}
+
+.pad20{padding: 20px !important;}
+
 .pad020{padding: 0 20px !important;}
 
 .padR20{padding-right: 20px !important;}
+
+.padH24W20{padding: 24px 20px !important;}
+
+.padL8{padding-left: 8px !important;}
+
 
 .marT4{margin-top: 4px !important;}
 .marB4{margin-bottom: 4px !important;}
@@ -170,6 +178,28 @@
 
 }
 
+
+//리스트링크
+.list_link{
+    width:100%;
+    background-color: #fff;
+    background-image: url('../images/18icon/chevron-right02_thin.svg');
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    min-height: 59px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 12px 32px 12px 0;
+
+    &.bder_bottom{
+
+        border-bottom: 1px solid $--Color-border-teritiary;
+
+    }
+
+}
 
 
 
@@ -558,12 +588,13 @@
 .input_basic{
     display: flex;
     align-items: center;
-    border: 1px solid #E0E0E0 !important;
+    border: 1px solid #E0E0E0;
     border-radius: 8px !important;
     height: 56px !important;
     width:100%;
     padding: 16px 12px !important;
 
+    //셀렉트 창(가상)
     &.fake_select{
         background: url('../images/04icon/chevron-down.svg') no-repeat calc(100% - 12px) center;
     }
@@ -572,6 +603,7 @@
 
 
 }
+
 
 
 .input_label{
@@ -583,18 +615,25 @@
 
 //인증번호 입력폼 스타일
 .bder_primary{
-    border-radius: 6px !important;
     border: 2px solid $--Color-border-Primitive-primary !important;
 }
 input.bder_primary:focus{border: 2px solid $--Color-border-Primitive-primary !important;}
 
 .bder_danger{
-    border-radius: 6px !important;
     border: 2px solid $--Color-border-danger !important;
-
-
 }
-input.bder_danger:focus{border: 2px solid $--Color-border-danger !important;}
+
+
+//입력창에 value값이 있을때
+.input_basic:valid{
+    border: 1px solid #999 !important;
+}
+
+input.bder_danger:valid{
+    border: 2px solid $--Color-border-danger !important;
+}
+
+input.bder_danger:focus{border: 2px solid $--Color-border-Primitive-primary !important;}
 
 
 
@@ -656,9 +695,31 @@ ul:not(.browser-default)>li.list_dept1{list-style-type: initial;}
 }
 
 
+//뱃지 bedge
+.badge_recomm{
+    height: 24px;
+    padding: 0 8px;
+    border-radius: 30px;
+    display: inline-block;
+
+    background-color: $--Color-bg-brand-sub-bold;
+    color: #fff;
+    @include Suit_Body_SM_SemiBold;
+
+}
+
 
 
 
 
 //오버레이 화면
 .overlay_screen{display: none; z-index: 9999; position: fixed;top:0;left:0; width:100%;height:100%; background-color: rgba(255, 255, 255, 0.1);overflow: initial;}
+
+
+
+
+
+
+
+
+

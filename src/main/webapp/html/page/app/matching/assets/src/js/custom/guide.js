@@ -7,6 +7,43 @@ $(function(){
         opacity: 0.6
     });
 
+
+    //입력폼 input_basic - valid 추가
+    $('.input_basic').attr({
+        'required': true,
+    });
+
+    //ddddddddddddddd
+    $('.input_noClass.test').on('each', function(){
+
+        if($(this).val().length > 0){
+
+            alert('ddd');
+
+        };
+
+        // $(this).click(function(){
+
+        //     if($(this).is(':valid')){
+
+        //         $(this).parents('.input_basic').css('border', '2px solid #FF8120');
+    
+        //     }
+        //     else{
+    
+        //         $(this).parents('.input_basic').css('border', '1px solid #000');
+        //     }
+
+
+        // });
+
+
+
+      });
+
+
+
+
     //통신사 선택시 텍스트변경 및 리스트 선택
     $('.broad_area li').click(function(){
 

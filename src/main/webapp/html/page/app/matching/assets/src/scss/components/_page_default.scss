@@ -536,16 +536,24 @@ h5.title{
 
 //서비스
 //카드
-.card{margin: 0;border-radius: 16px;overflow: hidden;
+.card{
+    margin: 0;border-radius: 16px;overflow: hidden;
     @include box_shadow;
+
+    &.bder{ //border
+        border: 1px solid $--Color-border-Primitive-secondary;
+        box-shadow: none;
+    }
+
+    &.active{ //active border
+        background: $--Color-bg-Primitive-selected;
+        border: 1px solid $--Color-border-Primitive-primary-press;
+    }
+
+    .card-content{padding: 24px 20px;}
+
 }
 
-.card.active{
-    background: $--Color-bg-Primitive-selected;
-    border: 1px solid $--Color-border-Primitive-primary-press;
-}
-
-.card .card-content{padding: 20px;}
 
 //공지사항
 .card.notice .card-content{padding: 16px 20px;}
@@ -685,9 +693,23 @@ h5.title{
     display: grid;
     grid-template-columns: 48px 1fr;
     align-items: start;
-    gap: 16px;
+    gap: 12px;
 
+    //박스 연속시 2번째부터 간격조정
     + .box{margin-top: 16px;}
+
+    //이미지 사이즈 56*56인 경우
+    &.w56{
+        grid-template-columns: 56px 1fr;
+        
+        .img_area{
+            width:56px;
+            height:56px;
+    
+        }
+
+
+    }
 
 
     .img_area{
@@ -704,9 +726,12 @@ h5.title{
             p{margin-top: 8px;}
 
         }
+
+
     }
 
 }
+
 
 
 .box_sub01{background-color: #fff;padding:14px 0;
@@ -731,6 +756,7 @@ h5.title{
 
 }
 
+//grid없는 박스
 .box_normal{background-color: #fff;padding:32px 20px;}
 
 //progress step
@@ -765,6 +791,7 @@ h5.title{
 //그레이 박스
 .card-panel.default{
     padding: 12px 8px;
+    margin: 0;
     border-radius: 8px;
     background: $--Color-bg-teritiary;
 
@@ -851,4 +878,26 @@ h5.title{
 
 
     }
+}
+
+//돌봄시간 설정 선택 박스
+.care_time_area{
+    padding: 20px;
+    border:1px solid transparent;
+    display: grid;grid-template-columns: 1fr 120px;
+    transition: 0.3s all;
+
+    img{width:100%;}
+
+    .chk01_2:checked+label{
+        color: $--Color-text-Primitive-primary-press;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+    }
+
+
+    &.active{background:#fff;}
+
+    & + .care_time_area{margin-top: 16px;}
+
 }

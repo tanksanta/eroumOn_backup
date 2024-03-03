@@ -20,7 +20,7 @@
           </a>
         </li>
         <li class="btn_guide<c:if test="${ param != null && param.menuName == 'guide' }"> active</c:if>">
-          <a class="waves-effect">
+          <a class="waves-effect" href="/matching/bbs/guide/list">
             <span class="txt">길잡이</span>
           </a>
         </li>
