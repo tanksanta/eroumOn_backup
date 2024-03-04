@@ -4,6 +4,7 @@
 	
     <!-- 상단 뒤로가기 버튼 추가 -->
     <jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
+        <jsp:param value="true" name="noBackButtion" />
         <jsp:param value="" name="addButton" />
         <jsp:param value="${addTitle}" name="addTitle" />
     </jsp:include>
@@ -51,13 +52,13 @@
                         <div class="h20"></div>
 
                         <div class="padL8">
-                            <div class="waves-effect list_link bder_bottom font_sbmr">보청기 구매비 지원</div>
-                            <div class="waves-effect list_link bder_bottom font_sbmr">임플란트 이용 지원</div>
-                            <div class="waves-effect list_link bder_bottom font_sbmr">틀니 비용 지원</div>
-                            <div class="waves-effect list_link bder_bottom font_sbmr">인공관절 수술비 지원</div>
-                            <div class="waves-effect list_link bder_bottom font_sbmr">노인개안 수술비 지원</div>
-                            <div class="waves-effect list_link bder_bottom font_sbmr">치매 검사비 지원</div>
-                            <div class="waves-effect list_link font_sbmr">치매 치료비 지원</div>
+                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">보청기 구매비 지원</div>
+                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">임플란트 이용 지원</div>
+                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">틀니 비용 지원</div>
+                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">인공관절 수술비 지원</div>
+                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">노인개안 수술비 지원</div>
+                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">치매 검사비 지원</div>
+                            <div class="waves-effect list_link bbs_link font_sbmr" bbs_link="">치매 치료비 지원</div>
                         </div>
 
                     </div>
@@ -84,5 +85,9 @@
 <script>
     $(function () {
         $("body").addClass("back_gray");
+
+        $(".card-content .bbs_link").off('click').on('click', function(){
+            location.href = "/matching/bbs/guide/list";
+        });
     });
 </script>    

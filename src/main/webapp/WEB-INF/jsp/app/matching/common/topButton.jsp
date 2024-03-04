@@ -3,7 +3,11 @@
 	<header>
       <nav class="top">
        <a class="btn_back waves-effect" onclick="backBtnEvent();">
-         <span class="icon"></span>
+         <c:if test="${param == null || empty param.noBackButtion}">
+          <span class="icon"></span>
+         </c:if>
+
+         
          <c:if test="${param != null && !empty param.addTitle}">
           <span class="txt">${param.addTitle}</span>
          </c:if>
@@ -24,6 +28,9 @@
    
    <script>
 	  	function backBtnEvent() {
+        <c:if test="${param != null && !empty param.noBackButtion}">
+          return;
+        </c:if>
 	  		//history.back();
 	  		
 	  		//이전 페이지로 이동
