@@ -43,7 +43,16 @@ public class SimpleTestController  extends CommonAbstractController {
 	public String simpleIntro(
 		Model model) throws Exception {
 		
-		model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
+		boolean isLogin = true;
+        if(!matMbrSession.isLoginCheck()) {
+            isLogin = false;
+        }
+
+		if (isLogin){
+			model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
+		}
+
+		model.addAttribute("isLogin", isLogin);
 
         return "/app/matching/simpletest/simple_intro";
     }
@@ -52,12 +61,20 @@ public class SimpleTestController  extends CommonAbstractController {
 	public String simpleStart(
 		Model model) throws Exception {
 
-		MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		boolean isLogin = true;
+        if(!matMbrSession.isLoginCheck()) {
+            isLogin = false;
+        }
 
-		if (recipient != null){
-			model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+		if (isLogin){
+			MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+
+			if (recipient != null){
+				model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+			}
 		}
 		
+		model.addAttribute("isLogin", isLogin);
 
         return "/app/matching/simpletest/simple_start";
     }
@@ -65,7 +82,18 @@ public class SimpleTestController  extends CommonAbstractController {
 	@RequestMapping(value={"/simple/result"})
 	public String simpleResult(
 		@RequestParam Map<String,Object> reqMap
+		, @RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
 		, Model model) throws Exception {
+
+		model.addAttribute("addTitle", "테스트 결과");
+
+		SimpleTestVO simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "simple");//"MBR_00000091", recipient.getRecipientsNo()
+		
+		if (simpleTestVO == null || EgovStringUtil.equals(simpleTestVO.getGrade().toString(), "0")){
+			return "/app/matching/simpletest/notsupport_result";
+		}
+
+		model.addAttribute("simpleTestVO", simpleTestVO);
 
         return "/app/matching/simpletest/simple_result";
     }
@@ -199,28 +227,59 @@ public class SimpleTestController  extends CommonAbstractController {
 	public String careIntro(
 		Model model) throws Exception {
 
-		model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
+		boolean isLogin = true;
+        if(!matMbrSession.isLoginCheck()) {
+            isLogin = false;
+        }
+
+		if (isLogin){
+			model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
+		}
+
+		model.addAttribute("isLogin", isLogin);
 
         return "/app/matching/simpletest/care_intro";
     }
 
-	@RequestMapping(value={"/care/start"})
-	public String careStart(
-		Model model) throws Exception {
+	@RequestMapping(value={"/care/time"})
+	public String careTime(
+		@RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
+		, Model model) throws Exception {
 
-		MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		model.addAttribute("recipientsNo", recipientsNo);
 
-		if (recipient != null){
-			model.addAttribute("recipientsNo", recipient.getRecipientsNo());
-		}
-
-        return "/app/matching/simpletest/care_start";
+		return "/app/matching/simpletest/care_time";
     }
+
+	// @RequestMapping(value={"/care/start"})
+	// public String careStart(
+	// 	Model model) throws Exception {
+
+	// 	MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+
+	// 	if (recipient != null){
+	// 		model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+	// 	}
+
+    //     return "/app/matching/simpletest/care_start";
+    // }
 
 	@RequestMapping(value={"/care/result"})
 	public String careResult(
 		@RequestParam Map<String,Object> reqMap
+		, @RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
 		, Model model) throws Exception {
+
+		// MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		model.addAttribute("addTitle", "어르신 돌봄");
+
+		SimpleTestVO simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "care");//"MBR_00000091"
+		
+		if (simpleTestVO == null || EgovStringUtil.equals(simpleTestVO.getGrade().toString(), "0")){
+			return "/app/matching/simpletest/notsupport_result";
+		}
+
+		model.addAttribute("simpleTestVO", simpleTestVO);
 
         return "/app/matching/simpletest/care_result";
     }

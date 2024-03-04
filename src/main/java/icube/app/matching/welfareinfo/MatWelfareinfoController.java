@@ -60,13 +60,13 @@ public class MatWelfareinfoController  extends CommonAbstractController {
             isLogin = false;
         }
             
-        if (true || isLogin){
-            MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId("MBR_00000091");//"MBR_00000091", matMbrSession.getUniqueId()
+        if (isLogin){
+            MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());//"MBR_00000091", matMbrSession.getUniqueId()
 
             String prevPath = "equip_ctgry";
             
             //수급자 최근 상담 조회(진행 중인 상담 체크)
-            Map <String, Object> resultMap = mbrConsltService.selectRecipientConsltSttus("MBR_00000091", mbrRecipientsVO.getRecipientsNo(), prevPath);
+            Map <String, Object> resultMap = mbrConsltService.selectRecipientConsltSttus(matMbrSession.getUniqueId(), mbrRecipientsVO.getRecipientsNo(), prevPath);
             //equip_ctgry
     
             // List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(124);//mbrRecipientsVO.getRecipientsNo()

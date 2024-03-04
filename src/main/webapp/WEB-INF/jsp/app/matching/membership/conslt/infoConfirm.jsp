@@ -36,7 +36,7 @@
                         <tr>
                             <th class="font_sbsr">상담받을 연락처</th>
                             <td class="l_right">
-                                <span class="waves-effect link_text">${recipientInfo.tel}</span>
+                                <span id="spanTel" class="waves-effect link_text" onclick="location.href='/matching/membership/conslt/telChange';"></span>
                             </td>
                         </tr>
                     </tbody>
@@ -59,7 +59,22 @@
 	
 	
 	<script>
+		//상담받을 연락처 표시
+		function showConsltTelno() {
+			var tel = getInLocalStorage('consltTel');
+			if (tel) {
+				
+			} else {
+				tel = '${recipientInfo.tel}';
+				saveInLocalStorage('consltTel', tel);
+			}
+			
+			$('#spanTel').text(tel);
+		}
+	
 		$(function() {
 			saveInLocalStorage('consltPrevPath', '${prevPath}');
+			
+			showConsltTelno();
 		});
 	</script>
