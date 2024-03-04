@@ -29,6 +29,7 @@
                     </ul>
                 </div>
             </li>
+            <%--
 			<li class="nav-item">
 				<a href="http://cms.eroum.co.kr">이로움 정보</a>
 				<div class="nav-sub-items">
@@ -42,6 +43,7 @@
 					</ul>
 				</div>
 			</li>
+			--%>
 		</ul>
     </nav>
 	<div id="utility">

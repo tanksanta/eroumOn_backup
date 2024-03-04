@@ -56,7 +56,7 @@ public class MatBbsController  extends CommonAbstractController {
 			, Model model
 		) throws Exception{
 				
-		BbsVO nttVO = bbsService.selectNtt(srchSrvcCd, bbsCd, nttNo);
+		BbsVO nttVO = bbsService.selectNttByBbsCd(srchSrvcCd, bbsCd, nttNo);
 		if (nttVO == null) {
 			model.addAttribute("alertMsg", getMsg("alert.author.common"));
 			return "/common/msg";
