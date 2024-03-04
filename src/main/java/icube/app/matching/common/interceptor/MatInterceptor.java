@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
@@ -98,8 +99,12 @@ public class MatInterceptor implements HandlerInterceptor {
 			boolean isAutoLogin = matMbrService.checkAutoLogin(request);
 			request.setAttribute("_matMbrSession", matMbrSession);
 			if (isAutoLogin) {
-				response.sendRedirect("/matching");
-				return false;
+				String returnUrl = (String) request.getSession().getAttribute("returnUrl");
+				//이동할 url이 없으면 메인으로 이동
+				if ("/matching/kakao/login".contains(request.getServletPath()) && EgovStringUtil.isEmpty(returnUrl)) {
+					response.sendRedirect("/matching");
+					return false;
+				}
 			}
 			
 			//인증이 필요없으면 바로 페이지 반환
@@ -109,6 +114,12 @@ public class MatInterceptor implements HandlerInterceptor {
 			
 			//로그인 되어 있지 않으면 로그인창으로 이동
 			if (matMbrSession.isLoginCheck() == false) {
+				String returnUrl = request.getRequestURI();
+				String queryString = request.getQueryString();
+				if (EgovStringUtil.isNotEmpty(queryString)) {
+					returnUrl = returnUrl + "?" + queryString;
+				}
+				request.getSession().setAttribute("returnUrl", returnUrl);
 				response.sendRedirect("/matching/kakao/login");
 				return false;
 			}
