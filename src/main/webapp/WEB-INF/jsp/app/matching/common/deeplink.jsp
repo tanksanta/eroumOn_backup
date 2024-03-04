@@ -14,6 +14,9 @@ end;">
 <script>
 	$(function() {
 		$('#aTagDeeplink').get(0).click();
-		location.href = '/';
+		
+		//브라우저 종료
+		var ret = window.open("about:blank", "_self");
+		ret.close();
 	})
 </script>
