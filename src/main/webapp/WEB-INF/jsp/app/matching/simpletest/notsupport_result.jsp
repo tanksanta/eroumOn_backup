@@ -76,7 +76,7 @@
     <footer class="page-footer">
 
         <div class="relative">
-            <a class="waves-effect btn-large btn_primary w100p">다른 혜택 알아보기</a>
+            <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click()">다른 혜택 알아보기</a>
         </div>
 
     </footer>
@@ -87,7 +87,11 @@
         $("body").addClass("back_gray");
 
         $(".card-content .bbs_link").off('click').on('click', function(){
-            location.href = "/matching/bbs/guide/list";
+            location.href = "/matching/bbs/guide/linkview/"+"linkdfaffda";
         });
     });
+
+    function fn_next_click(){
+        location.href = "/matching/bbs/guide/list";
+    }
 </script>    

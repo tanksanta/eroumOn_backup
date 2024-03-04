@@ -55,6 +55,7 @@
 		, ba.add_value_chk01
 		, ba.add_value_chk02
 		, ba.add_value_chk03
+		, ba.add_unique_text01
 	</sql>
 
 	<sql id="searchConditions">
@@ -147,6 +148,34 @@
 		LEFT OUTER JOIN BBS_CTGRY tbc ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
 		WHERE tb.bbs_no = #{bbsNo}
 		  AND tb.ntt_no = #{nttNo}
+	</select>
+	<select id="selectNttByBbsCd" parameterType="java.util.HashMap" resultMap="bbsMap">
+		/* Query ID : bbs.ntt.selectNttByBbsCd */
+		SELECT
+			<include refid="listColumn"/>
+			<include refid="listAddColumn"/>
+			, (SELECT bbs_ty FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTy
+			, (SELECT bbs_nm FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTyNm
+			, tbc.ctgry_nm
+		FROM BBS tb 
+		LEFT OUTER JOIN BBS_ADDCOLUMN ba ON tb.ntt_no = ba.ntt_no AND tb.bbs_no = ba.bbs_no
+		LEFT OUTER JOIN BBS_CTGRY tbc ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
+		WHERE tb.ntt_no = #{nttNo}
+			AND tb.bbs_no in (SELECT bbs_no FROM BBS_SETUP WHERE srvc_cd = #{srvcCd} and bbs_cd = #{bbsCd})
+	</select>
+	<select id="selectNttByUniqueText" parameterType="java.util.HashMap" resultMap="bbsMap">
+		/* Query ID : bbs.ntt.selectNttByLinkCd */
+		SELECT
+			<include refid="listColumn"/>
+			<include refid="listAddColumn"/>
+			, (SELECT bbs_ty FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTy
+			, (SELECT bbs_nm FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTyNm
+			, tbc.ctgry_nm
+		FROM BBS tb 
+		INNER JOIN BBS_ADDCOLUMN ba ON tb.ntt_no = ba.ntt_no AND tb.bbs_no = ba.bbs_no
+		LEFT OUTER JOIN BBS_CTGRY tbc ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
+		WHERE ba.ADD_UNIQUE_TEXT01 = #{addUniqueText01}
+			AND tb.bbs_no in (SELECT bbs_no FROM BBS_SETUP WHERE srvc_cd = #{srvcCd} and bbs_cd = #{bbsCd})
 	</select>
 
 
@@ -271,6 +300,7 @@
 			, add_value_chk01
 			, add_value_chk02
 			, add_value_chk03
+			, add_unique_text01
 		) values (
 			
 			#{nttNo}
@@ -287,6 +317,7 @@
 			, #{addValueChk01, jdbcType=VARCHAR}
 			, #{addValueChk02, jdbcType=VARCHAR}
 			, #{addValueChk03, jdbcType=VARCHAR}
+			, #{addUniqueText01, jdbcType=VARCHAR}
 		)
 	</insert>
 
@@ -304,6 +335,7 @@
 			, add_value_chk01 = #{addValueChk01, jdbcType=VARCHAR}
 			, add_value_chk02 = #{addValueChk02, jdbcType=VARCHAR}
 			, add_value_chk03 = #{addValueChk03, jdbcType=VARCHAR}
+			, add_unique_text01 = #{addUniqueText01, jdbcType=VARCHAR}
 		WHERE bbs_no = #{bbsNo}
 		  AND ntt_no = #{nttNo}
 

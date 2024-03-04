@@ -330,6 +330,15 @@
                                         <form:input path="addColumnChk03" class="form-control w-90" maxlength="255" />
                                     </td>
                                 </tr>
+                                <c:if test="${!empty bbsSetupVO.addUniqueText01}">
+                                    <tr>
+                                        <th scope="row"><label for="addUniqueText01">추가 유일값 필드01 </label></th>
+                                        <td>
+                                            <form:input path="addUniqueText01" class="form-control w-90" maxlength="255" />
+                                        </td>
+                                    </tr>
+                                </c:if>
+                                
                             </tbody>
                         </table>
                     </fieldset>

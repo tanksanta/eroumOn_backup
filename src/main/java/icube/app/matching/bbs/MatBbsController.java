@@ -56,7 +56,30 @@ public class MatBbsController  extends CommonAbstractController {
 			, Model model
 		) throws Exception{
 				
-		BbsVO nttVO = bbsService.selectNtt(srchSrvcCd, bbsCd, nttNo);
+		BbsVO nttVO = bbsService.selectNttByBbsCd(srchSrvcCd, bbsCd, nttNo);
+		if (nttVO == null) {
+			model.addAttribute("alertMsg", getMsg("alert.author.common"));
+			return "/common/msg";
+		}
+
+		// 조회수 증가
+		bbsService.updateInqcnt(nttVO.getNttNo());
+
+		model.addAttribute("nttVO", nttVO);
+
+		return "/app/matching/bbs/"+bbsCd+"/view";
+	}
+
+	@RequestMapping(value="{bbsCd}/linkview/{uniqueText}")
+	public String bbsLinkView(
+			@PathVariable String bbsCd
+			, @PathVariable String uniqueText
+			// , @RequestParam(value="nttNo", required=true) int nttNo
+			, HttpServletRequest request
+			, Model model
+		) throws Exception{
+				
+		BbsVO nttVO = bbsService.selectNttByUniqueText(srchSrvcCd, bbsCd, uniqueText);
 		if (nttVO == null) {
 			model.addAttribute("alertMsg", getMsg("alert.author.common"));
 			return "/common/msg";
