@@ -47,8 +47,9 @@
                         <td>
                             <select name="srchPREV_PATH" id="srchPREV_PATH" class="form-control w-84">
                                 <option value="">전체</option>
-                                <option value="simpleSearch" ${param.srchPREV_PATH eq 'simpleSearch'?'selected="selected"':''}>요양정보상담</option>
-                                <option value="test" ${param.srchPREV_PATH eq 'test'?'selected="selected"':''}>인정등급상담</option>
+								<c:forEach items="${prevPath}" var="item" varStatus="status">
+									<option value="${item.key}" ${item.key eq param.srchPREV_PATH ? 'selected' : ''}>${item.value}</option>
+								</c:forEach>
                             </select>
                         </td>
                     </tr>
@@ -119,7 +120,7 @@
 		</thead>
 		<tbody>
 		<c:forEach var="resultList" items="${listVO.listObject}" varStatus="status">
-		<c:set var="pageParam" value="consltNo=${resultList.consltNo}&amp;curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}" />
+		<c:set var="pageParam" value="consltNo=${resultList.consltNo}&amp;curPage=${listVO.curPage}&amp;cntPerPage=${param.cntPerPage}&amp;srchRegBgng=${param.srchRegBgng}&amp;srchRegEnd=${param.srchRegEnd}&amp;srchMbrNm=${param.srchMbrNm}&amp;srchMbrTelno=${param.srchMbrTelno}&amp;srchConsltSttus=${param.srchConsltSttus}&amp;srchPREV_PATH=${param.srchPREV_PATH}" />
 			<tr>
 				<td>
 					<div class="form-check">
