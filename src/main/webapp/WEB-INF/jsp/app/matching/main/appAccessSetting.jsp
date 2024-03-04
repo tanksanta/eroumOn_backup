@@ -53,11 +53,11 @@
 	
 		function clickConfirmBtn() {
 			if (clickCtn === 1) {
-				location.href = '/matching/kakao/login';
+				location.href = '${redirectUrl}';
 				return;
 			}
 			
-			sendDataToMobileApp({ actionName: 'requestPermissions', type: 'push' });
+			sendDataToMobileApp({ actionName: 'requestPermissions', type: 'push', redirectUrl: '${redirectUrl}' });
 			clickCtn++;
 		}
 	</script>
