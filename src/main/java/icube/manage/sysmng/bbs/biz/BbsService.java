@@ -28,13 +28,13 @@ public class BbsService extends CommonAbstractServiceImpl {
 
 		return bbsDAO.selectNtt(paramMap);
 	}
-	public BbsVO selectNtt(String srvcCd, String bbsCd, int nttNo) throws Exception {
+	public BbsVO selectNttByBbsCd(String srvcCd, String bbsCd, int nttNo) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("srvcCd", srvcCd);
 		paramMap.put("bbsCd", bbsCd);
 		paramMap.put("nttNo", nttNo);
 
-		return bbsDAO.selectNtt(paramMap);
+		return bbsDAO.selectNttByBbsCd(paramMap);
 	}
 
 	public void insertNtt(BbsVO nttVO) throws Exception {
