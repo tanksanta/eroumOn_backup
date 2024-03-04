@@ -44,9 +44,7 @@ public class SimpleTestService extends CommonAbstractServiceImpl {
     public SimpleTestVO selectSimpleTestOne(Map<String,Object> paramMap) {
         return simpleTestDAO.selectSimpleTestOne(paramMap);
     }
-    public SimpleTestVO selectSimpleTestByRecipientsNo(int recipientsNo, String testTy) {
-        return this.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, testTy);
-    }
+
     public SimpleTestVO selectSimpleTestByRecipientsNo(String uniqueId, int recipientsNo, String testTy) {
     	Map<String, Object> paramMap = new HashMap<>();
 

@@ -83,7 +83,7 @@
         var jsCommon = new JsCommon();
         var qsMap = jsCommon.fn_queryString_toMap();
 
-        var param = {recipientsNo:qsMap["recipientsNo"], mbrSimpletestNo : result["mbrSimpletestNo"]}
+        var param = {recipientsNo:qsMap["recipientsNo"]}//, mbrSimpletestNo : result["mbrSimpletestNo"]
         
         location.href = '${nextStepUrl}' + '?' + jsCommon.fn_queryString_fromMap(param);
     }
