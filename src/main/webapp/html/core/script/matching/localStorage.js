@@ -20,6 +20,10 @@ function getInLocalStorageForObj(key) {
 	return JSON.parse(str);
 }
 
+function removeInLocalStorage(key) {
+	sessionStorage.removeItem(key);
+}
+
 var historyKey = 'historyStack';
 var historyStackSize = 100;
 function getHistoryStack() {
@@ -73,4 +77,24 @@ function pushHistoryStack(history) {
 
 function clearHistoryStack() {
 	setHistoryStack([]);
+}
+
+//특정 경로를 검색하여 그 경로부터 최근 이력까지 삭제
+//srchPath : 검색할 경로로 like 검색
+function removeHistoryStackFrom(srchPath) {
+	if (!srchPath) {
+		return;
+	}
+	var historyStack = getInLocalStorageForObj(historyKey);
+	if (!historyStack) {
+		return;
+	}
+
+	//경로 like 검색
+	var srchIndex = historyStack.findLastIndex(f => f.indexOf(srchPath) !== -1);
+	if (srchIndex === -1) {
+		return;
+	}
+	historyStack = historyStack.slice(0, srchIndex);
+	setHistoryStack(historyStack);
 }

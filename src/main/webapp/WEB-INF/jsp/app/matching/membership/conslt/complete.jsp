@@ -94,8 +94,8 @@
 	
 	<script>
 		$(function() {
-			//상담 정보 입력, 상담 신청 페이지 기록 삭제
-			popHistoryStack(-1);
+			//상담 정보 입력 페이지부터 최근 이력 삭제
+			removeHistoryStackFrom('/matching/membership/conslt/infoConfirm');
 			
 			//body에 css class 추가
 			$('body').addClass('back_gray');

@@ -101,6 +101,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 	@RequestMapping(value = "/addMbrConslt.json")
 	public synchronized Map<String, Object> addMbrConslt(
 			@RequestParam String prevPath
+			, @RequestParam String tel
 			, @RequestParam String sido
 			, @RequestParam String sigugun) throws Exception {
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
@@ -112,7 +113,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 		mbrConsltVO.setRecipientsNo(mainRecipientInfo.getRecipientsNo());
 		mbrConsltVO.setRelationCd(mainRecipientInfo.getRelationCd());
 		mbrConsltVO.setMbrNm(mainRecipientInfo.getRecipientsNm());
-		mbrConsltVO.setMbrTelno(mainRecipientInfo.getTel());
+		mbrConsltVO.setMbrTelno(tel);
 		mbrConsltVO.setGender(mainRecipientInfo.getGender());
 		mbrConsltVO.setBrdt(mainRecipientInfo.getBrdt());
 		mbrConsltVO.setZip(sido);
@@ -135,5 +136,13 @@ public class MatMbrConsltController extends CommonAbstractController {
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
 		return "/app/matching/membership/conslt/complete";
+	}
+	
+	/**
+	 * 상담 받을 연락처 변경 페이지
+	 */
+	@RequestMapping(value = "telChange")
+	public String telChange() throws Exception {
+		return "/app/matching/membership/conslt/telChange";
 	}
 }
