@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/html/page/app/matching/assets/src/css/materialize.min.css" />
     <!-- style.css -->
     <link rel="stylesheet" href="/html/page/app/matching/assets/src/css/style.css">
+    <!-- favicon -->
+    <link id="favicon" rel="shortcut icon" href="/html/core/images/favicon.ico" sizes="16x16">
     
     <!-- lottie -->
   	<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
