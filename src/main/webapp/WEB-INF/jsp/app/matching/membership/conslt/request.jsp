@@ -212,7 +212,7 @@
 					sigugun: sigugunText,
 				},
 				function(result) {
-					
+					location.href = '/matching/membership/conslt/complete';
 				}
 			);
 		}
