@@ -26,6 +26,7 @@
 		, add_column_chk01
 		, add_column_chk02
 		, add_column_chk03
+		, add_unique_text01
 	</sql>
 
 	<sql id="listWhere">
@@ -111,6 +112,7 @@
 			, add_column_chk01
 			, add_column_chk02
 			, add_column_chk03
+			, add_unique_text01
 		FROM BBS_SETUP bbs
 		<include refid="listWhere"/>
 	</select>
@@ -148,6 +150,7 @@
 			, add_column_chk01
 			, add_column_chk02
 			, add_column_chk03
+			, add_unique_text01
 			, reg_unique_id
 			, reg_id
 			, rgtr
@@ -182,6 +185,7 @@
 			, #{addColumnChk01, jdbcType=VARCHAR}
 			, #{addColumnChk02, jdbcType=VARCHAR}
 			, #{addColumnChk03, jdbcType=VARCHAR}
+			, #{addUniqueText01, jdbcType=VARCHAR}
 			, #{regUniqueId, jdbcType=VARCHAR}
 			, #{regId, jdbcType=VARCHAR}
 			, #{rgtr, jdbcType=VARCHAR}
@@ -225,6 +229,7 @@
 			, add_column_chk01 = #{addColumnChk01, jdbcType=VARCHAR}
 			, add_column_chk02 = #{addColumnChk02, jdbcType=VARCHAR}
 			, add_column_chk03 = #{addColumnChk03, jdbcType=VARCHAR}
+			, add_unique_text01 = #{addUniqueText01, jdbcType=VARCHAR}
 		WHERE bbs_no = #{bbsNo}
 	</update>
 

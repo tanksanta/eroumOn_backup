@@ -166,6 +166,14 @@
                                         <form:input path="addValueText07" class="form-control w-full" maxlength="250" />
                                     </td>
                                 </tr>
+								<c:if test="${!empty bbsSetupVO.getAddUniqueText01()}">
+									<tr>
+										<th scope="row"><label for="addUniqueText01">${bbsSetupVO.getAddUniqueText01()}</label></th>
+										<td>
+											<form:input path="addUniqueText01" class="form-control w-full" maxlength="250" />
+										</td>
+									</tr>
+								</c:if>
                                 
                                 <tr>
                                     <th scope="row"><label for="cn" class="require">내용</label></th>

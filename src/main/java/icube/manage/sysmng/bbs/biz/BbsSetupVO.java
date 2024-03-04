@@ -57,4 +57,5 @@ public class BbsSetupVO extends CommonBaseVO {
 	private String addColumnChk02; //추가 체크박스 필드 02
 	private String addColumnChk03; //추가 체크박스 필드 03
 
+	private String addUniqueText01; //추가 유일값 필드 01
 }

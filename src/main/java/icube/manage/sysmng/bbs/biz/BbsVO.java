@@ -59,4 +59,6 @@ public class BbsVO  extends CommonBaseVO {
 	private String addValueChk01; //추가 체크박스 필드 01
 	private String addValueChk02; //추가 체크박스 필드 01
 	private String addValueChk03; //추가 체크박스 필드 01
+
+	private String addUniqueText01; //추가 유일값 필드 01
 }
