@@ -43,21 +43,21 @@
 				<c:if test="${ !empty kakaoAuthInfo }">
 	                <div class="waves-effect btn-large btn_white w100p d-flex align-items-center">
 	                    <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/social_kakao_40.svg">
-	                    <span>${kakaoAuthInfo.eml}</span>
+	                    <span class="font_sbmr">${kakaoAuthInfo.eml}</span>
 	                </div>
                 </c:if>
                 
                 <c:if test="${ !empty naverAuthInfo }">
 	                <div class="waves-effect btn-large btn_white w100p d-flex align-items-center">
 	                    <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/icon_naver02.svg">
-	                    <span>${naverAuthInfo.eml}</span>
+	                    <span class="font_sbmr">${naverAuthInfo.eml}</span>
 	                </div>
                 </c:if>
                 
                 <c:if test="${ !empty eroumAuthInfo }">
 	                <div class="waves-effect btn-large btn_white w100p d-flex align-items-center">
 	                    <img class="icon_img" src="/html/page/app/matching/assets/src/images/08etc/login_on_40.svg">
-	                    <span>${eroumAuthInfo.mbrId}</span>
+	                    <span class="font_sbmr">${eroumAuthInfo.mbrId}</span>
 	                </div>
                 </c:if>
 

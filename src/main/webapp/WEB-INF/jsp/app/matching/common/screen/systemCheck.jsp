@@ -19,7 +19,7 @@
                 <div class="h24"></div>
 
                 <div class="color_tp_pp font_shs">[긴급]시스템 점검</div>
-                <div class="color_tp_s font_sbms">2024.1.24 08:00 ~ 2024.1.24 09:00</div>
+                <div class="color_tp_s font_sbms marT4">2024.1.24 08:00 ~ 2024.1.24 09:00</div>
 
                 <div class="h12"></div>
                 
