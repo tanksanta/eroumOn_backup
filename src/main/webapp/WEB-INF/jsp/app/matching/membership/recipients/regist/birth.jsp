@@ -29,8 +29,8 @@
 
                 <div class="h32"></div>
 
-                <input type="date" class="input_basic birth" placeholder="1950/01/01" value="1954-06-30">
-				<div class="vaild_txt disNone error name">다시 확인해 주세요.</div>
+                <input type="text" class="input_basic birth keycontrol birthdt10" placeholder="1958/01/01">
+				<div class="vaild_txt birth disNone error name">다시 확인해 주세요.</div>
 
             </section>
         </main>
@@ -39,7 +39,7 @@
 		<footer class="page-footer">
 
             <div class="relative">
-				<a class="waves-effect btn-large btn_primary w100p btnEvt_me modal-trigger" href="#modal_eld_apply">다음</a>
+				<a class="waves-effect btn-large btn_primary w100p btnEvt_me modal-trigger" onclick="fn_next_birth($(this))">다음</a>
             </div>
 
         </footer>
@@ -80,8 +80,21 @@
     </div>
 	
 	<script>
-		
+		var _jsCommon
+        var _dateValid = false;
         $(function () {
+            _jsCommon = new JsCommon();
+            _jsCommon.fn_keycontrol();
+
+            $('.input_basic.birth').on('blur', function () {
+                _dateValid = _jsCommon.fn_date10_slash_check($(this).val());
+                if (_dateValid){
+                    $(".vaild_txt.birth").addClass("disNone");
+                    
+                }else{
+                    $(".vaild_txt.birth").removeClass("disNone");
+                }
+            });
 
             //동의시 버튼 활성화
             $('.evt_chk').on('click', function () {
@@ -99,6 +112,16 @@
             });
 
         });
+
+        function fn_next_birth(){
+            if (_dateValid){
+                $(".btnEvt_me").removeAttr("onclick");
+                $(".btnEvt_me").attr("href", "#modal_eld_apply");
+                return;
+            }
+
+            $(".vaild_txt.birth").removeClass("disNone");
+        }
 
 		var m_redirectUrl;
         var m_startStep;
@@ -133,6 +156,10 @@
         }
 
 		function fn_next_click(){
+            if (!_dateValid){
+                showAlertPopup("생년월일을 확인하여 주십시오.");
+                return;
+            }
 			var jobj = $("input.birth");
 			var url = "./regist.json";
 
