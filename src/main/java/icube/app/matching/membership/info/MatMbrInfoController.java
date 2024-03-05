@@ -239,4 +239,30 @@ public class MatMbrInfoController extends CommonAbstractController{
 		
 		return resultMap;
 	}
+	
+	/**
+	 * 회원 정보 및 수급자 정보 조회 ajax
+	 */
+	@ResponseBody
+	@RequestMapping("getMbrInfo.json")
+	public Map<String, Object> getMbrInfo() throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+		
+		try {
+			if(!matMbrSession.isLoginCheck()) {
+				resultMap.put("msg", "로그인이 필요합니다.");
+				return resultMap;
+			}
+		
+			MbrVO mbrVO = mbrService.selectMbrByUniqueId(matMbrSession.getUniqueId());
+			resultMap.put("mbrVO", mbrVO);
+			resultMap.put("mbrRecipients", mbrVO.getMbrRecipientsList());
+			resultMap.put("success", true);
+		} catch(Exception ex) {
+			log.error("========회원 수급자 정보 조회 오류 : ", ex);
+		}
+		
+		return resultMap;
+	}
 }
