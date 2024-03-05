@@ -48,6 +48,9 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 	@Value("#{props['Mail.Username']}")
 	private String sendMail;
 	
+	@Value("#{props['Mail.Testuser']}")
+	private String testUser;
+	
 	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 
@@ -232,8 +235,7 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		if("real".equals(activeMode)) {
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		} else {
-			putEml = "dglee@thkc.co.kr";
-			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			mailService.sendMail(sendMail, this.testUser, mailSj, mailForm);
 		}
 	}
 	
@@ -253,8 +255,7 @@ public class MbrConsltResultService extends CommonAbstractServiceImpl {
 		if("real".equals(activeMode)) {
 			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
 		} else {
-			putEml = "dglee@thkc.co.kr";
-			mailService.sendMail(sendMail, putEml, mailSj, mailForm);
+			mailService.sendMail(sendMail, this.testUser, mailSj, mailForm);
 		}
 	}
 }
