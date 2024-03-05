@@ -987,7 +987,7 @@ h5.title{
     //어르신 정보수정 프로필
     &.info_mdfy{
         display: grid;
-        grid-template-columns: 64px 1fr;
+        grid-template-columns: 64px 1fr auto;
         background-image: none;
         }
     
@@ -1165,57 +1165,46 @@ h5.title{
 }
 
 
-//장기요양기관 상담목록
+//장기요양기관 상담목록 - 상담진행중, 상담완료
 .box_coun_list{
-    display: flex;
+    display: grid;
+    grid-template-columns: 72px 1fr;
     align-items: center;
-    gap:12px;
-    background-image: url('../images/04icon/chevron-right.svg');
-    background-position: calc(100% - 20px) center;
+    gap:16px;
+    background-image: url('../images/18icon/chevron-right_thin.svg');
+    background-position: calc(100% - 12px) center;
     background-repeat: no-repeat;
-    background-size: 20px;
-
-    //어르신 정보수정 프로필
-    &.info_mdfy{
-        display: grid;
-        grid-template-columns: 64px 1fr;
-        background-image: none;
-        }
-    
+    background-size: 24px;
 
     .img_area{
         overflow: hidden;
-        width:64px;
-        height: 64px;
-        border-radius: 16px;
-        background-color: $--Color-bg-Primitive-selected-press;
-        background-repeat: no-repeat;
+        width:72px;
+        height: 72px;
+        border-radius: 50%;
+        
+        background-repeat: no-repeat; 
         background-position: center;
-        background-size: 48px;
+        background-size: 60px;
+        opacity: 0.85;
+        &.ing{
+            background-color: $--Color-bg-brand-sub-bold;
+            background-image: url('../../images/06trans/trans_02.svg');
+        }
+        &.ok{
+            background-color: $--Color-bg-inverse-bold;
+            background-image: url('../../images/06trans/trans_01.svg');
+        }
 
-        display: flex;
-        align-items: end;
 
-        &.fl_01{
-            background-image: url('../images/07flower/fl_01.svg');
-        }
-        &.fl_02{
-            background-image: url('../images/07flower/fl_02.svg');
-        }
-        &.fl_03{
-            background-image: url('../images/07flower/fl_03.svg');
-        }
-        &.fl_04{
-            background-image: url('../images/07flower/fl_04.svg');
-        }
+        & + div{padding-right: 24px;}
         
         .txt{
             width:100%;
-            height: 24px;
-            background-color: rgba(238, 96, 2, 0.6);
+            height: 100%;
             color:#fff;
-            @include Suit_Body_SS_Bold;
+            text-align: center;
             @include flex_center;
+            @include text_shadow;
         }
         
     }

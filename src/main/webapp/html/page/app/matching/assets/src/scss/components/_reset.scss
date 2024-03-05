@@ -285,6 +285,14 @@ $--Color-icon-Primitive-inverse: #fff;
 
 }
 
+@mixin text_shadow{
+
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.20), 0px 1px 2px rgba(0, 0, 0, 0.12);
+    
+}
+
+
+
 //flex_center
 @mixin flex_center{
     display: flex;

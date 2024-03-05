@@ -2903,7 +2903,7 @@ h5.title {
 }
 .box_om_profile.info_mdfy {
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: 64px 1fr auto;
   background-image: none;
 }
 .box_om_profile .img_area {
@@ -3064,53 +3064,43 @@ h5.title {
 }
 
 .box_coun_list {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background-image: url("../images/04icon/chevron-right.svg");
-  background-position: calc(100% - 20px) center;
-  background-repeat: no-repeat;
-  background-size: 20px;
-}
-.box_coun_list.info_mdfy {
   display: grid;
-  grid-template-columns: 64px 1fr;
-  background-image: none;
+  grid-template-columns: 72px 1fr;
+  align-items: center;
+  gap: 16px;
+  background-image: url("../images/18icon/chevron-right_thin.svg");
+  background-position: calc(100% - 12px) center;
+  background-repeat: no-repeat;
+  background-size: 24px;
 }
 .box_coun_list .img_area {
   overflow: hidden;
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background-color: #FFC77D;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 48px;
-  display: flex;
-  align-items: end;
+  background-size: 60px;
+  opacity: 0.85;
 }
-.box_coun_list .img_area.fl_01 {
-  background-image: url("../images/07flower/fl_01.svg");
+.box_coun_list .img_area.ing {
+  background-color: #10185C;
+  background-image: url("../../images/06trans/trans_02.svg");
 }
-.box_coun_list .img_area.fl_02 {
-  background-image: url("../images/07flower/fl_02.svg");
+.box_coun_list .img_area.ok {
+  background-color: #333333;
+  background-image: url("../../images/06trans/trans_01.svg");
 }
-.box_coun_list .img_area.fl_03 {
-  background-image: url("../images/07flower/fl_03.svg");
-}
-.box_coun_list .img_area.fl_04 {
-  background-image: url("../images/07flower/fl_04.svg");
+.box_coun_list .img_area + div {
+  padding-right: 24px;
 }
 .box_coun_list .img_area .txt {
   width: 100%;
-  height: 24px;
-  background-color: rgba(238, 96, 2, 0.6);
+  height: 100%;
   color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 21px; /* 150% */
-  letter-spacing: -0.21px;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2), 0px 1px 2px rgba(0, 0, 0, 0.12);
 }/*# sourceMappingURL=style.css.map */
