@@ -9,37 +9,101 @@ $(function(){
 
 
     //입력폼 input_basic - valid 추가
-    $('.input_basic').attr({
+    $('input.input_basic').attr({
         'required': true,
     });
 
-    //ddddddddddddddd
-    $('.input_noClass.test').on('each', function(){
 
+
+
+    //입력폼이 div안에 있을때 input_noClass
+    $('.input_noClass').each(function(){
+
+        
+        //포커싱시 주황색 라인
+        $(this).focus(function(){
+
+            $(this).parents('.input_basic').css('border', '2px solid #FF8120');
+
+        });
+        
+
+        //포커스아웃시 텍스트 유무에 따라 border값 설정
+        $(this).focusout(function(){
+
+            if($(this).val().length > 0){
+
+
+                //레드라인일때 그대로 유지
+                if($(this).parents('.input_basic').hasClass('bder_danger')==true){
+
+                    $(this).parents('.input_basic').css('border', '2px solid #E53935');
+
+                }
+
+                else{
+                    //valid
+                    $(this).parents('.input_basic').css('border', '1px solid #999');
+
+                }
+
+            }
+
+
+            else{
+
+                //레드라인일때 그대로 유지
+                if($(this).parents('.input_basic').hasClass('bder_danger')==true){
+
+                    //red
+                    $(this).parents('.input_basic').css('border', '2px solid #E53935');
+
+                }
+
+                else{
+
+                    $(this).parents('.input_basic').css('border', '1px solid #E0E0E0');
+
+                }
+
+            }
+
+        });
+
+
+        //텍스트 있을시
         if($(this).val().length > 0){
 
-            alert('ddd');
+            //레드라인일때 return 
+            if($(this).parents('.input_basic').hasClass('bder_danger')==true){
+
+                return;
+
+            }
+
+            else{
+
+                //valid
+                $(this).parents('.input_basic').css('border', '1px solid #999');
+
+            }
+            
 
         };
 
-        // $(this).click(function(){
 
-        //     if($(this).is(':valid')){
-
-        //         $(this).parents('.input_basic').css('border', '2px solid #FF8120');
-    
-        //     }
-        //     else{
-    
-        //         $(this).parents('.input_basic').css('border', '1px solid #000');
-        //     }
-
-
-        // });
+    });
 
 
 
-      });
+    //어르신step 텍스트 active시 그래프에도 active처리
+    $('.step_txt_area li.active').each(function(){
+
+        var activeLen = $(this).index()+1;
+
+        $('.step_graph_area li:nth-child('+ activeLen +')').addClass('active');
+
+    });
 
 
 

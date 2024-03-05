@@ -43,7 +43,7 @@ public class MatWelfareinfoController  extends CommonAbstractController {
             isLogin = false;
         }
 
-        MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId("MBR_00000091");//matMbrSession.getUniqueId()
+        MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());//"MBR_00000091" matMbrSession.getUniqueId()
 
         model.addAttribute("noRecipient", mbrRecipientsVO == null);
         model.addAttribute("isLogin", isLogin);

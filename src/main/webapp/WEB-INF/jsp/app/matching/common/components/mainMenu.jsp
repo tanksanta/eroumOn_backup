@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-		<div class="card waves-effect w100p<c:if test="${ param != null && param.active == '1' }"> active</c:if>">
+		<div class="card waves-effect w100p<c:if test="${ param != null && param.active == '1' }"> active</c:if>" onclick="location.href='/matching/welfareinfo/interest/intro';">
 
           <div class="card-content d-flex justify-content-between align-items-center">
 

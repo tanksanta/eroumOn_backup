@@ -13,7 +13,7 @@
         <section class="intro">
 
             <h2 class="title02">
-                꽃분이님,<br>
+                ${mbrRecipientsVO.recipientsNm}님,<br>
                 돌봄 혜택을 받지 못할 것으로 예상돼요
             </h2>
 

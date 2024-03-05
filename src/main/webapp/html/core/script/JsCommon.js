@@ -70,13 +70,18 @@ class JsCommon{
         
         /*생년월일 형식*/
         $(".keycontrol.birthdt10").off("keyup").on("keyup", function(event){
-            this.value= owner.fn_keycontrol_BirthDt10(this.value);
+            this.value= owner.fn_keycontrol_BirthDt10(event, this.value);
         });
 
     }
     
 
-    fn_keycontrol_BirthDt10(date){
+    fn_keycontrol_BirthDt10(e, date){
+        var bSlash = false;
+        if (e.key == '/'){
+            bSlash = true;
+        }
+
         date=date.replace(/[^0-9]/g,'');/*숫자만 입력*/
         if (date.length < 4) {
             return date;
@@ -95,11 +100,33 @@ class JsCommon{
             RegDateFmt = /([0-9]{4})([0-9]{2})([0-9]+)/;
         }
 
+        if ((date.length == 4 && bSlash) || (date.length == 6 && bSlash)){
+            date = date + '/';
+        }
+        
         if (DataFormat != undefined){
             date = date.replace(RegDateFmt, DataFormat);
         }
 
         return date;
+    }
+
+    fn_date10_slash_check(date10){
+        if (date10 == undefined || date10.length != 10){
+            return false;
+        }
+        
+        var temp = date10.split('/');
+        if (temp.length != 3){
+            return false;
+        }
+
+        var date = new Date(temp[0], temp[1], temp[2]);
+        if (date.getFullYear() != temp[0] || date.getMonth() != parseInt(temp[1]) || date.getDate() != parseInt(temp[2])){
+            return false;
+        }
+        
+        return true;
     }
 
     fn_keycontrol_NumberComma(x){

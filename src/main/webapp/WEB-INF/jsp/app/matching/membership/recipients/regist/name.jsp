@@ -29,7 +29,7 @@
 
                 <div class="h32"></div>
 
-                <input type="text" class="input_basic name" value="">
+                <input type="text" class="input_basic name" value="${recipientsNm}" ${disabled}>
                 <div class="vaild_txt disNone error name">이름을 입력해 주세요.</div>
 
             </section> 

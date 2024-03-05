@@ -22,17 +22,12 @@
   <!-- materialize CSS -->
   <link rel="stylesheet" href="../css/materialize.min.css" />
 
-  <!-- swiper -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-
 
   <!-- style.css -->
   <link rel="stylesheet" href="../css/style.css" />
 
 
   <style>
-
 
 
   </style>
@@ -47,6 +42,9 @@
 
   </script>
 
+
+  <!-- lottie -->
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 
 
 </head>
@@ -70,78 +68,290 @@
     <main>
       <section class="default">
 
-        <div>
-          ddddddddddddddd
+        <div class="om_reg_area">
+          <ul>
+
+            <li class="fl_01 active waves-effect">꽃분이</li>
+            <li class="fl_02 waves-effect">꽃순이</li>
+            <li class="reg_btn waves-effect">어르신 등록</li>
+
+          </ul>
         </div>
 
-        <h4 class="title">어떤 도움을 받고 싶으세요?</h4>
+        <div class="h20"></div>
 
-        <div class="h24"></div>
+        <div class="card active waves-effect w100p">
 
+          <div class="card-content box_om_profile pad20">
 
-        <div class="card waves-effect w100p">
-
-          <div class="card-content d-flex justify-content-between align-items-center">
+            <div class="img_area fl_01">
+              <span class="txt">대표</span>
+            </div>
 
             <div>
-              <span class="color_t_s font_sbsr">관심 복지용구</span>
-              <h5 class="title">
-                장기요양금액으로<br />관심있는 복지용구 지원받기
-              </h5>
-            </div> 
-            <img src="../images/08etc/tool_40.svg" class="w80" alt="관심 복지용구">
+              <div class="font_sbmr"><span class="font_sbmb">꽃분이</span>님</div>
+              <div class="marT5">
+                <span class="badge_reco_num">요양인정번호</span>
+                <span class="font_sbsb">1234567890</span>
+              </div>
+            </div>
 
           </div>
         </div>
         <!-- card -->
 
-        <div class="h16"></div>
-
-        <div class="card waves-effect w100p">
-
-          <div class="card-content d-flex justify-content-between align-items-center">
-
-            <div>
-              <span class="color_t_s font_sbsr">간편 테스트</span>
-              <h5 class="title">
-                장기요양보험 혜택 받을 수<br />있는 지 빠르게 확인하기
-              </h5>
-            </div> 
-            <img src="../images/08etc/test_80.svg" class="w80" alt="간편 테스트">
-
-          </div>
+        <div class="align_center">
+          <img src="../images/08etc/link_40.svg" alt="obj" class="disBlock">
         </div>
-        <!-- card -->
-        
-        <div class="h16"></div>
 
-        <div class="card waves-effect w100p">
-
-          <div class="card-content d-flex justify-content-between align-items-center">
-
-            <div>
-              <span class="color_t_s font_sbsr">어르신 돌봄</span>
-              <h5 class="title">
-                필요한 시간에<br />돌봄 서비스 지원받기
-              </h5>
-            </div> 
-            <img src="../images/08etc/time03_80.svg" class="w80" alt="어르신 돌봄">
-
-          </div>
-        </div>
-        <!-- card -->
-
-
-        <div class="h16"></div>
-
-        <div class="card notice waves-effect w100p">
+        <div class="card">
 
           <div class="card-content">
- 
-            <dl class="notice_dl">
-              <dt>공지사항</dt>
-              <dd>이용약관이 변경되었습니다.</dd>
-            </dl>
+
+            <div class="box_sub02">
+              <div class="img_area">
+                <img src="../images/08etc/bp_40.svg" alt="혜택">
+              </div>
+              <div class="ctn_area">
+                <div class="font_sbls">행복메디칼 관악지점</div>
+              </div>
+            </div>
+
+            <div class="h16"></div>
+
+            <div class="step_area">
+              <!-- 텍스트영역에 active시 그래프영역에도 active 처리 - guide.js 참조-->
+              <ul class="step_txt_area">
+                <li>신청완료</li>
+                <li>상담연결중</li>
+                <li class="active">상담진행중</li>
+                <li>상담완료</li>
+              </ul>
+              <ul class="step_graph_area">
+                <li class="item"></li>
+                <li class="item "></li>
+                <li class="item "></li>
+                <li class="item "></li>
+              </ul>
+            </div>
+
+            <div class="h16"></div>
+
+            <div class="align_center gap04">
+              <dotlottie-player src="https://lottie.host/1708b753-45e2-467d-b994-741cd16f91cb/hlyaHKO1FL.json"
+                background="transparent" speed="1" style="width: 20px; height: 20px;" loop autoplay></dotlottie-player>
+              <div class="color_tp_p font_sbss">적합한 곳을 찾았어요! 기다려주세요</div>
+            </div>
+
+            <div class="h24"></div>
+
+
+            <a class="waves-effect btn-large btn_default w100p">상담내역 보기</a>
+
+          </div>
+        </div>
+
+        <div class="h32"></div>
+
+
+
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="color_t_p font_sbms">관심 복지용구</div>
+              <div class="waves-effect link_text small_thin">설정하기</div>
+            </div>
+
+            <div class="h24"></div>
+
+            <div class="wel_select_slide marW-20">
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_01.svg" alt="성인용 보행기">
+                </div>
+                <span class="txt">성인용 보행기</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_04.svg" alt="안전손잡이">
+                </div>
+                <span class="txt">안전손잡이</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_03.svg" alt="지팡이">
+                </div>
+                <span class="txt">지팡이</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_08.svg" alt="욕창예방 방석">
+                </div>
+                <span class="txt">욕창예방 방석</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_02.svg" alt="수동휠체어">
+                </div>
+                <span class="txt">수동휠체어</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_05.svg" alt="미끄럼방지 매트">
+                </div>
+                <span class="txt">미끄럼방지<br>매트</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_06.svg" alt="미끄럼방지 양말">
+                </div>
+                <span class="txt">미끄럼방지<br>양말</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_07.svg" alt="욕창예방 매트리스">
+                </div>
+                <span class="txt">욕창예방<br>매트리스</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_09.svg" alt="자세변환용구">
+                </div>
+                <span class="txt">자세변환용구</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_10.svg" alt="요실금 팬티">
+                </div>
+                <span class="txt">요실금 팬티</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_11.svg" alt="목욕의자">
+                </div>
+                <span class="txt">목욕의자</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_12.svg" alt="이동변기">
+                </div>
+                <span class="txt">이동변기</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_13.svg" alt="간이변기">
+                </div>
+                <span class="txt">간이변기</span>
+              </div>
+              <!-- ctn -->
+
+              <div class="ctn waves-effect">
+                <div class="img_area">
+                  <img src="../images/02tool/tool02_14.svg" alt="경사로">
+                </div>
+                <span class="txt">경사로</span>
+              </div>
+              <!-- ctn -->
+
+
+
+
+
+
+            </div>
+
+
+
+
+            <div class="h24"></div>
+
+            <a class="waves-effect btn-large btn_default w100p">상담하기</a>
+
+          </div>
+        </div>
+        <!-- card -->
+
+        <div class="h32"></div>
+
+
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="color_t_p font_sbms">인정등급 간편 테스트</div>
+              <div class="waves-effect link_text small_thin">다시하기</div>
+            </div>
+
+            <div class="h24"></div>
+
+            <div class="align_center">
+              
+              <img src="../images/11easy/easy_09.svg" alt="간편 테스트">
+              
+            </div>
+
+            <div class="h24"></div>
+
+            <a class="waves-effect btn-large btn_default w100p">상담하기</a>
+
+          </div>
+        </div>
+        <!-- card -->
+
+        <div class="h32"></div>
+
+        <div class="card">
+
+          <div class="card-content">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="color_t_p font_sbms">어르신 돌봄</div>
+              <div class="waves-effect link_text small_thin">설정하기</div>
+            </div>
+
+            <div class="h24"></div>
+
+            <div class="align_center">
+
+              <img src="../images/08etc/time03_80.svg" style="height:132px;" alt="어르신 돌봄">
+
+            </div>
+
+            <div class="h12"></div>
+
+            <div class="center font_sbms">8~10시간</div>
+
+            <div class="h24"></div>
+
+            <a class="waves-effect btn-large btn_default w100p">상담하기</a>
 
           </div>
         </div>
@@ -193,20 +403,6 @@
 
 
 
-
-
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    var swiper = new Swiper(".service_Swiper", {
-      autoHeight: true,
-      slidesPerView: "auto",
-      //centeredSlides: true,
-      spaceBetween: 0,
-      pagination: {
-        clickable: true,
-      },
-    });
-  </script>
 
 
 </body>

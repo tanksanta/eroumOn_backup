@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+
+import icube.common.vo.CommonCheckVO;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 
 @Service("mbrRecipientsService")
@@ -45,6 +47,59 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		List<MbrRecipientsVO> recipientsList = this.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
 
 		return recipientsList.size();
+	}
+	
+	public CommonCheckVO insertCheckMbrRecipients(String mbrUniqueId, Map<String,Object> reqMap) throws Exception {
+		CommonCheckVO checkVO = new CommonCheckVO();
+		checkVO.setSuccess(false);
+
+		if (mbrUniqueId == null || mbrUniqueId.length() < 3){
+			checkVO.setErrorMsg("로그인 이후 이용가능합니다");
+			return checkVO;
+		}
+
+
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(mbrUniqueId);
+
+		if (mbrRecipientList.size() > 3) {
+			checkVO.setErrorMsg("더 이상 수급자(어르신)를 등록할 수 없습니다");
+			return checkVO;
+		}
+
+		if (reqMap.get("relationCd") != null && reqMap.get("relationCd").toString().length() > 0){
+			String relationCd = reqMap.get("relationCd").toString();
+
+			//본인은 한명만 등록이 가능
+			if ("007".equals(relationCd)) {
+				boolean alreadyExistMe = mbrRecipientList.stream().anyMatch(mr -> "007".equals(mr.getRelationCd()));
+				if (alreadyExistMe) {
+					checkVO.setErrorMsg("이미 본인으로 등록한 수급자(어르신)가 존재합니다");
+					return checkVO;
+				}
+			}
+	
+			//배우자는 한명만 등록이 가능
+			if ("001".equals(relationCd)) {
+				boolean alreadyExistSpouse = mbrRecipientList.stream().anyMatch(mr -> "001".equals(mr.getRelationCd()));
+				if (alreadyExistSpouse) {
+					checkVO.setErrorMsg("이미 배우자로 등록한 수급자(어르신)가 존재합니다");
+					return checkVO;
+				}
+			}
+		}
+		
+		
+		if (reqMap.get("recipientsNm") != null && reqMap.get("recipientsNm").toString().length() > 0){
+			String recipientsNm = reqMap.get("recipientsNm").toString();
+			
+			if (mbrRecipientList.stream().filter(f -> recipientsNm.equals(f.getRecipientsNm())).count() > 0) {
+				checkVO.setErrorMsg("이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
+				return checkVO;
+			}
+		}
+
+		checkVO.setSuccess(true);
+		return checkVO;
 	}
 	
 	public void insertMbrRecipients(MbrRecipientsVO mbrRecipientsVO) {

@@ -1,22 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
 
-	<div class="wrapper">
-	    <!-- 상단 뒤로가기 버튼 추가 -->
-		<jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
-			<jsp:param value="" name="addButton" />
-		</jsp:include>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!--http://local-on.eroum.co.kr/html/page/app/matching/assets/src/pages/F_SNR_002_eld_regi02.html-->
+
+    <title>F_SNR_004_om_info_mdfy_basic02.html</title>
+
+
+    <!-- jquery -->
+    <script src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css">
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script>
+
+        $(function () {
+
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <span class="txt">본인과의 가족관계 수정</span>
+                </a>
+            </nav>
+        </header>
+
 
         <main>
             <section class="intro">
-
-                <h3 class="title">
-                    본인과의 가족관계를<br />
-                    선택해주세요
-                </h3>
-
-                <div class="h32"></div>
 
                 <div class="family_tree_area">
 
@@ -70,7 +106,6 @@
                     </div>
 
                 </div>
-                <!-- family_tree_area -->
 
 
 
@@ -80,60 +115,26 @@
         </main>
 
 
+
         <footer class="page-footer">
 
             <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p btnEvt_me btn_disable" onclick="fn_next_click($(this))">다음</a>
+                <a class="waves-effect btn-large btn_primary w100p">수정하기</a>
             </div>
 
         </footer>
 
-	</div>
-	<!-- wrapper -->
-	
-	
-	<script>
-        var _relationCd;
-		function fn_next_click(jobjTarget){
-            if (jobjTarget.hasClass('btn_disable')){
-                return;
-            }
 
-            var jobj = $(".item.active");
-            if (jobj == undefined || jobj.length < 1){
-                showAlertPopup("관계를 선택하여 주십시오");
-                return;
-            }
 
-            _relationCd = jobj.attr('code');
 
-            var url = 'check';
 
-            callPostAjaxIfFailOnlyMsg(url, {"relationCd":_relationCd}, fn_next_cb);
-		}
 
-        function fn_next_cb(result){
-            if (result == null || result.success == undefined || !result.success){
-                if (result.msg != undefined && result.msg.length > 0){
-                    showAlertPopup(result.msg);
-                }else{
-                    showAlertPopup("어르신을 등록할 수 없습니다.");
-                }
-                
-                return;
-            }
-            var jsCommon = new JsCommon();
-            var qsMap = jsCommon.fn_queryString_toMap();
 
-            if (qsMap["startStep"] == undefined || qsMap["startStep"].length < 1){
-                qsMap["startStep"] = "relation";
-            }
-            
-            qsMap['relationCd'] = _relationCd;
+    </div>
+    <!-- wrapper -->
 
-			var url = './name?' + jsCommon.fn_queryString_fromMap(qsMap);
 
-			location.href = url;
-        }
 
-	</script>
+</body>
+
+</html>
