@@ -29,7 +29,7 @@
 
                 <div class="h32"></div>
 
-                <input type="text" class="input_basic birth keycontrol birthdt10" placeholder="1958/01/01">
+                <input type="text" class="input_basic birth keycontrol birthdt10" placeholder="1958/01/01" value="${birth}" ${disabled}>
 				<div class="vaild_txt birth disNone error name">다시 확인해 주세요.</div>
 
             </section>
@@ -112,11 +112,19 @@
             });
 
         });
-
+        function fn_change_to_next(){
+            $(".btnEvt_me").removeAttr("onclick");
+            $(".btnEvt_me").attr("href", "#modal_eld_apply");
+        }
         function fn_next_birth(){
             if (_dateValid){
-                $(".btnEvt_me").removeAttr("onclick");
-                $(".btnEvt_me").attr("href", "#modal_eld_apply");
+                fn_change_to_next()
+                return;
+            }
+
+            _dateValid = _jsCommon.fn_date10_slash_check($('.input_basic.birth').val());
+            if (_dateValid){
+                fn_change_to_next()
                 return;
             }
 

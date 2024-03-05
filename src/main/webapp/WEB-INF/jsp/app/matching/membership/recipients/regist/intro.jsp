@@ -48,7 +48,23 @@
 	
 	
 	<script>
-		function fn_next_click(){
+		async function fn_next_click(){
+			if ("${isLogin}" == "false"){
+				const asyncConfirm2 = await showConfirmPopup('로그인을 해 주세요', '관심복지용구를 등록하실려면 로그인이 필요해요.', '로그인하기');
+				if (asyncConfirm2 != 'confirm'){
+					return;
+				} 
+	
+				return;
+			}
+
+			var count = "${recipientsCount}";
+
+			if (count > 3){
+				showAlertPopup("더 이상 수급자(어르신)를 등록할 수 없습니다.")
+				return;
+			}
+
 			var url = './relation';
 
 			var jsCommon = new JsCommon();

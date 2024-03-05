@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.util.DateUtil;
 import icube.common.values.CodeMap;
+import icube.common.vo.CommonCheckVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
@@ -32,6 +34,21 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 
     @Autowired
 	private MatMbrSession matMbrSession;
+
+	protected Map<String, Object> convertToMap(CommonCheckVO checkVO){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		resultMap.put("success", checkVO.isSuccess());
+		if (!checkVO.isSuccess()){
+			if (EgovStringUtil.isNotEmpty(checkVO.getErrorMsg())){
+				resultMap.put("msg", checkVO.getErrorMsg());
+			} else if (EgovStringUtil.isNotEmpty(checkVO.getErrorCode())){
+				resultMap.put("msg", getMsg(checkVO.getErrorCode()));
+			}
+		}
+
+		return resultMap;
+	}
     	
 	/**
 	 * 어르신등록 인트로
@@ -39,6 +56,19 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 	@RequestMapping(value = "regist/intro")
 	public String registIntro(
 		Model model) throws Exception {
+
+		boolean isLogin = true;
+        if(!matMbrSession.isLoginCheck()) {
+            isLogin = false;
+        }
+		model.addAttribute("isLogin", isLogin);
+
+		if (isLogin){
+			int count = mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+
+			model.addAttribute("recipientsCount", count);
+		}
+		
 		
 		return "/app/matching/membership/recipients/regist/intro";
 	}
@@ -48,7 +78,6 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 	 */
 	@RequestMapping(value = "regist/relation")
 	public String registRelation(
-			// @RequestParam String type //본인인증 후 해야할 작업타입
 			Model model) throws Exception {
 		
 		return "/app/matching/membership/recipients/regist/relation";
@@ -63,6 +92,11 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 		@RequestParam String relationCd
 		, Model model) throws Exception {
 
+		if (EgovStringUtil.equals(relationCd, "007") ){
+			model.addAttribute("recipientsNm", matMbrSession.getMbrNm());
+			model.addAttribute("disabled", "disabled");
+		}
+			
         model.addAttribute("relationNm", CodeMap.MBR_RELATION_CD.get(relationCd));
         
 		
@@ -81,8 +115,27 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 
 		model.addAttribute("relationNm", CodeMap.MBR_RELATION_CD.get(relationCd));
 		model.addAttribute("recipientsNm", recipientsNm);
+
+		if (EgovStringUtil.equals(relationCd, "007") ){
+			model.addAttribute("birth", DateUtil.getDateTime(matMbrSession.getBrdt(), "yyyy/MM/dd"));
+			model.addAttribute("disabled", "disabled");
+		}
 		
 		return "/app/matching/membership/recipients/regist/birth";
+	}
+
+	/**
+	 * 어르신등록 체크로직
+	 */
+	@ResponseBody
+	@RequestMapping(value = "regist/check")
+	public Map<String, Object> registCheck(
+        @RequestParam Map<String,Object> reqMap
+		, Model model) throws Exception {
+
+		CommonCheckVO checkVO = mbrRecipientsService.insertCheckMbrRecipients(matMbrSession.getUniqueId(), reqMap);
+		
+		return this.convertToMap(checkVO);
 	}
 
     /**
@@ -97,6 +150,13 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 		, Model model) throws Exception {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		int recipientsCnt = mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		if (recipientsCnt == 0){
+			mbrRecipientVO.setMainYn("Y");
+		}else{
+			mbrRecipientVO.setMainYn("N");
+		}
 
         mbrRecipientVO.setMbrUniqueId(matMbrSession.getUniqueId());
         

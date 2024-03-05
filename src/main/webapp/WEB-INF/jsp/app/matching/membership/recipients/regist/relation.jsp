@@ -93,6 +93,7 @@
 	
 	
 	<script>
+        var _relationCd;
 		function fn_next_click(jobjTarget){
             if (jobjTarget.hasClass('btn_disable')){
                 return;
@@ -104,6 +105,23 @@
                 return;
             }
 
+            _relationCd = jobj.attr('code');
+
+            var url = 'check';
+
+            callPostAjaxIfFailOnlyMsg(url, {"relationCd":_relationCd}, fn_next_cb);
+		}
+
+        function fn_next_cb(result){
+            if (result == null || result.success == undefined || !result.success){
+                if (result.msg != undefined && result.msg.length > 0){
+                    showAlertPopup(result.msg);
+                }else{
+                    showAlertPopup("어르신을 등록할 수 없습니다.");
+                }
+                
+                return;
+            }
             var jsCommon = new JsCommon();
             var qsMap = jsCommon.fn_queryString_toMap();
 
@@ -111,12 +129,11 @@
                 qsMap["startStep"] = "relation";
             }
             
-            qsMap['relationCd'] = jobj.attr('code');
+            qsMap['relationCd'] = _relationCd;
 
 			var url = './name?' + jsCommon.fn_queryString_fromMap(qsMap);
 
 			location.href = url;
-		}
-
+        }
 
 	</script>
