@@ -233,6 +233,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<script>
 		var mainRecipientsNo = '${mainRecipient.recipientsNo}';
+		var recipientsCnt = '${fn:length(mbrRecipientsList)}';
+		var selectModalInterval = null;
 	
 		//수급자에 따른 swipe 순서 처리
 		function sortSwipeContents() {
@@ -294,7 +296,6 @@
 			sortSwipeContents();
 			
 			
-			
 			//swiper 퍼블리싱 코드 부분
 			var swiper = new Swiper(".service_Swiper", {
 		      autoHeight: true,
@@ -321,6 +322,12 @@
 	        		function(result) {
 	        			mainRecipientsNo = selectedNo;
 	        			showToastMsg('대표 어르신으로 설정되었어요');
+	        			sortSwipeContents();
+	        			
+	        			if (selectModalInterval) {
+	        				clearInterval(selectModalInterval);
+	        				$('#modal_om_select').modal('close');
+	        			}
 	        		}
        			);
 	        }
@@ -344,5 +351,12 @@
 	        onCloseStart: closeEvt,
 	      });
 	      
+	      
+	    	//메인수급자가 없으면 설정하도록 창 띄우기
+			if (!mainRecipientsNo && recipientsCnt && Number(recipientsCnt) > 1) {
+				selectModalInterval = setInterval(function() {
+					$('#modal_om_select').modal('open');
+				}, 1000);
+			}
 		});
 	</script>

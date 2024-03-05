@@ -46,7 +46,7 @@
                     <img src="/html/page/app/matching/assets/src/images/08etc/page_default.svg"
                         class="w150" alt="화면을 불러오지 못했어요">
                     <div class="h12"></div>
-                    <p class="color_t_p font_sblr">화면을 불러오지 못했어요</p>
+                    <p class="color_t_s font_sblr">화면을 불러오지 못했어요</p>
                     <div class="h20"></div>
                     <a class="modal-close waves-effect btn btn-middle btn_primary w120"
                         onclick="M.toast({html: '네트워크를 확인해주세요'})">다시 시도</a>
