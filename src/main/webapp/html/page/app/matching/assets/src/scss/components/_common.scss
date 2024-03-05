@@ -12,7 +12,7 @@
 
     &.f-column{flex-direction: column;}
 
-    & .fg1{flex-grow: 1;}
+    .fg1{flex-grow: 1;}
 
 }
 
@@ -21,6 +21,9 @@
 .justify-content-between{justify-content: space-between;}
 .align-items-center{align-items: center;}
 .align_center{display: flex;justify-content: center;align-items: center;}
+
+.gap02{gap: 2px;}
+.gap04{gap: 4px;}
 .gap08{gap: 8px;}
 
 .center{text-align: center;}
@@ -29,7 +32,7 @@
 
 
 .disNone{display: none !important;}
-
+.disBlock{display: block !important;}
 
 
 //사이즈
@@ -66,6 +69,8 @@
 
 .pad020{padding: 0 20px !important;}
 
+.padH16{padding: 16px 0 !important;}
+
 .padR20{padding-right: 20px !important;}
 
 .padH24W20{padding: 24px 20px !important;}
@@ -74,6 +79,7 @@
 
 
 .marT4{margin-top: 4px !important;}
+.marT5{margin-top: 5px !important;}
 .marB4{margin-bottom: 4px !important;}
 
 .marR4{margin-right: 4px !important;}
@@ -93,7 +99,7 @@
 .lh18{line-height: 18px !important;}
 
 //버튼
-.btn{max-height: 36px;height: 36px; border-radius: 8px;font-weight: 600; font-size: 14px;}
+.btn{max-height: 36px;height: 36px; border-radius: 8px;font-weight: 700; font-size: 16px;letter-spacing: -0.24px;}
 
 .btn-middle{
     
@@ -105,10 +111,22 @@
     line-height: 42px;
 
 } 
+
+.btn-middle02{
+    
+    height: 40px;
+    max-height: 40px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    @include Suit_Body_SM_SemiBold;
+
+} 
+
+
 .btn-large{height: 55px;
     max-height: 55px;
     border-radius: 8px;padding: 0 16px;
-    @include Suit_Body_MD_Bold;
+    @include Suit_Body_MD_SemiBold;
     @include flex_center;
 }
 .btn_primary{background: $--Color-bg-Primitive-primary;}
@@ -121,7 +139,7 @@
 }
 
 
-.btn_disable{background-color: $--Color-bg-disabled;color: $--Color-text-disabled; font-weight: 600;pointer-events:none;}
+.btn_disable{background-color: $--Color-bg-disabled;color: $--Color-text-disabled;pointer-events:none;}
 
 
 
@@ -139,11 +157,24 @@
     color: $--Color-text-primary;
     @include Suit_Body_MD_SemiBold;
 
+    //라인 있을때
+    &_bder{
+        background-color: #fff;
+        color: $--Color-text-Primitive-secondary;
+        border: 1px solid $--Color-border-Primitive-secondary;
+    }
+
 }
+
+
 
 
 // 버튼안에 아이콘 카카오,네이버 등
 .btn-large img.icon_img{width:24px;height:24px;margin-right: 8px;}
+
+//버튼 라운드버튼 처리
+[class*='btn'].rounded{border-radius: 100px;}
+
 
 
 //링크텍스트
@@ -175,7 +206,13 @@
     
     }
 
-
+    //작은사이즈_Resular
+    &.small_thin{
+        padding-right: 16px;
+        background-size: 16px;
+        @include Suit_Body_SM_Regular;
+    
+    }
 }
 
 
@@ -590,7 +627,7 @@
     align-items: center;
     border: 1px solid #E0E0E0;
     border-radius: 8px !important;
-    height: 56px !important;
+    height: 59px !important;
     width:100%;
     padding: 16px 12px !important;
 
@@ -599,7 +636,7 @@
         background: url('../images/04icon/chevron-down.svg') no-repeat calc(100% - 12px) center;
     }
 
-    @include Suit_Body_MD_Regular
+    @include Suit_Body_SM_Regular
 
 
 }
@@ -619,27 +656,37 @@
 }
 input.bder_primary:focus{border: 2px solid $--Color-border-Primitive-primary !important;}
 
-.bder_danger{
-    border: 2px solid $--Color-border-danger !important;
-}
-
-
 //입력창에 value값이 있을때
 .input_basic:valid{
-    border: 1px solid #999 !important;
+    border: 1px solid #999;
 }
 
 input.bder_danger:valid{
-    border: 2px solid $--Color-border-danger !important;
+    border: 2px solid $--Color-border-danger;
 }
 
-input.bder_danger:focus{border: 2px solid $--Color-border-Primitive-primary !important;}
+input.bder_danger:focus{border: 2px solid $--Color-border-Primitive-primary;}
 
+.bder_danger{
+    border: 2px solid $--Color-border-danger;
+}
 
 
 ::placeholder{
     font-weight: 400;
 }
+
+//input_basic + list_link
+.input_basic.list_link{
+    background-image: url('../images/04icon/chevron-right_thin.svg');
+    background-position: calc(100% - 12px) center;
+    min-height: 59px;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    padding: 12px 32px 12px 0;
+}
+
 
 
 //mark 마크
@@ -696,6 +743,7 @@ ul:not(.browser-default)>li.list_dept1{list-style-type: initial;}
 
 
 //뱃지 bedge
+/////직장인추천
 .badge_recomm{
     height: 24px;
     padding: 0 8px;
@@ -707,7 +755,16 @@ ul:not(.browser-default)>li.list_dept1{list-style-type: initial;}
     @include Suit_Body_SM_SemiBold;
 
 }
+/////요양인정번호
+.badge_reco_num{
+    color: $--Color-text-Primitive-primary-press;
+    @include Suit_Caption_XS;
+    border-radius: 30px;
+    display: inline-block;
+    padding: 2px 8px;
 
+    background: $--Color-bg-point;
+}
 
 
 

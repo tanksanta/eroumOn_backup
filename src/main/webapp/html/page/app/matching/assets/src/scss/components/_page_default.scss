@@ -756,6 +756,9 @@ h5.title{
 
 }
 
+
+
+
 //grid없는 박스
 .box_normal{background-color: #fff;padding:32px 20px;}
 
@@ -899,5 +902,322 @@ h5.title{
     &.active{background:#fff;}
 
     & + .care_time_area{margin-top: 16px;}
+
+}
+
+//어르신
+/////어르신 등록 슬라이드
+.om_reg_area{margin:0 -20px;}
+.om_reg_area ul{padding:0 20px; width:100%;white-space:nowrap;overflow-y: hidden; overflow-x: auto;font-size: 0;}
+.om_reg_area ul li{
+
+    display: inline-block;
+    padding:8px 16px 8px 44px;
+    min-width: 102px;
+    
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid $--Color-border-Primitive-secondary;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 16px center;
+    background-size: 24px;
+    
+    @include Suit_Body_SM_Regular;
+
+    &+li{
+        margin-left: 8px;
+    }
+
+    &.fl_01{
+        background-image: url('../images/07flower/fl_01_default.svg');
+    }
+    &.fl_02{
+        background-image: url('../images/07flower/fl_02_default.svg');
+    }
+    &.fl_03{
+        background-image: url('../images/07flower/fl_03_default.svg');
+    }
+    &.fl_04{
+        background-image: url('../images/07flower/fl_04_default.svg');
+    }
+    
+    &.reg_btn{
+        padding:8px 16px 8px 36px;
+        background-position: 8px center;
+        background-image: url('../images/18icon/chevron-add_gray.svg');
+    }
+
+
+    &.active{
+        border: 1px solid $--Color-border-Primitive-primary-press;
+        background-color: $--Color-bg-Primitive-primary;
+        
+
+        color: #fff;
+        @include Suit_Body_SM_SemiBold;
+
+        &.fl_01{
+            background-image: url('../images/07flower/fl_01.svg');
+        }
+        &.fl_02{
+            background-image: url('../images/07flower/fl_02.svg');
+        }
+        &.fl_03{
+            background-image: url('../images/07flower/fl_03.svg');
+        }
+        &.fl_04{
+            background-image: url('../images/07flower/fl_04.svg');
+        }
+
+    }
+
+}
+
+//어르신 프로필정보
+.box_om_profile{
+    display: flex;
+    align-items: center;
+    gap:12px;
+    background-image: url('../images/04icon/chevron-right.svg');
+    background-position: calc(100% - 20px) center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+
+    //어르신 정보수정 프로필
+    &.info_mdfy{
+        display: grid;
+        grid-template-columns: 64px 1fr;
+        background-image: none;
+        }
+    
+
+    .img_area{
+        overflow: hidden;
+        width:64px;
+        height: 64px;
+        border-radius: 16px;
+        background-color: $--Color-bg-Primitive-selected-press;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 48px;
+
+        display: flex;
+        align-items: end;
+
+        &.fl_01{
+            background-image: url('../images/07flower/fl_01.svg');
+        }
+        &.fl_02{
+            background-image: url('../images/07flower/fl_02.svg');
+        }
+        &.fl_03{
+            background-image: url('../images/07flower/fl_03.svg');
+        }
+        &.fl_04{
+            background-image: url('../images/07flower/fl_04.svg');
+        }
+        
+        .txt{
+            width:100%;
+            height: 24px;
+            background-color: rgba(238, 96, 2, 0.6);
+            color:#fff;
+            @include Suit_Body_SS_Bold;
+            @include flex_center;
+        }
+        
+    }
+
+}
+
+
+
+//어르신 상담내역 상태값 박스
+.box_sub02{background-color: #fff;padding:0;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    align-items: center;
+    gap: 12px;
+
+
+    .img_area{
+        width:40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $--Color-bg-Primitive-secondary;
+        border-radius: 50%;
+
+
+    }
+
+}
+
+
+//step
+.step_txt_area{
+    display: flex;justify-content: space-between;
+
+    li{
+        color: $--Color-text-teritiary;
+        @include Suit_Caption_XS;
+
+        &.active{
+            color: $--Color-text-Primitive-selected;
+            @include Suit_Caption_XS;
+        }
+
+    }
+
+}
+
+.step_graph_area{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 50px;
+    height:8px;
+    background-color: $--Color-bg-teritiary;
+    overflow: hidden;
+    margin-top: 8px;
+
+
+    .item{
+        position: relative;
+        display: flex;
+        z-index: 3;
+
+        &:after{
+            position: relative;
+            content: '';
+            width:4px;height:4px;
+            border-radius: 50%;
+            background-color: $--Color-bg-Primitive-primary;
+            top:2px;
+            }
+
+
+        &:first-child{left:4px;}
+        &:last-child{right:4px;}
+
+        &.active{
+            z-index: 1;
+        }
+        &.active:before{
+
+            position: absolute;
+            top:0;
+            right:-4px;
+            content: '';
+            width:100vw;
+            height:8px;
+            background-color: $--Color-bg-Primitive-selected-press;
+            border-radius: 30px;
+           
+        }
+
+    }
+
+
+}
+
+//관심복지용구 슬라이드
+.wel_select_slide{
+
+    white-space:nowrap;overflow-y: hidden; overflow-x: auto;font-size: 0;
+    padding: 0 14px;
+
+    .waves-effect img{z-index: initial;}
+
+    .ctn{
+        
+        padding: 0 6px;
+        
+    }
+
+    .img_area{
+        width: 80px;
+        height: 80px;
+        @include flex_center;
+
+        border-radius:8px;
+        background: $--Color-bg-teritiary;
+
+            img{
+                width:58px;height: 58px;
+            }
+
+
+        & + .txt{
+            display: block;
+            height: 42px;
+            margin-top: 4px;
+        
+            color: $--Color-text-secondary;
+            text-align: center;
+            @include Suit_Body_SS_Regular;
+        }
+
+    }
+
+}
+
+
+//장기요양기관 상담목록
+.box_coun_list{
+    display: flex;
+    align-items: center;
+    gap:12px;
+    background-image: url('../images/04icon/chevron-right.svg');
+    background-position: calc(100% - 20px) center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+
+    //어르신 정보수정 프로필
+    &.info_mdfy{
+        display: grid;
+        grid-template-columns: 64px 1fr;
+        background-image: none;
+        }
+    
+
+    .img_area{
+        overflow: hidden;
+        width:64px;
+        height: 64px;
+        border-radius: 16px;
+        background-color: $--Color-bg-Primitive-selected-press;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 48px;
+
+        display: flex;
+        align-items: end;
+
+        &.fl_01{
+            background-image: url('../images/07flower/fl_01.svg');
+        }
+        &.fl_02{
+            background-image: url('../images/07flower/fl_02.svg');
+        }
+        &.fl_03{
+            background-image: url('../images/07flower/fl_03.svg');
+        }
+        &.fl_04{
+            background-image: url('../images/07flower/fl_04.svg');
+        }
+        
+        .txt{
+            width:100%;
+            height: 24px;
+            background-color: rgba(238, 96, 2, 0.6);
+            color:#fff;
+            @include Suit_Body_SS_Bold;
+            @include flex_center;
+        }
+        
+    }
 
 }
