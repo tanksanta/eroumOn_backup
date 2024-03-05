@@ -87,6 +87,9 @@ public class SimpleTestController  extends CommonAbstractController {
 
 		model.addAttribute("addTitle", "테스트 결과");
 
+		MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
+		model.addAttribute("mbrRecipientsVO", mbrRecipientsVO);
+
 		SimpleTestVO simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "simple");//"MBR_00000091", recipient.getRecipientsNo()
 		
 		if (simpleTestVO == null || EgovStringUtil.equals(simpleTestVO.getGrade().toString(), "0")){
@@ -270,8 +273,10 @@ public class SimpleTestController  extends CommonAbstractController {
 		, @RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
 		, Model model) throws Exception {
 
-		// MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
 		model.addAttribute("addTitle", "어르신 돌봄");
+		
+		MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
+		model.addAttribute("mbrRecipientsVO", mbrRecipientsVO);
 
 		SimpleTestVO simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "care");//"MBR_00000091"
 		

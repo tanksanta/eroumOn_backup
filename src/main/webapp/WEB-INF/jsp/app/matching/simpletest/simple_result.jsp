@@ -15,7 +15,7 @@
             <section class="intro">
 
                 <h2 class="title02">
-                    꽃분이님,<br>
+                    ${mbrRecipientsVO.recipientsNm}님,<br>
                     어떤 혜택을 받을 수 있을 지 상담을 통해 확인해보세요
                 </h2>
 
