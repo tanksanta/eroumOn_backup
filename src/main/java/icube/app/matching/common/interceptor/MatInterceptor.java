@@ -49,7 +49,30 @@ public class MatInterceptor implements HandlerInterceptor {
 			add("/matching/membership/conslt/addMbrConslt.json");
 		}
 	};
-	
+
+	/**
+	 * 인증이 필요한 페이지 정의
+	 * intro를 제외한 나머지 경로는 로그인이 필요하다.
+	 */
+	private List<String> checkUriModuleNotIntro = new ArrayList<String>(){
+		private static final long serialVersionUID = 968028594716471049L;
+		{
+			add("/matching/simpletest/simple/");
+			add("/matching/simpletest/care/");
+			add("/matching/membership/recipients/regist/");
+		}
+	};
+
+	protected boolean checkModulePathNotIntro(String curPath){
+		int ifor, ilen = checkUriModuleNotIntro.size();
+
+		for(ifor=0 ; ifor<ilen; ifor++){
+			if (curPath.startsWith(checkUriModuleNotIntro.get(ifor))){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -107,8 +130,12 @@ public class MatInterceptor implements HandlerInterceptor {
 				}
 			}
 			
-			//인증이 필요없으면 바로 페이지 반환
-			if (!checkUri.contains(request.getServletPath())) {
+			String curPath = request.getServletPath();			
+			if (this.checkModulePathNotIntro(curPath)){//intro를 제외한 나머지 경로는 항상 로그인이 필요한 모듈들
+				if (curPath.lastIndexOf("/intro")>=0){
+					return true;
+				}
+			}else if (!checkUri.contains(curPath)) {//인증이 필요없으면 바로 페이지 반환
 				return true;
 			}
 			
