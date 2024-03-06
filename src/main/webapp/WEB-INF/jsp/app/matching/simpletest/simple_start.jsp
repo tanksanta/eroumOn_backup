@@ -47,7 +47,15 @@
         });
     });
 
-    function fn_move_test(){
+    async function fn_move_test(){
+        if ("${_matMbrSession.loginCheck}" != "true"){
+            const asyncConfirm2 = await showConfirmPopup('로그인을 해 주세요', '간편테스트를 진행하실려면 로그인이 필요해요.', '로그인하기');
+            if (asyncConfirm2 != 'confirm'){
+                return;
+            } 
+
+        }
+
         location.href = "/matching/simpletest/test/100?testTy=simple&recipientsNo=${recipientsNo}";
     }
 </script>

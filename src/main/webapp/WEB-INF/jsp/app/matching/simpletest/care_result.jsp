@@ -90,7 +90,7 @@
     <footer class="page-footer">
 
         <div class="relative">
-            <a class="waves-effect btn-large btn_primary w100p">혜택 상담받기</a>
+            <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click()">혜택 상담받기</a>
         </div>
 
     </footer>
@@ -100,4 +100,8 @@
     $(function () {
         $("body").addClass("back_gray");
     });
+
+    function fn_next_click(){
+        location.href = '/matching/membership/conslt/infoConfirm?prevPath=care&recipientsNo=${simpleTestVO.getRecipientsNo()}'
+    }
 </script>    
