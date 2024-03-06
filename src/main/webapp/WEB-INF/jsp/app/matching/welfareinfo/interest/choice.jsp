@@ -18,7 +18,6 @@
             </h3>
 
             <div class="h40"></div>
-            ${careCtgryList}
 
             <ul class="wel_select_area">
                 
@@ -119,12 +118,12 @@
     <footer class="page-footer">
 
         <div class="relative">
-            <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click()">상담내역 보기</a>
+            
             <c:if test="${isExistRecipientConslt}">
-                
+                <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click('list')">상담내역 보기</a>    
             </c:if>
             <c:if test="${!isExistRecipientConslt}">
-                <a class="waves-effect btn-large btn_primary w100p">혜택 상담받기</a>
+                <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click('conslt')">혜택 상담받기</a>
             </c:if>
             
         </div>
@@ -390,7 +389,7 @@
         });
     });
 
-    function fn_next_click(){
+    function fn_next_click(kind){
         if ($(".wel_select_area li.active").length < 1){
             showAlertPopup("최소 1개를 선택해 주세요.");
             return;
@@ -406,12 +405,23 @@
         var param = {recipientsNo:"${recipientsNo}", ctgryCds};
 
 
-        callPostAjaxIfFailOnlyMsg(url, param, fn_next_cb);
+        if (kind == 'list'){
+            callPostAjaxIfFailOnlyMsg(url, param, fn_next_list_cb);
+        }else if (kind == 'conslt'){
+            callPostAjaxIfFailOnlyMsg(url, param, fn_next_conslt_cb);
+        }
+            
     }
 
-    function fn_next_cb(result){
+    function fn_next_list_cb(result){
         showToastMsg('관심복지용구가 설정되었어요', function() {
             location.replace('/matching');
         });
     }
+    function fn_next_conslt_cb(result){
+        showToastMsg('관심복지용구가 설정되었어요', function() {
+            location.replace('/matching/membership/conslt/infoConfirm?prevPath=equip_ctgry&recipientsNo=${recipientsNo}');
+        });
+    }
+
 </script>

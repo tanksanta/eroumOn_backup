@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.stereotype.Service;
 
 
@@ -27,8 +28,12 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		paramMap.put("srchRecipientsNo", recipientsNo);
 		return mbrRecipientsDAO.selectMbrRecipients(paramMap);
 	}
-
+	
 	public MbrRecipientsVO selectMainMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
+		if (EgovStringUtil.isEmpty(srchMbrUniqueId)){
+			return null;
+		}
+
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
 
 		MbrRecipientsVO recipient = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
@@ -39,6 +44,20 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		return recipient;
 	}
 	
+	public MbrRecipientsVO selectMbrRecipientsByNoOrMain(String mbrUniqueId, Integer recipientsNo) throws Exception {
+		MbrRecipientsVO mbrRecipientsVO = null;
+
+		if (recipientsNo != null && recipientsNo != 0) {
+			mbrRecipientsVO = this.selectMbrRecipientsByRecipientsNo(recipientsNo);
+		}
+
+		if (mbrRecipientsVO != null){
+			return mbrRecipientsVO;
+		}
+
+		return this.selectMainMbrRecipientsByMbrUniqueId(mbrUniqueId);
+	}
+
 	public List<MbrRecipientsVO> selectMbrRecipientsByMbrUniqueId(String srchMbrUniqueId) throws Exception {
 		return mbrRecipientsDAO.selectMbrRecipientsByMbrUniqueId(srchMbrUniqueId);
 	}

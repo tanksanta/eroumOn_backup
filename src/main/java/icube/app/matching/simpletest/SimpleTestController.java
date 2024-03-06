@@ -283,18 +283,6 @@ public class SimpleTestController  extends CommonAbstractController {
 		return "/app/matching/simpletest/care_time";
     }
 
-	// @RequestMapping(value={"/care/start"})
-	// public String careStart(
-	// 	Model model) throws Exception {
-
-	// 	MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
-
-	// 	if (recipient != null){
-	// 		model.addAttribute("recipientsNo", recipient.getRecipientsNo());
-	// 	}
-
-    //     return "/app/matching/simpletest/care_start";
-    // }
 
 	@RequestMapping(value={"/care/result"})
 	public String careResult(
