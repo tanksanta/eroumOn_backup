@@ -47,6 +47,7 @@ public class MatInterceptor implements HandlerInterceptor {
 			add("/matching/membership/conslt/infoConfirm");
 			add("/matching/membership/conslt/request");
 			add("/matching/membership/conslt/addMbrConslt.json");
+			add("/matching/membership/recipients/subMain");
 		}
 	};
 
