@@ -173,6 +173,8 @@
 		    , relation_cd
 		    , rcper_rcogn_no
 		    , prev_path
+		    , simple_yn
+		    , conslt_cours
 		)VALUES(
 			#{mbrNm}
 			, #{mbrTelno}
@@ -191,6 +193,8 @@
 		    , #{relationCd}
 		    , #{rcperRcognNo}
 		    , #{prevPath}
+		    , #{simpleYn}
+		    , #{consltCours}
 		)
 	</insert>
 

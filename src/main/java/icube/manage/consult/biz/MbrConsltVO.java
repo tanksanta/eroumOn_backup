@@ -59,4 +59,7 @@ public class MbrConsltVO extends CommonBaseVO {
 	private String mdfcnMngrNm;
 	
 	private String curConsltResultNo; //현재 매칭된 사업소 상담 번호
+	
+	private String simpleYn = "N";    //간편 상담 여부
+	private String consltCours = "PC"; //WEB인지 APP인지 여부
 }

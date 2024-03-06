@@ -433,7 +433,7 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 				
 				//복지용구상담인 경우 선택 복지용구 정보 추가 저장
 				if ("equip_ctgry".equals(mbrConsltVO.getPrevPath())) {
-					mbrConsltGdsService.insertMbrConsltGds(srchMbrConslt.getRecipientsNo(), srchMbrConslt.getConsltNo());
+					mbrConsltGdsService.insertMbrConsltGds(srchMbrConslt.getRecipientsNo(), srchMbrConslt.getConsltNo(), mbrVO);
 				}
 				
 				

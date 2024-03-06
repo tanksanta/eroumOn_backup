@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.values.CodeMap;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.market.mbr.biz.MbrSession;
@@ -53,7 +54,7 @@ public class MbrConsltGdsService extends CommonAbstractServiceImpl {
 	/**
 	 * 수급자 복지용구 선택값으로 상담 복지용구 선택정보 저장
 	 */
-	public void insertMbrConsltGds(int recipientsNo, int consltNo) throws Exception {
+	public void insertMbrConsltGds(int recipientsNo, int consltNo, MbrVO sessionVO) throws Exception {
 		List<MbrConsltGdsVO> consltGdsList = new ArrayList<MbrConsltGdsVO>();
 		List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(recipientsNo);
 		for(MbrRecipientsGdsVO recipientsGds : recipientsGdsList) {
@@ -62,9 +63,9 @@ public class MbrConsltGdsService extends CommonAbstractServiceImpl {
             mbrConsltGds.setConsltGdsTy(recipientsGds.getConsltGdsTy()); //품목 상담(카테고리)
             mbrConsltGds.setCtgryNm(recipientsGds.getCtgryNm());
             mbrConsltGds.setCareCtgryCd(recipientsGds.getCareCtgryCd());
-            mbrConsltGds.setMbrUniqueId(mbrSession.getUniqueId());
-            mbrConsltGds.setMbrId(mbrSession.getMbrId());
-            mbrConsltGds.setMbrNm(mbrSession.getMbrNm());
+            mbrConsltGds.setMbrUniqueId(sessionVO.getUniqueId());
+            mbrConsltGds.setMbrId(sessionVO.getMbrId());
+            mbrConsltGds.setMbrNm(sessionVO.getMbrNm());
             consltGdsList.add(mbrConsltGds);
 		}
 		

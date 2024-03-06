@@ -350,7 +350,7 @@
 				<%-- 상담중인 경우는 상담내역 보기로 노출 --%>
 				<c:choose>
 					<c:when test="${empty progressEquipCtgry}">
-						<a class="waves-effect btn-large btn_default w100p">상담하기</a>
+						<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=equip_ctgry&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
 					</c:when>
 					<c:otherwise>
 						<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
@@ -420,7 +420,7 @@
 					<%-- 상담중인 경우는 상담내역 보기로 노출 --%>
 					<c:choose>
 						<c:when test="${empty progressSimpleTest}">
-							<a class="waves-effect btn-large btn_default w100p">상담하기</a>
+							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=simple_test&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
 						</c:when>
 						<c:otherwise>
 							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
@@ -498,8 +498,16 @@
 					</c:choose>
 		
 		            <div class="h24"></div>
-		
-		            <a class="waves-effect btn-large btn_default w100p">상담하기</a>
+		            
+		            <%-- 상담중인 경우는 상담내역 보기로 노출 --%>
+					<c:choose>
+						<c:when test="${empty progressCare}">
+							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=care&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
+						</c:when>
+						<c:otherwise>
+							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+						</c:otherwise>
+					</c:choose>
 		
 		          </div>
 	          	</c:when>

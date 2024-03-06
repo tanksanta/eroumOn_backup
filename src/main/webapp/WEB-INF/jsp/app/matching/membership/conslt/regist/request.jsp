@@ -201,6 +201,7 @@
 		//동의 버튼 클릭(상담 신청)
 		function clickAgreeBtn() {
 			var prevPath = getInLocalStorage('consltPrevPath');
+			var recipientsNo = getInLocalStorage('consltRecipientsNo');
 			var tel = getInLocalStorage('consltTel');
 			var sidoText = $('.region01_btn_evt').text();
 			var sigugunText = $('.region02_btn_evt').text();
@@ -209,6 +210,7 @@
 				'/matching/membership/conslt/addMbrConslt.json', 
 				{
 					prevPath,
+					recipientsNo: Number(recipientsNo),
 					tel,
 					sido: sidoText,
 					sigugun: sigugunText,
@@ -216,7 +218,7 @@
 				function(result) {
 					removeInLocalStorage('consltPrevPath');
 					removeInLocalStorage('consltTel');
-					location.href = '/matching/membership/conslt/complete';
+					location.href = '/matching/membership/conslt/complete?recipientsNo=' + recipientsNo;
 				}
 			);
 		}
