@@ -54,11 +54,11 @@
    						if (!result.mbrRecipients || result.mbrRecipients.length < 1) {
    							var answer = await showConfirmPopup('어르신을 등록해주세요', '혜택을 받으려면 정확한 어르신 정보가 필요해요', '등록하기');
    							if (answer === 'confirm') {
-   								location.href = '/matching/membership/recipients/regist/intro?redirecturl=/matching/main/service';
+   								location.href = '/matching/membership/recipients/regist/intro?redirecturl=/matching/membership/recipients/subMain';
    							}
    						}
    						else {
-   							
+   							location.href = '/matching/membership/recipients/subMain';
    						}
    					}
    				);

@@ -1167,8 +1167,8 @@ public class CodeMap{
 		private static final long serialVersionUID = 6124276573961021108L;
 		{
 			put("equip_ctgry", "복지용구/관심 복지용구");
-			put("test", "인정등급/인정등급 간편 테스트");
-			put("home", "재가기관/어르신 돌봄");
+			put("simple_test", "인정등급/인정등급 간편 테스트");
+			put("care", "재가기관/어르신 돌봄");
 		}
 	};
 

@@ -1,6 +1,7 @@
 package icube.app.matching.membership.info;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,10 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
+import icube.app.matching.simpletest.SimpleTestService;
+import icube.app.matching.simpletest.SimpleTestVO;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.DateUtil;
 import icube.common.values.CodeMap;
 import icube.common.vo.CommonCheckVO;
+import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
+import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
@@ -32,6 +39,15 @@ public class MatMbrRecipientsController extends CommonAbstractController {
     @Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
 
+    @Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
+    
+    @Resource(name= "mbrRecipientsGdsService")
+	private MbrRecipientsGdsService mbrRecipientsGdsService;
+    
+    @Resource(name= "simpleTestService")
+	private SimpleTestService simpleTestService;
+    
     @Autowired
 	private MatMbrSession matMbrSession;
 
@@ -190,5 +206,60 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 		@RequestParam Integer recipientsNo,
 		HttpServletRequest request) throws Exception {
 		return mbrRecipientsService.updateMainRecipient(matMbrSession.getUniqueId(), recipientsNo);
+	}
+	
+	
+	/**
+	 * 어르신 서브 메인 페이지
+	 */
+	@RequestMapping(value = "subMain")
+	public String subMain(
+		@RequestParam(required = false) Integer recipientsNo,
+        Model model) throws Exception {
+		
+		List<MbrRecipientsVO> mbrRecipientsList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		MbrRecipientsVO curRecipientInfo = null;
+		if (recipientsNo == null) {
+			curRecipientInfo = mbrRecipientsList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		} else {
+			curRecipientInfo = mbrRecipientsList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+		}
+		
+		if (curRecipientInfo == null) {
+			model.addAttribute("appMsg", "잘못된 접근입니다.");
+			return "/app/matching/common/appMsg";
+		}
+		
+		
+		//해당 수급자의 최근 상담 조회
+		MbrConsltVO consltInfo = mbrConsltService.selectRecentConsltByRecipientsNo(curRecipientInfo.getRecipientsNo());
+		//진행중인 상담 조회
+		List<MbrConsltVO> progressConsltList = mbrConsltService.getConsltInProgress(curRecipientInfo.getRecipientsNo());
+		MbrConsltVO progressEquipCtgry = progressConsltList.stream().filter(f -> "equip_ctgry".equals(f.getPrevPath())).findAny().orElse(null);
+		MbrConsltVO progressSimpleTest = progressConsltList.stream().filter(f -> "simple_test".equals(f.getPrevPath())).findAny().orElse(null);
+		MbrConsltVO progressCare = progressConsltList.stream().filter(f -> "care".equals(f.getPrevPath())).findAny().orElse(null);
+	
+		//복지용구, 간편 테스트, 어르신 돌봄 선택 정보 조회
+		List<MbrRecipientsGdsVO> recipientsGdsList = mbrRecipientsGdsService.selectMbrRecipientsGdsByRecipientsNo(curRecipientInfo.getRecipientsNo());
+		Map<String, Boolean> recipientsGdsCheckMap = new HashMap<>();
+		for (MbrRecipientsGdsVO recipientsGds : recipientsGdsList) {
+			recipientsGdsCheckMap.put(recipientsGds.getCareCtgryCd(), true);
+		}
+		SimpleTestVO simpleTestInfo = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), curRecipientInfo.getRecipientsNo(), "simple");
+		SimpleTestVO careTestInfo = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), curRecipientInfo.getRecipientsNo(), "care");
+		
+		
+		model.addAttribute("mbrRecipientsList", mbrRecipientsList);
+		model.addAttribute("curRecipientInfo", curRecipientInfo);
+		model.addAttribute("consltInfo", consltInfo);
+		model.addAttribute("progressEquipCtgry", progressEquipCtgry);
+		model.addAttribute("progressSimpleTest", progressSimpleTest);
+		model.addAttribute("progressCare", progressCare);
+		
+		model.addAttribute("recipientsGdsCheckMap", recipientsGdsCheckMap);
+		model.addAttribute("simpleTestInfo", simpleTestInfo);
+		model.addAttribute("careTestInfo", careTestInfo);
+		
+		return "/app/matching/membership/recipients/subMain";
 	}
 }
