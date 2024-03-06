@@ -497,7 +497,7 @@
 
 <!-- 옵션변경 모달 -->
 <div id="cart-optn-chg"></div>
-
+<script src="/html/core/script/JsHouse2309PageBase.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script src="/html/core/script/JsHouse2309Popups.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartModalOptnChg2.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 <script type="text/javascript" src="/html/page/market/assets/script/JsMarketCartDrawItems.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
