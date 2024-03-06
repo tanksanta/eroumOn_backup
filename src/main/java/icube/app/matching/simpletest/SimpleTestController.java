@@ -41,41 +41,48 @@ public class SimpleTestController  extends CommonAbstractController {
 
 	@RequestMapping(value={"/simple/intro"})
 	public String simpleIntro(
-		Model model) throws Exception {
-		
-		boolean isLogin = true;
-        if(!matMbrSession.isLoginCheck()) {
-            isLogin = false;
-        }
+		@RequestParam(required = false) Integer recipientsNo/*수급자 번호*/
+		, Model model) throws Exception {
 
-		if (isLogin){
-			model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
+		if (matMbrSession.isLoginCheck()){
+			if (recipientsNo == null || recipientsNo == 0){
+				MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+				if (recipient == null){
+					model.addAttribute("recipientsCnt", 0);
+				}else{
+					model.addAttribute("recipientsCnt", 1);
+					model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+				}
+			}else{
+				model.addAttribute("recipientsCnt", 1);
+				model.addAttribute("recipientsNo", recipientsNo);
+			}
+			
 		}
-
-		model.addAttribute("isLogin", isLogin);
 
         return "/app/matching/simpletest/simple_intro";
     }
 
 	@RequestMapping(value={"/simple/start"})
 	public String simpleStart(
-		Model model) throws Exception {
+		@RequestParam(required = false) Integer recipientsNo/*수급자 번호*/
+		, Model model) throws Exception {
 
-		boolean isLogin = true;
-        if(!matMbrSession.isLoginCheck()) {
-            isLogin = false;
-        }
+		if (matMbrSession.isLoginCheck()){
+			if (recipientsNo == null || recipientsNo == 0){
+				MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
 
-		if (isLogin){
-			MbrRecipientsVO recipient = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
-
-			if (recipient != null){
-				model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+				if (recipient != null){
+					model.addAttribute("recipientsNo", recipient.getRecipientsNo());
+				}else{
+					model.addAttribute("recipientsNo", 0);	
+				}
+			}else{
+				model.addAttribute("recipientsNo", recipientsNo);
 			}
+			
 		}
 		
-		model.addAttribute("isLogin", isLogin);
-
         return "/app/matching/simpletest/simple_start";
     }
 
@@ -228,26 +235,48 @@ public class SimpleTestController  extends CommonAbstractController {
 
 	@RequestMapping(value={"/care/intro"})
 	public String careIntro(
-		Model model) throws Exception {
+		@RequestParam(required = false) Integer recipientsNo/*수급자 번호*/
+		, Model model) throws Exception {
 
-		boolean isLogin = true;
-        if(!matMbrSession.isLoginCheck()) {
-            isLogin = false;
-        }
-
-		if (isLogin){
+		if (matMbrSession.isLoginCheck()){
 			model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
 		}
-
-		model.addAttribute("isLogin", isLogin);
+		
+		model.addAttribute("recipientsNo", recipientsNo);
 
         return "/app/matching/simpletest/care_intro";
     }
 
 	@RequestMapping(value={"/care/time"})
 	public String careTime(
-		@RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
+		@RequestParam(required = false) Integer recipientsNo/*수급자 번호*/
 		, Model model) throws Exception {
+
+		if (matMbrSession.isLoginCheck()){
+			
+			MbrRecipientsVO mbrRecipientsVO = null;
+			if (recipientsNo != null && recipientsNo > 0){
+				mbrRecipientsVO =mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
+				
+				if (mbrRecipientsVO == null){
+					recipientsNo = 0;
+				}
+			}
+
+			if (recipientsNo == null || recipientsNo == 0){
+				mbrRecipientsVO = mbrRecipientsService.selectMainMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+			}
+
+			if (mbrRecipientsVO != null && mbrRecipientsVO.getRecipientsNo() > 0){
+				recipientsNo = mbrRecipientsVO.getRecipientsNo();
+				if (mbrRecipientsVO != null && EgovStringUtil.isNotEmpty(mbrRecipientsVO.getRcperRcognNo())){
+					model.addAttribute("rcperRcognYn", "Y");
+				}
+			}else{
+				recipientsNo = 0;
+			}
+
+		}
 
 		model.addAttribute("recipientsNo", recipientsNo);
 
@@ -283,7 +312,7 @@ public class SimpleTestController  extends CommonAbstractController {
 		if (simpleTestVO == null || EgovStringUtil.equals(simpleTestVO.getGrade().toString(), "0")){
 			return "/app/matching/simpletest/notsupport_result";
 		}
-
+		
 		model.addAttribute("simpleTestVO", simpleTestVO);
 
         return "/app/matching/simpletest/care_result";

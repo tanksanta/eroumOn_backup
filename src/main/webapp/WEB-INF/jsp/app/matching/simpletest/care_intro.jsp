@@ -118,7 +118,7 @@
 		<footer class="page-footer">
 
             <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click()">다음</a>
+                <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click()">돌봄 지원받기</a>
             </div>
 
         </footer>
@@ -126,26 +126,36 @@
 
 <script>
     async function fn_next_click(){
-        var recipientsCnt = "${recipientsCnt}";
 
-        if ("${isLogin}" == "false"){
-            const asyncConfirm2 = await showConfirmPopup('로그인을 해 주세요', '관심복지용구를 등록하실려면 로그인이 필요해요.', '로그인하기');
+        var bLogin = false;
+        var url;
+
+        if ("${_matMbrSession.loginCheck}" != "true"){
+            bLogin = true;
+            const asyncConfirm2 = await showConfirmPopup('로그인을 해 주세요', '어르신 돌봄을 진행하실려면 로그인이 필요해요.', '로그인하기');
             if (asyncConfirm2 != 'confirm'){
                 return;
             } 
 
-            location.href = "/matching/kakao/login";
-            return;
         }
 
-        if (recipientsCnt == "" || parseInt(recipientsCnt) == 0){
-            const asyncConfirm = await showConfirmPopup('어르신을 등록해 주세요', '혜택을 받으려면 정확한 어르신 정보가 필요해요.', '등록하기');
-            if (asyncConfirm != 'confirm'){
+        if (!bLogin){
+            var recipientsCnt = "${recipientsCnt}";
+            if (recipientsCnt == "" || parseInt(recipientsCnt) == 0){
+                const asyncConfirm = await showConfirmPopup('어르신을 등록해 주세요', '혜택을 받으려면 정확한 어르신 정보가 필요해요.', '등록하기');
+                if (asyncConfirm != 'confirm'){
+                    return;
+                }
+
+
+                url = '/matching/membership/recipients/regist/intro';
+                location.href = location.pathname + location.search + ((location.search.indexOf("?") >= 0)? "&" :"?") + "redirectUrl=" + encodeURIComponent(url);
+
                 return;
             }
-        }else{
-            var url = 'time';
-            location.href = url + location.search;
         }
+
+        location.href = 'time' + location.search + ((location.search.indexOf("?") >= 0)? "&" :"?") + "recipientsNo=${recipientsNo}";;
+
     }
 </script>

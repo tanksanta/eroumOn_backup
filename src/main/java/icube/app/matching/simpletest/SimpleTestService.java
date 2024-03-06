@@ -58,7 +58,7 @@ public class SimpleTestService extends CommonAbstractServiceImpl {
     public Integer insertSimpleTest(int recipientsNo, Map<String,Object> reqMap) throws Exception {
         MbrRecipientsVO  mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
         
-        SimpleTestVO mbrTestVO = this.calcSimpleTest(reqMap, mbrRecipientsVO.getBrdt());
+        SimpleTestVO mbrTestVO = this.calcSimpleTest(mbrRecipientsVO.getMbrUniqueId(), reqMap, mbrRecipientsVO.getBrdt());
 
         return simpleTestDAO.insertSimpleTest(mbrTestVO);
     }
@@ -79,7 +79,7 @@ public class SimpleTestService extends CommonAbstractServiceImpl {
         return score;
     }
 
-    protected SimpleTestVO calcSimpleTest(Map<String,Object> reqMap, String brdt) throws Exception{
+    protected SimpleTestVO calcSimpleTest(String mbrUniqueId, Map<String,Object> reqMap, String brdt) throws Exception{
         int age = 0;
 
         if (brdt.length() == 8) age = DateUtil.getRealAge(brdt);
@@ -93,7 +93,10 @@ public class SimpleTestService extends CommonAbstractServiceImpl {
         
 
         int grade = 0;
-        if ((score >= 30 && age >= 65) || (step600Val == "1" && age < 65)){
+        /*인정번호가 있으면 상담을 받을 수 있다*/
+        if (reqMap.get("rcperRcognYn") != null && EgovStringUtil.equals(reqMap.get("rcperRcognYn").toString(), "Y")){
+            grade = 1;
+        } else if ((score >= 30 && age >= 65) || (step600Val == "1" && age < 65)){
             grade = 1;
         }
 
@@ -102,7 +105,7 @@ public class SimpleTestService extends CommonAbstractServiceImpl {
 
         SimpleTestVO mbrTestVO = new SimpleTestVO();
 
-        mbrTestVO.setUniqueId(matMbrSession.getUniqueId());
+        mbrTestVO.setUniqueId(mbrUniqueId);
         // mbrTestVO.setUniqueId(reqMap.get("unique_id").toString());
 
         mbrTestVO.setRecipientsNo(Integer.parseInt(reqMap.get("recipientsNo").toString()));

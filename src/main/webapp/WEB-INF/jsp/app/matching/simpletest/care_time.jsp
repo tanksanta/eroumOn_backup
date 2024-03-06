@@ -69,7 +69,21 @@
 
 </div>
 <script>
-    $(function () {
+    $(async function () {
+
+        var recipientsNo = "${recipientsNo}";
+        if (recipientsNo == "" || parseInt(recipientsNo) == 0){
+            const asyncConfirm = await showConfirmPopup('어르신을 등록해 주세요', '혜택을 받으려면 정확한 어르신 정보가 필요해요.', '등록하기');
+            if (asyncConfirm != 'confirm'){
+                location.href = '/matching/simpletest/care/intro'
+                return;
+            }
+
+            url = '/matching/membership/recipients/regist/intro';
+            location.href = location.pathname + location.search + ((location.search.indexOf("?") >= 0)? "&" :"?") + "redirectUrl=" + encodeURIComponent(url);
+
+            return;
+        }
 
         //돌봄이 시간 선택
         $('.care_time_area').click(function(){
@@ -94,7 +108,33 @@
             return;
         }
         
-        location.href = '/matching/simpletest/test/100?testTy=care&recipientsNo=${recipientsNo}&careTime='+val;
+        if ("${rcperRcognYn}" == "Y"){
+            fn_save_result_call("${rcperRcognYn}", val);
+        }else{
+            location.href = '/matching/simpletest/test/100?testTy=care&recipientsNo=${recipientsNo}&careTime='+val;
+        }
+    }
+
+    var _jsCommon;
+    function fn_save_result_call(rcperRcognYn, careTime){
+        var url = "/matching/simpletest/test/save.json";
+
+        _jsCommon = new JsCommon();
+        var qsMap = _jsCommon.fn_queryString_toMap();
         
+        qsMap["testTy"] = "care";
+        qsMap["careTime"] = careTime;
+        qsMap["rcperRcognYn"] = rcperRcognYn;
+        qsMap["recipientsNo"] = "${recipientsNo}";
+
+        callPostAjaxIfFailOnlyMsg(url, qsMap, fn_save_result_cb);
+    }
+
+    function fn_save_result_cb(result){
+        
+        var qsMap = _jsCommon.fn_queryString_toMap();
+        var param = {recipientsNo:"${recipientsNo}"}//, mbrSimpletestNo : result["mbrSimpletestNo"]
+
+        location.href = "/matching/simpletest/care/result" + '?' + _jsCommon.fn_queryString_fromMap(param);
     }
 </script>
