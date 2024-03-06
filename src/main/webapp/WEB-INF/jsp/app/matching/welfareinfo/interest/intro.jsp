@@ -78,7 +78,7 @@
     <footer class="page-footer">
 
         <div class="relative">
-            <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click(${noRecipient})">복지용구 지원받기 </a>
+            <a class="waves-effect btn-large btn_primary w100p" onclick="fn_next_click()">복지용구 지원받기 </a>
         </div>
 
     </footer>
@@ -86,29 +86,38 @@
 </div>
 
 <script>
-    async function fn_next_click(noRecipient){
-        if ("${isLogin}" == "false"){
+    var _jsCommon;
+    async function fn_next_click(){
+        var bLogin = false;
+        if ("${_matMbrSession.loginCheck}" == "false"){
+            bLogin = true;
             const asyncConfirm2 = await showConfirmPopup('로그인을 해 주세요', '관심복지용구를 등록하실려면 로그인이 필요해요.', '로그인하기');
             if (asyncConfirm2 != 'confirm'){
                 return;
             } 
-
-            return;
         }
 
         var url;
-        
-        if (noRecipient){
-            const asyncConfirm2 = await showConfirmPopup('어르신을 등록해 주세요', '혜택을 받으려면 정확한 어르신 정보가 필요해요.', '등록하기');
-            if (asyncConfirm2 != 'confirm'){
+        if (!bLogin){
+            var recipientsNo = "${recipientsNo}";
+            if (isNaN(recipientsNo) || recipientsNo == "0"){
+                const asyncConfirm2 = await showConfirmPopup('어르신을 등록해 주세요', '혜택을 받으려면 정확한 어르신 정보가 필요해요.', '등록하기');
+                if (asyncConfirm2 != 'confirm'){
+                    return;
+                }else{
+                    url = '/matching/membership/recipients/regist/relation?redirectUrl=' + encodeURIComponent(location.pathname + location.search)
+                }
+
+                location.href = url;
                 return;
-            }else{
-                url = '/matching/membership/recipients/regist/relation?redirectUrl=' + encodeURIComponent(location.pathname + location.search)
             }
-        }else{
-            url = 'choice';
         }
-        
-        location.href = url + location.search;
+        _jsCommon = new JsCommon();
+        var qsMap = _jsCommon.fn_queryString_toMap();
+
+        qsMap["recipientsNo"] = "${recipientsNo}";
+
+        url = 'choice';
+        location.href = url + "?" +_jsCommon.fn_queryString_fromMap(qsMap);
     }
 </script>

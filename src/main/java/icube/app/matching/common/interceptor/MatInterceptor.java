@@ -61,6 +61,7 @@ public class MatInterceptor implements HandlerInterceptor {
 			add("/matching/simpletest/simple/");
 			add("/matching/simpletest/care/");
 			add("/matching/membership/recipients/regist/");
+			add("/matching/welfareinfo/interest/");
 		}
 	};
 

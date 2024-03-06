@@ -1160,6 +1160,8 @@ public class CodeMap{
 			put("equip_ctgry", "복지용구상담");
 			put("test", "인정등급상담");
 			put("simpleSearch", "요양정보상담");
+			put("simple_test", "인정등급 간편 테스트");
+			put("care", "어르신 돌봄");
 		}
 	};
 	// 상담 요청 경로(MVP 앱)

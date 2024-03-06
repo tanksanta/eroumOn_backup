@@ -164,7 +164,7 @@
 	
 		            <div class="box_sub02">
 		              <div class="img_area">
-		                <img src="../images/08etc/bp_40.svg" alt="혜택">
+		                <img src="/html/page/app/matching/assets/src/images/08etc/bp_40.svg" alt="혜택">
 		              </div>
 		              <div class="ctn_area">
 		                <div class="color_t_t font_sbls">어르신 장기요양기관</div>
@@ -191,7 +191,11 @@
 	
 	            <div class="d-flex justify-content-between align-items-center">
 	              <div class="color_t_p font_sbms">관심 복지용구</div>
-	              <div class="waves-effect link_text small_thin">설정하기</div>
+	              
+	              <%-- 상담진행중이면 노출하지 않음 --%>
+	              <c:if test="${empty progressEquipCtgry}">
+	              	<div class="waves-effect link_text small_thin" onclick="location.href='/matching/welfareinfo/interest/intro?recipientsNo=${curRecipientInfo.recipientsNo}';">설정하기</div>
+	              </c:if>
 	            </div>
 	
 	            <div class="h24"></div>
@@ -343,7 +347,15 @@
 	
 	            <div class="h24"></div>
 	
-	            <a class="waves-effect btn-large btn_default w100p">상담하기</a>
+				<%-- 상담중인 경우는 상담내역 보기로 노출 --%>
+				<c:choose>
+					<c:when test="${empty progressEquipCtgry}">
+						<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=equip_ctgry&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
+					</c:when>
+					<c:otherwise>
+						<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+					</c:otherwise>
+				</c:choose>
 	
 	          </div>
 	          </c:when>
@@ -375,30 +387,65 @@
 	        <div class="card">
 	
 			  <c:choose>
-			  	  <c:when test="${}">
+			  	  <c:when test="${!empty simpleTestInfo}">
 		          <div class="card-content">
 		
 		            <div class="d-flex justify-content-between align-items-center">
 		              <div class="color_t_p font_sbms">인정등급 간편 테스트</div>
-		              <div class="waves-effect link_text small_thin">다시하기</div>
+		              
+		              <%-- 상담진행중이면 노출하지 않음 --%>
+	              	  <c:if test="${empty progressSimpleTest}">
+		              	<div class="waves-effect link_text small_thin" onclick="location.href='/matching/simpletest/simple/intro?recipientsNo=${curRecipientInfo.recipientsNo}';">다시하기</div>
+		              </c:if>
 		            </div>
 		
 		            <div class="h24"></div>
 		
 		            <div class="align_center">
 		              
-		              <img src="/html/page/app/matching/assets/src/images/11easy/easy_09.svg" alt="간편 테스트">
+		              <%-- 대상자 이미지 --%>
+		              <c:choose>
+		              	<c:when test="${simpleTestInfo.grade eq 1}">
+		              		<img src="/html/page/app/matching/assets/src/images/11easy/easy_09.svg" alt="간편 테스트">
+		              	</c:when>
+		              	<c:otherwise>
+		              		<img src="/html/page/app/matching/assets/src/images/11easy/easy_11.svg" alt="간편 테스트">
+		              	</c:otherwise>
+		              </c:choose>
 		              
 		            </div>
 		
 		            <div class="h24"></div>
 		
-		            <a class="waves-effect btn-large btn_default w100p">상담하기</a>
-		
+					<%-- 상담중인 경우는 상담내역 보기로 노출 --%>
+					<c:choose>
+						<c:when test="${empty progressSimpleTest}">
+							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=simple_test&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
+						</c:when>
+						<c:otherwise>
+							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+						</c:otherwise>
+					</c:choose>
+		            
 		          </div>
 		          </c:when>
 		          <c:otherwise>
-		          	
+		          <div class="card-content">
+
+		              <div class="color_t_p font_sbms">인정등급 간편 테스트</div>
+		              <div class="marT4 color_t_s font_sbsr">혜택 받을 수 있는 지 빠르게 확인하기</div>
+		
+		            <div class="h20"></div>
+		
+		            <div class="align_center">
+		              <dotlottie-player src="https://lottie.host/be472d60-5369-4388-a90b-a0e465a565a4/FerkdXUTyC.json" background="transparent" speed="1" style="width: 200px; height: 132px;" loop autoplay></dotlottie-player>
+		            </div>
+		
+		            <div class="h20"></div>
+		
+		            <a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/simpletest/simple/intro?recipientsNo=${curRecipientInfo.recipientsNo}';">확인하기</a>
+		
+		          </div>
 		          </c:otherwise>
 	          </c:choose>
 	          
@@ -409,71 +456,90 @@
 	
 	        <div class="card">
 	
-	          <div class="card-content">
-	
-	            <div class="d-flex justify-content-between align-items-center">
-	              <div class="color_t_p font_sbms">어르신 돌봄</div>
-	              <div class="waves-effect link_text small_thin">설정하기</div>
-	            </div>
-	
-	            <div class="h24"></div>
-	
-	            <div class="align_center">
-	
-	              <img src="/html/page/app/matching/assets/src/images/08etc/time03_80.svg" style="height:132px;" alt="어르신 돌봄">
-	
-	            </div>
-	
-	            <div class="h12"></div>
-	
-	            <div class="center font_sbms">8~10시간</div>
-	
-	            <div class="h24"></div>
-	
-	            <a class="waves-effect btn-large btn_default w100p">상담하기</a>
-	
-	          </div>
+			  <c:choose>
+			  	<c:when test="${!empty careTestInfo}">
+		          <div class="card-content">
+		
+		            <div class="d-flex justify-content-between align-items-center">
+		              <div class="color_t_p font_sbms">어르신 돌봄</div>
+		              
+		              <%-- 상담진행중이면 노출하지 않음 --%>
+	              	  <c:if test="${empty progressCare}">
+		              	<div class="waves-effect link_text small_thin" onclick="location.href='/matching/simpletest/care/intro?recipientsNo=${curRecipientInfo.recipientsNo}';">설정하기</div>
+		              </c:if>
+		              
+		            </div>
+		
+		            <div class="h24"></div>
+		
+					<!-- 시간 선택 이미지 -->
+					<c:choose>
+						<c:when test="${careTestInfo.careTime eq 10}">
+							<div class="align_center">
+				              <img src="/html/page/app/matching/assets/src/images/08etc/time03_80.svg" style="height:132px;" alt="어르신 돌봄">		
+				            </div>
+				            <div class="h12"></div>
+				            <div class="center font_sbms">8~10시간</div>
+						</c:when>
+						<c:when test="${careTestInfo.careTime eq 8}">
+							<div class="align_center">
+				              <img src="/html/page/app/matching/assets/src/images/08etc/time02_80.svg" style="height:132px;" alt="어르신 돌봄">		
+				            </div>
+				            <div class="h12"></div>
+				            <div class="center font_sbms">3~8시간</div>
+						</c:when>
+						<c:otherwise>
+				            <div class="align_center">
+				              <img src="/html/page/app/matching/assets/src/images/08etc/time01_80.svg" style="height:132px;" alt="어르신 돌봄">		
+				            </div>
+				            <div class="h12"></div>
+				            <div class="center font_sbms">3시간 이내</div>
+						</c:otherwise>
+					</c:choose>
+		
+		            <div class="h24"></div>
+		            
+		            <%-- 상담중인 경우는 상담내역 보기로 노출 --%>
+					<c:choose>
+						<c:when test="${empty progressCare}">
+							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=care&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
+						</c:when>
+						<c:otherwise>
+							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+						</c:otherwise>
+					</c:choose>
+		
+		          </div>
+	          	</c:when>
+	          	<c:otherwise>
+	          	  <div class="card-content">
+
+		              <div class="color_t_p font_sbms">어르신 돌봄</div>
+		              <div class="marT4 color_t_s font_sbsr">필요한 시간에 돌봄 서비스 지원받기</div>
+		
+		            <div class="h20"></div>
+		
+		            <div class="align_center">
+		               <dotlottie-player src="https://lottie.host/6cc52783-7906-4744-8b24-7f7edb478789/ZxIn89efOe.json" background="transparent" speed="1" style="width: 160px; height: 160px;" loop autoplay></dotlottie-player>
+		            </div>
+		
+		            <div class="h20"></div>
+		
+		            <a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/simpletest/care/intro?recipientsNo=${curRecipientInfo.recipientsNo}';">설정하기</a>
+		
+		          </div>
+	          	</c:otherwise>
+	          </c:choose>
 	        </div>
 	        <!-- card -->
-	
-	
 	
 	      </section>
 	    </main>
 	
-	    <footer class="page-footer bottomNav">
-	
-	      <ul class="bottomNav_menu">
-	
-	        <li class="btn_om active">
-	          <a class="waves-effect">
-	            <span class="txt">어르신</span>
-	          </a>
-	        </li>
-	        <li class="btn_wel">
-	          <a class="waves-effect">
-	            <span class="txt">복지용구</span>
-	          </a>
-	        </li>
-	        <li class="btn_service ">
-	          <a class="waves-effect">
-	            <span class="txt">서비스</span>
-	          </a>
-	        </li>
-	        <li class="btn_guide">
-	          <a class="waves-effect">
-	            <span class="txt">길잡이</span>
-	          </a>
-	        </li>
-	        <li class="btn_entier">
-	          <a class="waves-effect">
-	            <span class="txt">전체</span>
-	          </a>
-	        </li>
-	
-	      </ul>
-	
-	    </footer>
+	    <!-- 하단 네이비게이션 -->
+		<jsp:include page="/WEB-INF/jsp/app/matching/common/bottomNavigation.jsp">
+			<jsp:param value="recipients" name="menuName" />
+		</jsp:include>
 
 	</div>
 	<!-- wrapper -->

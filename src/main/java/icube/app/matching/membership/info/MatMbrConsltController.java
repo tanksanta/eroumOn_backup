@@ -68,18 +68,26 @@ public class MatMbrConsltController extends CommonAbstractController {
 	@RequestMapping(value = "infoConfirm")
 	public String infoConfirm(
 		@RequestParam String prevPath
+		, @RequestParam(required = false) Integer recipientsNo
 		, Model model) throws Exception {
 		
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
-		MbrRecipientsVO mainRecipientInfo = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
-		if (mainRecipientInfo == null) {
+		MbrRecipientsVO recipientInfo = null;
+		if (recipientsNo == null) {
+			//수급자 번호가 없으면 메인수급자 검색
+			recipientInfo = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		} else {
+			recipientInfo = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+		}
+		
+		if (recipientInfo == null) {
 			model.addAttribute("appMsg", "등록된 수급자가 아닙니다.");
 			model.addAttribute("appLocation", "/matching/main/service");
 			return "/app/matching/common/appMsg";
 		}
 		
 		model.addAttribute("prevPath", prevPath);
-		model.addAttribute("recipientInfo", mainRecipientInfo);
+		model.addAttribute("recipientInfo", recipientInfo);
 		
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
@@ -101,23 +109,28 @@ public class MatMbrConsltController extends CommonAbstractController {
 	@RequestMapping(value = "/addMbrConslt.json")
 	public synchronized Map<String, Object> addMbrConslt(
 			@RequestParam String prevPath
+			, @RequestParam Integer recipientsNo
 			, @RequestParam String tel
 			, @RequestParam String sido
 			, @RequestParam String sigugun) throws Exception {
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
-		MbrRecipientsVO mainRecipientInfo = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		MbrRecipientsVO recipientInfo = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
 		
 		boolean saveRecipientInfo = false;
 		MbrConsltVO mbrConsltVO = new MbrConsltVO();
 		mbrConsltVO.setPrevPath(prevPath);
-		mbrConsltVO.setRecipientsNo(mainRecipientInfo.getRecipientsNo());
-		mbrConsltVO.setRelationCd(mainRecipientInfo.getRelationCd());
-		mbrConsltVO.setMbrNm(mainRecipientInfo.getRecipientsNm());
+		mbrConsltVO.setRecipientsNo(recipientInfo.getRecipientsNo());
+		mbrConsltVO.setRelationCd(recipientInfo.getRelationCd());
+		mbrConsltVO.setMbrNm(recipientInfo.getRecipientsNm());
 		mbrConsltVO.setMbrTelno(tel);
-		mbrConsltVO.setGender(mainRecipientInfo.getGender());
-		mbrConsltVO.setBrdt(mainRecipientInfo.getBrdt());
+		mbrConsltVO.setGender(recipientInfo.getGender());
+		mbrConsltVO.setBrdt(recipientInfo.getBrdt());
 		mbrConsltVO.setZip(sido);
 		mbrConsltVO.setAddr(sigugun);
+		if ("simple_test".equals(prevPath) || "care".equals(prevPath)) {
+			mbrConsltVO.setSimpleYn("Y");
+		}
+		mbrConsltVO.setConsltCours("MOBILE");
 		
 		return mbrConsltService.addMbrConslt(mbrConsltVO, saveRecipientInfo, matMbrSession);
 	}
@@ -126,11 +139,11 @@ public class MatMbrConsltController extends CommonAbstractController {
 	 * 상담 신청 완료 페이지
 	 */
 	@RequestMapping(value = "complete")
-	public String complete(Model model) throws Exception {
+	public String complete(@RequestParam Integer recipientsNo, Model model) throws Exception {
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
-		MbrRecipientsVO mainRecipientInfo = mbrRecipientList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+		MbrRecipientsVO recipientInfo = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
 		
-		MbrConsltVO mbrConsltVO = mbrConsltService.selectRecentConsltByRecipientsNo(mainRecipientInfo.getRecipientsNo());
+		MbrConsltVO mbrConsltVO = mbrConsltService.selectRecentConsltByRecipientsNo(recipientInfo.getRecipientsNo());
 		
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);

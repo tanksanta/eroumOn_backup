@@ -62,11 +62,9 @@
 		//상담받을 연락처 표시
 		function showConsltTelno() {
 			var tel = getInLocalStorage('consltTel');
-			if (tel) {
-				
-			} else {
+			if (!tel) {
 				tel = '${recipientInfo.tel}';
-				saveInLocalStorage('consltTel', tel);
+				saveInLocalStorage('consltTel', tel);	
 			}
 			
 			$('#spanTel').text(tel);
@@ -74,6 +72,7 @@
 	
 		$(function() {
 			saveInLocalStorage('consltPrevPath', '${prevPath}');
+			saveInLocalStorage('consltRecipientsNo', '${recipientInfo.recipientsNo}');
 			
 			showConsltTelno();
 		});
