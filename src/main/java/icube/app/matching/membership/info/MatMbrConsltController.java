@@ -83,7 +83,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 		
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
-		return "/app/matching/membership/conslt/infoConfirm";
+		return "/app/matching/membership/conslt/regist/infoConfirm";
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 	 */
 	@RequestMapping(value = "request")
 	public String request() throws Exception {
-		return "/app/matching/membership/conslt/request";
+		return "/app/matching/membership/conslt/regist/request";
 	}
 	
 	/**
@@ -135,7 +135,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
-		return "/app/matching/membership/conslt/complete";
+		return "/app/matching/membership/conslt/regist/complete";
 	}
 	
 	/**
@@ -143,6 +143,15 @@ public class MatMbrConsltController extends CommonAbstractController {
 	 */
 	@RequestMapping(value = "telChange")
 	public String telChange() throws Exception {
-		return "/app/matching/membership/conslt/telChange";
+		return "/app/matching/membership/conslt/regist/telChange";
+	}
+	
+	
+	/**
+	 * 상담내역
+	 */
+	@RequestMapping(value = "list")
+	public String list() throws Exception {
+		return "/app/matching/membership/conslt/list";
 	}
 }

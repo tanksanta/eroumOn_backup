@@ -155,7 +155,7 @@
 		            <div class="h24"></div>
 		
 		
-		            <a class="waves-effect btn-large btn_default w100p">상담내역 보기</a>
+		            <a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
 		
 		          </div>
 	          </c:when>
