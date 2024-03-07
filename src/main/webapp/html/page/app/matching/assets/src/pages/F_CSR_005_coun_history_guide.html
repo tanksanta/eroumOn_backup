@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>F_CSR_005_coun_history.html</title>
+
+
+    <!-- jquery -->
+    <script src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css">
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script>
+
+        $(function () {
+
+            //세로 스크롤
+            //전체 진행바 높이
+            var step_txt_areaHeight = $('.step_txt_area').height() - 30;
+            $('.vertical_bar').css('height', step_txt_areaHeight + 'px');
+
+            //진행바 높이
+            var bar_activeTop = $('.step_txt_area .active').position().top + 12;
+            $('.vertical_bar .bar_active').css('height', bar_activeTop + 'px');
+
+            //지난결과 class추가
+            $('.step_txt_area .item.active').prevAll('.item').addClass('past');
+
+            //지난결과 class추가 -취소시
+            $('.step_txt_area .item.active.cancel').prevAll('.item').addClass('past cancel');
+
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body class="back_gray">
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <span class="txt">상담내역</span>
+                </a>
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="default noPad">
+
+                <div class="box_history_area">
+
+                    <h4 class="title color_tp_i">
+                        신청완료<br>
+                        어르신에게 적합한 곳을 연결 중이에요
+                    </h4>
+
+                    <div class="h32"></div>
+
+                    <div class="card waves-effect w100p radius08">
+
+                        <div class="card-content box_coun_list pad20">
+
+                            <div class="img_area trans_02 ing">
+                                <span class="txt font_sss">신청<br>완료</span>
+                            </div>
+
+                            <div>
+                                <div class="font_sbls">관심 복지용구</div>
+                                <div class="marT4">
+                                    <span class="color_t_s font_sbsr">복지용구</span>
+                                    <span class="marL4 color_t_s font_sbsr">2024.01.10</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- card -->
+
+
+                </div>
+
+                <div class="h12"></div>
+
+                <div class="box_history_area">
+
+                    <h4 class="title color_tp_i">
+                        상담진행중<br>
+                        적합한 곳을 찾았어요! 기다려주세요
+                    </h4>
+
+                    <div class="h32"></div>
+
+                    <div class="card waves-effect w100p radius08">
+
+                        <div class="card-content box_coun_list pad20">
+
+                            <div class="img_area trans_02 ing">
+                                <span class="txt font_sss">상담<br>연결중</span>
+                            </div>
+
+                            <div>
+                                <div class="font_sbls">관심 복지용구</div>
+                                <div class="marT4">
+                                    <span class="color_t_s font_sbsr">복지용구</span>
+                                    <span class="marL4 color_t_s font_sbsr">2024.01.10</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- card -->
+
+
+                </div>
+
+
+
+                <div class="h12"></div>
+
+                <div class="box_history_area">
+
+                    <h4 class="title color_tp_i">
+                        상담진행중<br>
+                        곧 연락드릴게요
+                    </h4>
+
+                    <div class="h32"></div>
+
+                    <div class="card waves-effect w100p radius08">
+
+                        <div class="card-content box_coun_list pad20">
+
+                            <div class="img_area trans_02 ing">
+                                <span class="txt font_sss">상담<br>연결중</span>
+                            </div>
+
+                            <div>
+                                <div class="font_sbls">관심 복지용구</div>
+                                <div class="marT4">
+                                    <span class="color_t_s font_sbsr">복지용구</span>
+                                    <span class="marL4 color_t_s font_sbsr">2024.01.10</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- card -->
+
+
+                </div>
+
+                <div class="h12"></div>
+
+                <div class="box_history_area">
+
+                    <h4 class="title color_tp_i">
+                        상담완료<br>
+                        혜택이 아직 더 남아있어요
+                    </h4>
+
+                    <div class="h16"></div>
+
+                    <span class="waves-effect link_text color_white font_sbmu">더 알아보기</span>
+
+                    <div class="h44"></div>
+
+                    <div class="card waves-effect w100p radius08">
+
+                        <div class="card-content box_coun_list pad20">
+
+                            <div class="img_area trans_02 ok">
+                                <span class="txt font_sss">상담 완료</span>
+                            </div>
+
+                            <div>
+                                <div class="font_sbls">관심 복지용구</div>
+                                <div class="marT4">
+                                    <span class="color_t_s font_sbsr">복지용구</span>
+                                    <span class="marL4 color_t_s font_sbsr">2024.01.10</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- card -->
+
+
+                </div>
+
+                <div class="h12"></div>
+
+                <div class="box_history_area gray">
+
+                    <h4 class="title color_tp_i">
+                        취소되었어요<br>
+                        혜택이 아직 더 남아있어요
+                    </h4>
+
+                    <div class="h16"></div>
+
+                    <span class="waves-effect link_text color_white font_sbmu">더 알아보기</span>
+
+                    <div class="h44"></div>
+
+                    <div class="card waves-effect w100p radius08">
+
+                        <div class="card-content box_coun_list pad20">
+
+                            <div class="img_area trans_02 ok">
+                                <span class="txt font_sss">상담 완료</span>
+                            </div>
+
+                            <div>
+                                <div class="font_sbls">관심 복지용구</div>
+                                <div class="marT4">
+                                    <span class="color_t_s font_sbsr">복지용구</span>
+                                    <span class="marL4 color_t_s font_sbsr">2024.01.10</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- card -->
+
+
+                </div>
+
+
+
+
+
+                <div class="box_normal pad20">
+
+                    <div class="step_area_vertical">
+
+                        <div class="step_txt_area">
+                            <div class="vertical_bar">
+                                <span class="bar_active"></span>
+                            </div>
+                            <div class="item ">
+                                <span class="title color_t_d">신청완료</span>
+                                <span class="color_t_t font_sbsr">2024.01.20 오후 12:00</span>
+                            </div>
+
+                            <div class="h12"></div>
+
+                            <div class="item ">
+                                <span class="title">상담연결중</span>
+                                <span class="color_t_t font_sbsr">2024.01.20 오후 13:56</span>
+                            </div>
+
+                            <div class="h12"></div>
+
+                            <div class="item active cancel"><!-- cancel 클래스 추가시 취소UI -->
+                                <span class="title fs10">상담진행중</span>
+                                <span class="color_t_t font_sbsr">2024.01.20 오후</span>
+                            </div>
+
+                            <div class="h12"></div>
+
+                            <div class="item ">
+                                <span class="title">상담완료</span>
+                                <span class="color_t_t font_sbsr">-</span>
+                            </div>
+                        </div>
+
+                        <div class="h12"></div>
+
+                        <div class="coun_cancel disNone">
+
+                            <span class="title color_t_danger font_sbms">상담취소</span>
+                            <span class="color_t_t font_sbsr">2024.01.20 오후 13:56 </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!-- box_normal -->
+
+
+
+
+            </section>
+        </main>
+
+    </div>
+    <!-- wrapper -->
+
+
+
+
+
+</body>
+
+</html>
