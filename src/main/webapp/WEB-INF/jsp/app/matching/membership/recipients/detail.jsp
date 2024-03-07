@@ -43,7 +43,7 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="font_sbms">기본정보</span>
-                    <a class="modal-close waves-effect btn-middle02 btn_white_bder">수정</a>
+                    <a class="modal-close waves-effect btn-middle02 btn_white_bder" onclick="clickUpdateRecipientInfo('base');">수정</a>
                 </div>
 
                 <div class="h20"></div>
@@ -67,7 +67,6 @@
                             <td class="font_sbmr">
                             	<c:if test="${!empty curRecipientInfo.brdt && fn:length(curRecipientInfo.brdt) >= 8}">
                             		${fn:substring(curRecipientInfo.brdt,0,4)}/${fn:substring(curRecipientInfo.brdt,4,6)}/${fn:substring(curRecipientInfo.brdt,6,8)}
-                            		
                             	</c:if>
                             </td>
                         </tr>
@@ -92,7 +91,7 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="font_sbms">상담정보</span>
-                    <a class="modal-close waves-effect btn-middle02 btn_white_bder">수정</a>
+                    <a class="modal-close waves-effect btn-middle02 btn_white_bder" onclick="clickUpdateRecipientInfo('conslt');">수정</a>
                 </div>
 
                 <div class="h20"></div>
@@ -170,11 +169,12 @@
 		async function clickUpdateRecipientInfo(type) {
 			//기본정보 수정페이지로 이동
 			if (type === 'base') {
-				
+				removeInLocalStorage('updateRelationCd');
+				location.href = '/matching/membership/recipients/update/baseInfo?recipientsNo=' + recipientsNo;
 			}
 			//상담정보 수정페이지로 이동
 			else if (type === 'conslt') {
-				
+				location.href = '/matching/membership/recipients/update/consltInfo?recipientsNo=' + recipientsNo;
 			}
 		}
 		
