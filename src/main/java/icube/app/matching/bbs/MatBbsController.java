@@ -1,5 +1,8 @@
 package icube.app.matching.bbs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,10 +36,13 @@ public class MatBbsController  extends CommonAbstractController {
 		
 		listVO.setParam("srchSrvcCd", srchSrvcCd);
 		listVO.setParam("srchBbsCd", bbsCd);
+		listVO.setParam("endNumMysql", 9999);
 		
-		listVO = bbsService.selectNttListVO(listVO);
+		listVO = bbsService.selectNttListWithAddColumnVO(listVO);
 
 		model.addAttribute("listVO", listVO);
+		model.addAttribute("swiperBackcolor", SWIPER_BACKCOLOR());
+		
 		
         return "/app/matching/bbs/"+bbsCd+"/list";
     }
@@ -74,7 +80,6 @@ public class MatBbsController  extends CommonAbstractController {
 	public String bbsLinkView(
 			@PathVariable String bbsCd
 			, @PathVariable String uniqueText
-			// , @RequestParam(value="nttNo", required=true) int nttNo
 			, HttpServletRequest request
 			, Model model
 		) throws Exception{
@@ -91,5 +96,15 @@ public class MatBbsController  extends CommonAbstractController {
 		model.addAttribute("nttVO", nttVO);
 
 		return "/app/matching/bbs/"+bbsCd+"/view";
+	}
+
+	protected List<String> SWIPER_BACKCOLOR(){
+		return new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+		{
+            add("back_FFF5E6");
+            add("back_EFF1FD");
+            add("back_EFF6FF");
+        }};
 	}
 }

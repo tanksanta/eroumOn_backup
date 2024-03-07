@@ -8,20 +8,21 @@
     </jsp:include>
 
     <main>
-        <section class="intro">
-            뷰
-        </section>
-        
+        <section class="default">
+          
+            <div class="color_t_s font_ssr">${nttVO.ctgryNm}</div>
 
-    </main>
-    
-		<footer class="page-footer">
+            <h3 class="title marT4">${nttVO.ttl}</h3>
 
-            <div class="relative">
-                <a class="waves-effect btn-large btn_primary w100p" >다음</a>
+            <div class="h32"></div>
+
+            <div class="content">
+                ${nttVO.cn}
+
             </div>
+        </section>
+    </main>
 
-        </footer>
 </div>
 
 <script>
