@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
@@ -33,6 +34,10 @@ public class SimpleTestController  extends CommonAbstractController {
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
 	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
+
+
 	@Resource(name= "simpleTestService")
 	private SimpleTestService simpleTestService;
 
@@ -56,6 +61,12 @@ public class SimpleTestController  extends CommonAbstractController {
 			}else{
 				model.addAttribute("recipientsCnt", 1);
 				model.addAttribute("recipientsNo", recipientsNo);
+			}
+
+			if (recipientsNo != null && recipientsNo > 0){
+				//수급자 최근 상담 조회(진행 중인 상담 체크)
+				Map <String, Object> resultMap = mbrConsltService.selectRecipientConsltSttus(matMbrSession.getUniqueId(), recipientsNo, "simple_test");
+				model.addAttribute("isExistRecipientConslt", resultMap.get("isExistRecipientConslt"));
 			}
 			
 		}
@@ -109,7 +120,9 @@ public class SimpleTestController  extends CommonAbstractController {
     }
 
 	protected List<String> SIMPLE_TEST_STEP(){
-		return new ArrayList<String>() {{
+		return new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+			{
             add("100");
             add("200");
             add("300");
@@ -122,12 +135,16 @@ public class SimpleTestController  extends CommonAbstractController {
 	protected List<String> testStepChoiceListValues(String step){
 		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)
 			|| EgovStringUtil.equals("300", step) || EgovStringUtil.equals("600", step)){
-			return new ArrayList<String>() {{
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
 				add("1");
 				add("0");
 			}};
 		}else{
-			return new ArrayList<String>() {{
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
 				add("0");
 				add("1");
 			}};
@@ -136,12 +153,16 @@ public class SimpleTestController  extends CommonAbstractController {
 
 	protected List<String> testStepChoiceListTexts(String step){
 		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)){
-			return new ArrayList<String>() {{
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
 				add("도움필요");
 				add("도움 없이가능");
 			}};
 		}else{
-			return new ArrayList<String>() {{
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
 				add("네");
 				add("아니오");
 			}};
@@ -240,6 +261,12 @@ public class SimpleTestController  extends CommonAbstractController {
 
 		if (matMbrSession.isLoginCheck()){
 			model.addAttribute("recipientsCnt", mbrRecipientsService.selectCountMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId()));
+
+			if (recipientsNo != null && recipientsNo > 0){
+				//수급자 최근 상담 조회(진행 중인 상담 체크)
+				Map <String, Object> resultMap = mbrConsltService.selectRecipientConsltSttus(matMbrSession.getUniqueId(), recipientsNo, "care");
+				model.addAttribute("isExistRecipientConslt", resultMap.get("isExistRecipientConslt"));
+			}
 		}
 		
 		model.addAttribute("recipientsNo", recipientsNo);
