@@ -217,6 +217,7 @@
 				},
 				function(result) {
 					removeInLocalStorage('consltPrevPath');
+					removeInLocalStorage('consltRecipientsNo');
 					removeInLocalStorage('consltTel');
 					location.href = '/matching/membership/conslt/complete?recipientsNo=' + recipientsNo;
 				}

@@ -7,12 +7,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.util.DateUtil;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
@@ -20,9 +18,6 @@ import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
 @Service("simpleTestService")
 public class SimpleTestService extends CommonAbstractServiceImpl {
-    
-    @Autowired
-	private MatMbrSession matMbrSession;
 
     @Resource(name="simpleTestDAO")
     private SimpleTestDAO simpleTestDAO;

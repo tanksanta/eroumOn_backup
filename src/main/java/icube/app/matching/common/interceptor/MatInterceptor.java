@@ -48,6 +48,9 @@ public class MatInterceptor implements HandlerInterceptor {
 			add("/matching/membership/conslt/request");
 			add("/matching/membership/conslt/addMbrConslt.json");
 			add("/matching/membership/recipients/subMain");
+			add("/matching/membership/recipients/detail");
+			add("/matching/membership/recipients/updateMbrRecipient.json");
+			add("/matching/membership/recipients/removeMbrRecipient.json");
 		}
 	};
 
@@ -61,6 +64,7 @@ public class MatInterceptor implements HandlerInterceptor {
 			add("/matching/simpletest/simple/");
 			add("/matching/simpletest/care/");
 			add("/matching/membership/recipients/regist/");
+			add("/matching/membership/recipients/update/");
 			add("/matching/welfareinfo/interest/");
 		}
 	};

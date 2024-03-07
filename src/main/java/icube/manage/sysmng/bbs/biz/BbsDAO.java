@@ -14,6 +14,9 @@ public class BbsDAO extends CommonAbstractMapper {
 	public CommonListVO selectNttListVO(CommonListVO listVO) throws Exception {
 		return selectListVO("bbs.ntt.selectNttCount", "bbs.ntt.selectNttListVO", listVO);
 	}
+	public CommonListVO selectNttListWithAddColumnVO(CommonListVO listVO) throws Exception {
+		return selectListVO("bbs.ntt.selectNttCount", "bbs.ntt.selectNttListWithAddColumnVO", listVO);
+	}
 
 	public BbsVO selectNtt(Map<String, Object> paramMap) throws Exception {
 		return selectOne("bbs.ntt.selectNtt", paramMap);

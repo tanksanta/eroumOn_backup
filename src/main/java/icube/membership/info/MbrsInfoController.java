@@ -678,87 +678,19 @@ public class MbrsInfoController extends CommonAbstractController{
         @RequestParam(required = false) String gender,
 		HttpServletRequest request) throws Exception {
 		
-		Map <String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", false);
+		MbrRecipientsVO updateRecipient = new MbrRecipientsVO();
+		updateRecipient.setRecipientsNo(recipientsNo);
+		updateRecipient.setRelationCd(relationCd);
+		updateRecipient.setRecipientsNm(recipientsNm);
+		updateRecipient.setRcperRcognNo(rcperRcognNo);
+		updateRecipient.setTel(tel);
+		updateRecipient.setSido(sido);
+		updateRecipient.setSigugun(sigugun);
+		updateRecipient.setDong(dong);
+		updateRecipient.setBrdt(brdt);
+		updateRecipient.setGender(gender);
 		
-		try {
-			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrSession.getUniqueId());
-			List<MbrRecipientsVO> mbrRecipientList = mbrVO.getMbrRecipientsList();
-			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
-			if (mbrRecipient == null) {
-				resultMap.put("msg", "등록되지 않은 수급자입니다.");
-                return resultMap;
-			}
-			//해당 수급자가 본인인 경우 회원의 정보로 수급자 저장
-			if ("007".equals(relationCd)) {
-				recipientsNm = mbrVO.getMbrNm();
-				tel = mbrVO.getMblTelno();
-				sido = null;
-				sigugun = mbrVO.getAddr();
-				dong = null;
-				if (mbrVO.getBrdt() != null) {
-					brdt = dateFormat.format(mbrVO.getBrdt());
-				}
-				gender = mbrVO.getGender();
-			}
-			
-			//본인, 배우자로 등록하려고 할 때 다른 수급자가 이미 등록되어 있는지 확인
-			if ("007".equals(relationCd) || "001".equals(relationCd)) {
-				if (mbrRecipientList.stream().filter(f -> relationCd.equals(f.getRelationCd()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
-					if ("007".equals(relationCd)) {
-						resultMap.put("msg", "이미 본인으로 등록한 수급자(어르신)가 존재합니다");
-					} else {
-						resultMap.put("msg", "이미 배우자로 등록한 수급자(어르신)가 존재합니다");
-					}
-					return resultMap;
-				}
-			}
-			
-			//동일한 수급자 이름 수정 체크
-			String srchName = recipientsNm;
-			if (mbrRecipientList.stream().filter(f -> srchName.equals(f.getRecipientsNm()) && f.getRecipientsNo() != mbrRecipient.getRecipientsNo()).count() > 0) {
-				resultMap.put("msg", "이미 등록한 다른 수급자(어르신) 성함으로 변경할 수 없습니다");
-				return resultMap;
-			}
-			
-			//기존에 요양인정번호가 없었고 요양인정번호를 입력한 경우 조회 가능한지 유효성 체크
-//			if ("N".equals(mbrRecipient.getRecipientsYn()) && EgovStringUtil.isNotEmpty(rcperRcognNo)) {
-//				Map<String, Object> returnMap = tilkoApiService.getRecipterInfo(recipientsNm, rcperRcognNo, true);
-//				
-//				Boolean result = (Boolean) returnMap.get("result");
-//				if (result == false) {
-//					resultMap.put("msg", "수급자 정보를 다시 확인해주세요");
-//					return resultMap;
-//				}
-//			}
-			
-			//회원의 수급자 정보 수정
-			mbrRecipient.setRelationCd(relationCd);
-			mbrRecipient.setRecipientsNm(recipientsNm);
-			if (EgovStringUtil.isNotEmpty(rcperRcognNo)) {
-				mbrRecipient.setRcperRcognNo(rcperRcognNo);
-				mbrRecipient.setRecipientsYn("Y");
-			} else {
-				mbrRecipient.setRecipientsYn("N");
-			}
-			mbrRecipient.setTel(tel);
-			mbrRecipient.setSido(sido);
-			mbrRecipient.setSigugun(sigugun);
-			mbrRecipient.setDong(dong);
-			if(EgovStringUtil.isNotEmpty(brdt)) {
-				mbrRecipient.setBrdt(brdt.replace("/", ""));
-			}
-			mbrRecipient.setGender(gender);
-			
-			mbrRecipientsService.updateMbrRecipients(mbrRecipient);
-			
-			resultMap.put("success", true);
-		} catch (Exception ex) {
-			resultMap.put("success", false);
-			resultMap.put("msg", "수급자 수정 중 오류가 발생하였습니다");
-		}
-		
-		return resultMap;
+		return mbrRecipientsService.updateMbrRecipient(mbrSession.getUniqueId(), updateRecipient);
 	}
 	
 	/**
@@ -810,40 +742,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	@RequestMapping(value = "removeMbrRecipient.json")
 	public Map<String, Object> removeMbrRecipient(
 		@RequestParam int recipientsNo) throws Exception {
-		
-		Map <String, Object> resultMap = new HashMap<String, Object>();
-		
-		try {
-			//삭제전에 1:1 상담중인지 검사
-			MbrConsltVO mbrConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);
-			if (mbrConslt != null && 
-					("CS01".equals(mbrConslt.getConsltSttus()) ||
-					"CS02".equals(mbrConslt.getConsltSttus()) ||
-					"CS05".equals(mbrConslt.getConsltSttus()) ||
-					"CS07".equals(mbrConslt.getConsltSttus()) ||
-					"CS08".equals(mbrConslt.getConsltSttus()))) {
-				resultMap.put("success", false);
-				resultMap.put("msg", "진행중인 상담이 있습니다");
-				return resultMap;
-			}
-			
-			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
-			
-			//삭제처리
-			mbrRecipient.setDelDt(new Date());
-			mbrRecipient.setDelYn("Y");
-			mbrRecipient.setDelMbrUniqueId(mbrSession.getUniqueId());
-			
-			mbrRecipientsService.updateMbrRecipients(mbrRecipient);
-			
-			resultMap.put("success", true);
-		} catch (Exception ex) {
-			resultMap.put("success", false);
-			resultMap.put("msg", "수급자 삭제 중 오류가 발생하였습니다");
-		}
-		
-		return resultMap;
+		return mbrRecipientsService.removeMbrRecipient(recipientsNo, mbrSession);
 	}
 	
 	/**

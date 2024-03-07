@@ -20,6 +20,9 @@ public class BbsService extends CommonAbstractServiceImpl {
 	public CommonListVO selectNttListVO(CommonListVO listVO) throws Exception {
 		return bbsDAO.selectNttListVO(listVO);
 	}
+	public CommonListVO selectNttListWithAddColumnVO(CommonListVO listVO) throws Exception {
+		return bbsDAO.selectNttListWithAddColumnVO(listVO);
+	}
 
 	public BbsVO selectNtt(int bbsNo, int nttNo) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

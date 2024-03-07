@@ -438,6 +438,10 @@ mark {
   margin: 0 -20px;
 }
 
+section.default .marT-20W-20 {
+  margin: -20px -20px 0;
+}
+
 .marT-20W-20 {
   margin: -20px -20px 0;
 }
@@ -452,6 +456,10 @@ mark {
 
 .lh18 {
   line-height: 18px !important;
+}
+
+.noShadow {
+  box-shadow: none !important;
 }
 
 hr {
@@ -1259,6 +1267,10 @@ hr {
   color: #757575 !important;
 }
 
+.back_F5F5F5 {
+  background-color: #F5F5F5 !important;
+}
+
 .back_FFF5E6 {
   background-color: #FFF5E6 !important;
 }
@@ -1737,6 +1749,9 @@ ul.list_dept1 li::before {
 }
 ul.list_dept1 li + li {
   margin-top: 8px;
+}
+.card ul.list_dept1 li + li {
+  margin-top: 12px;
 }
 
 .badge_recomm {
@@ -3277,10 +3292,10 @@ h5.title {
   opacity: 0.85;
 }
 .box_coun_list .img_area.trans_01 {
-  background-image: url("../../images/06trans/trans_01.svg");
+  background-image: url("../images/06trans/trans_01.svg");
 }
 .box_coun_list .img_area.trans_02 {
-  background-image: url("../../images/06trans/trans_02.svg");
+  background-image: url("../images/06trans/trans_02.svg");
 }
 .box_coun_list .img_area.ing {
   background-color: #10185C;
@@ -3320,4 +3335,52 @@ h5.title {
 }
 .om_guide_card.backImg_01 {
   background-image: url("../images/03tool/tool03_00.png");
+}
+
+.intro_om_wel_list {
+  padding: 24px 20px;
+  margin: -20px -20px 0;
+  height: 226px;
+  background-color: #FFF5E6;
+  background-image: url("../images/09people/pp_06.svg");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+.box_om_wel_list {
+  padding: 12px 24px 12px 16px;
+  background-color: #fff;
+  background-image: url("../images/18icon/chevron-right02_thin.svg");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 3px) center;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.2), 0px 2px 16px 0px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+.box_om_wel_list .img_area {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #F5F5F5;
+  background: #FAFAFA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box_om_wel_list .img_area img {
+  width: 40px;
+  height: 40px;
+  z-index: initial;
+}
+.box_om_wel_list.title {
+  padding: 0;
+  box-shadow: none;
+  background-image: none;
+}
+.box_om_wel_list + .box_om_wel_list {
+  margin-top: 16px;
 }/*# sourceMappingURL=style.css.map */
