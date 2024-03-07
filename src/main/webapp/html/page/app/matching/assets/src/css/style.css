@@ -3292,10 +3292,10 @@ h5.title {
   opacity: 0.85;
 }
 .box_coun_list .img_area.trans_01 {
-  background-image: url("../../images/06trans/trans_01.svg");
+  background-image: url("../images/06trans/trans_01.svg");
 }
 .box_coun_list .img_area.trans_02 {
-  background-image: url("../../images/06trans/trans_02.svg");
+  background-image: url("../images/06trans/trans_02.svg");
 }
 .box_coun_list .img_area.ing {
   background-color: #10185C;
@@ -3342,7 +3342,7 @@ h5.title {
   margin: -20px -20px 0;
   height: 226px;
   background-color: #FFF5E6;
-  background-image: url("../../images/09people/pp_06.svg");
+  background-image: url("../images/09people/pp_06.svg");
   background-repeat: no-repeat;
   background-position: right bottom;
 }
