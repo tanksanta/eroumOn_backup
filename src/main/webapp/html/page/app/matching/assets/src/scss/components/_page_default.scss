@@ -146,6 +146,12 @@ h5.title{
 .modal.bottom-sheet .modal-content{padding: 0 20px;}
 .modal.bottom-sheet .modal-footer{padding: 0 20px 32px;}
 
+.modal.bottom-sheet .modal_title{
+    color: $--Color-text-Primitive-secondary;
+    @include Suit_Body_LG_Bold;
+
+}
+
 .modal_title{margin: 0; color: $--Color-text-Primitive-secondary;
     @include Suit_Heading_SM;
 }
@@ -242,6 +248,8 @@ h5.title{
     }
 
     .icon_btn + div label{padding: 12px 20px 12px 44px;}
+
+    &+.group_chk_area{margin-top: 6px;}
 }
 
 
@@ -762,6 +770,14 @@ h5.title{
 //grid없는 박스
 .box_normal{background-color: #fff;padding:32px 20px;}
 
+.box_normal.gray{
+    border-radius: 8px;
+    background: $--Color-bg-teritiary;
+    padding: 16px 20px;
+}
+
+
+
 //progress step
 .progress01{
     appearance: none;width:100%;
@@ -1057,71 +1073,191 @@ h5.title{
 
 
 //step
-.step_txt_area{
-    display: flex;justify-content: space-between;
+.step_area{
 
-    li{
-        color: $--Color-text-teritiary;
-        @include Suit_Caption_XS;
 
-        &.active{
-            color: $--Color-text-Primitive-selected;
+
+    .step_txt_area{
+        display: flex;justify-content: space-between;
+    
+        li{
+            color: $--Color-text-teritiary;
             @include Suit_Caption_XS;
+    
+            &.active{
+                color: $--Color-text-Primitive-selected;
+                @include Suit_Caption_XS;
+            }
+    
         }
-
+    
     }
+    
+    .step_graph_area{
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        border-radius: 50px;
+        height:8px;
+        background-color: $--Color-bg-teritiary;
+        overflow: hidden;
+        margin-top: 8px;
+    
+    
+        .item{
+            position: relative;
+            display: flex;
+            z-index: 3;
+    
+            &:after{
+                position: relative;
+                content: '';
+                width:4px;height:4px;
+                border-radius: 50%;
+                background-color: $--Color-bg-Primitive-primary;
+                top:2px;
+                }
+    
+    
+            &:first-child{left:4px;}
+            &:last-child{right:4px;}
+    
+            &.active{
+                z-index: 1;
+            }
+            &.active:before{
+    
+                position: absolute;
+                top:0;
+                right:-4px;
+                content: '';
+                width:100vw;
+                height:8px;
+                background-color: $--Color-bg-Primitive-selected-press;
+                border-radius: 30px;
+               
+            }
+    
+        }
+    
+    
+    }
+
 
 }
 
-.step_graph_area{
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    border-radius: 50px;
-    height:8px;
-    background-color: $--Color-bg-teritiary;
-    overflow: hidden;
-    margin-top: 8px;
+.step_area_vertical{
 
 
-    .item{
+    .coun_cancel{
+        padding-left: 24px;
+        display: grid;
+        grid-template-columns: 98px 1fr;
+
+    }
+
+    .step_txt_area{
+
         position: relative;
-        display: flex;
-        z-index: 3;
 
-        &:after{
+        padding-left: 24px;
+        @include Suit_Body_MD_Regular;
+
+        .item{
+            padding: 8px 0;
+            display: grid;
+            grid-template-columns: 98px 1fr;
+
+
+        }
+
+        span.title{
             position: relative;
+            display: inline-block;
+
+            color: $--Color-text-disabled;
+            @include Suit_Body_MD_Regular;
+
+            &::before{
+
+                content: '';
+                position: absolute;
+                top:12px;
+                left:-22px;
+                display: inline-block;
+                background-color: $--Color-bg-Primitive-primary ;
+                border-radius: 40px;
+                width:4px;
+                height: 4px;
+                z-index: 3;
+
+            }
+            
+
+
+        }
+
+
+        .active span.title{
+
+            color: $--Color-text-primary;
+            @include Suit_Body_MD_Bold;
+
+        }
+
+        .past span.title{
+
+            color: $--Color-text-primary;
+            @include Suit_Body_MD_Regular;
+
+        }
+
+        //취소될때
+        .active.cancel span.title, .past.cancel span.title{
+
+            color: $--Color-text-disabled;
+            @include Suit_Body_MD_Strike-through;
+
+        }
+
+            
+        .vertical_bar{
+
+            position: absolute; 
             content: '';
-            width:4px;height:4px;
-            border-radius: 50%;
-            background-color: $--Color-bg-Primitive-primary;
-            top:2px;
+            top:16px;
+            left:0;
+            display: inline-block;
+            width:8px;
+            border-radius: 40px;
+            background: $--Color-bg-teritiary;
+            overflow: hidden;
+
+            .bar_active{
+
+                position: absolute;
+                content: '';
+                top:0;
+                left:0;
+                display: inline-block;
+                width:8px;
+                padding-bottom: 10px;
+                
+                border-radius: 0 0 40px 40px;
+                background-color: $--Color-bg-Primitive-selected-press;
+
             }
 
-
-        &:first-child{left:4px;}
-        &:last-child{right:4px;}
-
-        &.active{
-            z-index: 1;
         }
-        &.active:before{
 
-            position: absolute;
-            top:0;
-            right:-4px;
-            content: '';
-            width:100vw;
-            height:8px;
-            background-color: $--Color-bg-Primitive-selected-press;
-            border-radius: 30px;
-           
-        }
+
 
     }
 
 
 }
+
+
 
 //관심복지용구 슬라이드
 .wel_select_slide{
@@ -1168,7 +1304,7 @@ h5.title{
 //장기요양기관 상담목록 - 상담진행중, 상담완료
 .box_coun_list{
     display: grid;
-    grid-template-columns: 72px 1fr;
+    grid-template-columns: 68px 1fr;
     align-items: center;
     gap:16px;
     background-image: url('../images/18icon/chevron-right_thin.svg');
@@ -1178,21 +1314,30 @@ h5.title{
 
     .img_area{
         overflow: hidden;
-        width:72px;
-        height: 72px;
+        width:68px;
+        height: 68px;
         border-radius: 50%;
         
         background-repeat: no-repeat; 
         background-position: center;
         background-size: 60px;
         opacity: 0.85;
+
+        &.trans_01{
+            background-image: url('../../images/06trans/trans_01.svg');
+        }
+
+        &.trans_02{
+            background-image: url('../../images/06trans/trans_02.svg');
+        }
+
+
         &.ing{
             background-color: $--Color-bg-brand-sub-bold;
-            background-image: url('../../images/06trans/trans_02.svg');
+            
         }
         &.ok{
             background-color: $--Color-bg-inverse-bold;
-            background-image: url('../../images/06trans/trans_01.svg');
         }
 
 
@@ -1208,5 +1353,32 @@ h5.title{
         }
         
     }
+
+}
+
+
+//상담내역
+.box_history_area{
+    padding: 24px 20px;
+    background: linear-gradient(146deg, #FF8120 21.95%, #E54304 82.84%);
+}
+//상담내역 _ 회색 그라데이션
+.box_history_area.gray{
+    padding: 24px 20px;
+    background: linear-gradient(146deg, #999 21.95%, #555 82.84%);
+}
+
+
+//어르신 길잡이
+.om_guide_card{
+    width: 100%;
+    background-position: calc(100% - 12px) bottom;
+    background-repeat: no-repeat;
+    background-size: 95px;
+
+    &.backImg_01{
+        background-image: url('../images/03tool/tool03_00.png');
+    }
+
 
 }

@@ -181,22 +181,6 @@ $(function(){
 
 
 
-    //상단 토글버튼 현재 안씀
-    // $('.top_dropdown_btn').on('click', function() {
-        
-    //     if($(this).hasClass('active')==true){
-    //         $(this).removeClass('active');
-    //         $(this).next('.top_dropdown_menu').slideUp(100);				
-    //     }
-
-    //     else{
-    //         $(this).addClass('active');
-    //         $(this).next('.top_dropdown_menu').slideDown(100);		
-    //     }
-
-    // });
-
-
 
 });
 

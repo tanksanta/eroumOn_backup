@@ -21,6 +21,8 @@
 .justify-content-between{justify-content: space-between;}
 .align-items-center{align-items: center;}
 .align_center{display: flex;justify-content: center;align-items: center;}
+.align_between_center{display: flex;justify-content: space-between;align-items: center;}
+.inline_flex{display: inline-flex;}
 
 .gap02{gap: 2px;}
 .gap04{gap: 4px;}
@@ -33,6 +35,10 @@
 
 .disNone{display: none !important;}
 .disBlock{display: block !important;}
+
+//라운드
+.radius08{border-radius: 8px !important;}
+//rounded는 버튼 참조
 
 
 //사이즈
@@ -58,7 +64,10 @@
 .h32{height: 32px;}
 .h40{height: 40px;}
 .h42{height: 42px;}
+.h44{height: 44px;}
+.h46{height: 46px;}
 .h48{height: 48px;}
+.h56{height: 56px;}
 .h64{height: 64px;}
 .h67{height: 67px !important;;}
 .h75{height: 75px !important;;}
@@ -69,15 +78,22 @@
 
 .pad020{padding: 0 20px !important;}
 
+.padH08{padding: 8px 0 !important;}
+
 .padH16{padding: 16px 0 !important;}
 
 .padR20{padding-right: 20px !important;}
+
+.padR80{padding-right: 80px !important;}
+
+.padH12W20{padding: 12px 20px !important;}
 
 .padH24W20{padding: 24px 20px !important;}
 
 .padL8{padding-left: 8px !important;}
 
 
+.marT2{margin-top: 2px !important;}
 .marT4{margin-top: 4px !important;}
 .marT5{margin-top: 5px !important;}
 .marB4{margin-bottom: 4px !important;}
@@ -97,6 +113,9 @@
 .bder_r8{border-radius: 8px;}
 
 .lh18{line-height: 18px !important;}
+
+//라인
+hr{border:0; height:1px; background-color: $--Color-bg-Primitive-secondary ;}
 
 //버튼
 .btn{max-height: 36px;height: 36px; border-radius: 8px;font-weight: 700; font-size: 16px;letter-spacing: -0.24px;}
@@ -213,6 +232,11 @@
         @include Suit_Body_SM_Regular;
     
     }
+
+    //흰 텍스트
+    &.color_white{
+        background-image: url('../images/18icon/chevron-right_white.svg');
+    }
 }
 
 
@@ -228,11 +252,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center; 
-    padding: 12px 32px 12px 0;
+    padding: 16px 32px 16px 0;
 
     &.bder_bottom{
 
         border-bottom: 1px solid $--Color-border-teritiary;
+
+    }
+
+    //콘텐츠 어르신 길잡이
+    &.exp01{
+
+        padding: 28px 32px 28px 0;
+        background-position: right calc(100% - 28px);
 
     }
 
@@ -576,6 +608,13 @@
 
 .c_757575{color: #757575 !important;}
 
+.back_FFF5E6{background-color: #FFF5E6 !important;}
+.back_EFF1FD{background-color: #EFF1FD !important;}
+.back_EFF6FF{background-color: #EFF6FF !important;}
+.back_E8F5E9{background-color: #E8F5E9 !important;}
+.back_FFEBEE{background-color: #FFEBEE !important;}
+
+
 
 .font_h1{@include Suit_Heading_XL;margin: 0;}
 .font_h2{@include Suit_Heading_LG;margin: 0;}
@@ -702,7 +741,6 @@ mark.mk01::after{z-index: -1;position: absolute;bottom:3px; content: '';display:
 }
 .table_basic th{
 
-
     vertical-align: top;
 
 }
@@ -710,6 +748,9 @@ mark.mk01::after{z-index: -1;position: absolute;bottom:3px; content: '';display:
 
 //간격좁은 테이블
 .table_basic.small td, .table_basic.small th{padding: 6px 0;}
+
+//간격좁은 테이블
+.table_basic.small_2 td, .table_basic.small_2 th{padding: 8px 0;}
 
 
 
@@ -733,13 +774,19 @@ mark.mk01::after{z-index: -1;position: absolute;bottom:3px; content: '';display:
 
 //리스트
 ul:not(.browser-default)>li.list_dept1{list-style-type: initial;}
-.list_dept1{
-    @include Suit_Body_MD_Regular;
 
-    list-style-type:disc;
-    margin-left: 20px;
+ul.list_dept1 li{
+    @include Suit_Body_MD_Regular;
+    padding-left: 24px;
+    position: relative;
+
+    &::before{content: '';display: inline-block;position: absolute; top: 10px;left: 10px;background-color: #000; width: 4px;height: 4px;border-radius: 50px;}
+
+    &+li{margin-top: 8px;}
 
 }
+
+
 
 
 //뱃지 bedge
