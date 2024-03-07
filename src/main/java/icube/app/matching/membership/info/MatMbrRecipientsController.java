@@ -221,6 +221,10 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 		MbrRecipientsVO curRecipientInfo = null;
 		if (recipientsNo == null) {
 			curRecipientInfo = mbrRecipientsList.stream().filter(f -> "Y".equals(f.getMainYn())).findAny().orElse(null);
+			
+			if (curRecipientInfo == null && mbrRecipientsList.size() > 0) {
+				curRecipientInfo = mbrRecipientsList.get(0);
+			}
 		} else {
 			curRecipientInfo = mbrRecipientsList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
 		}
@@ -261,5 +265,47 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 		model.addAttribute("careTestInfo", careTestInfo);
 		
 		return "/app/matching/membership/recipients/subMain";
+	}
+	
+	/**
+	 * 어르신 정보 상세 페이지
+	 */
+	@RequestMapping(value = "detail")
+	public String detail(
+		@RequestParam Integer recipientsNo,
+        Model model) throws Exception {
+		
+		List<MbrRecipientsVO> mbrRecipientsList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		MbrRecipientsVO curRecipientInfo = null;
+		Integer indexNumber = 0; //꽃 이미지 출력용
+		for (MbrRecipientsVO recipientVO : mbrRecipientsList) {
+			indexNumber++;
+			if (recipientVO.getRecipientsNo() == recipientsNo) {
+				curRecipientInfo = recipientVO;  
+				break;
+			}
+		}
+		
+		if (curRecipientInfo == null) {
+			model.addAttribute("appMsg", "잘못된 접근입니다.");
+			return "/app/matching/common/appMsg";
+		}
+		
+		
+		model.addAttribute("curRecipientInfo", curRecipientInfo);
+		model.addAttribute("indexNumber", indexNumber);
+		model.addAttribute("relationCdMap", CodeMap.MBR_RELATION_CD_FOR_READ);
+		
+		return "/app/matching/membership/recipients/detail";
+	}
+	
+	/**
+	 * 어르신 삭제 AJAX
+	 */
+	@ResponseBody
+	@RequestMapping(value = "removeMbrRecipient.json")
+	public Map<String, Object> removeMbrRecipient(
+		@RequestParam int recipientsNo) throws Exception {
+		return mbrRecipientsService.removeMbrRecipient(recipientsNo, matMbrSession);
 	}
 }

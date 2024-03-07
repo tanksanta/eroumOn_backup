@@ -30,14 +30,14 @@
 					</li>
 				</c:forEach>
 				<c:if test="${fn:length(mbrRecipientsList) < 4}">
-					<li class="reg_btn waves-effect">어르신 등록</li>
+					<li class="reg_btn waves-effect" onclick="clickAddRecipientBtn();">어르신 등록</li>
 				</c:if>
 	          </ul>
 	        </div>
 	
 	        <div class="h20"></div>
 	
-	        <div class="card active waves-effect w100p">
+	        <div class="card active waves-effect w100p" onclick="clickRecipientDetail();">
 	
 	          <div class="card-content box_om_profile pad20">
 	
@@ -546,6 +546,20 @@
 	
 	
 	<script>
+		//어르신 등록 버튼 클릭 이벤트
+		async function clickAddRecipientBtn() {
+			var answer = await showConfirmPopup('어르신을 등록해주세요', '혜택을 받으려면 정확한 어르신 정보가 필요해요', '등록하기');
+			if (answer === 'confirm') {
+				location.href = '/matching/membership/recipients/regist/intro?redirecturl=/matching/membership/recipients/subMain';
+			}
+		}
+		
+		//어르신 정보 상세보기 클릭 이벤트
+		function clickRecipientDetail() {
+			location.href = '/matching/membership/recipients/detail?recipientsNo=${curRecipientInfo.recipientsNo}';
+		}
+		
+		
 		$(function() {
 			//현재 페이지 history 저장 
 			saveCurrentPageHistory();

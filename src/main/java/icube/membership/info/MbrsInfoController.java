@@ -810,40 +810,7 @@ public class MbrsInfoController extends CommonAbstractController{
 	@RequestMapping(value = "removeMbrRecipient.json")
 	public Map<String, Object> removeMbrRecipient(
 		@RequestParam int recipientsNo) throws Exception {
-		
-		Map <String, Object> resultMap = new HashMap<String, Object>();
-		
-		try {
-			//삭제전에 1:1 상담중인지 검사
-			MbrConsltVO mbrConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);
-			if (mbrConslt != null && 
-					("CS01".equals(mbrConslt.getConsltSttus()) ||
-					"CS02".equals(mbrConslt.getConsltSttus()) ||
-					"CS05".equals(mbrConslt.getConsltSttus()) ||
-					"CS07".equals(mbrConslt.getConsltSttus()) ||
-					"CS08".equals(mbrConslt.getConsltSttus()))) {
-				resultMap.put("success", false);
-				resultMap.put("msg", "진행중인 상담이 있습니다");
-				return resultMap;
-			}
-			
-			List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(mbrSession.getUniqueId());
-			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
-			
-			//삭제처리
-			mbrRecipient.setDelDt(new Date());
-			mbrRecipient.setDelYn("Y");
-			mbrRecipient.setDelMbrUniqueId(mbrSession.getUniqueId());
-			
-			mbrRecipientsService.updateMbrRecipients(mbrRecipient);
-			
-			resultMap.put("success", true);
-		} catch (Exception ex) {
-			resultMap.put("success", false);
-			resultMap.put("msg", "수급자 삭제 중 오류가 발생하였습니다");
-		}
-		
-		return resultMap;
+		return mbrRecipientsService.removeMbrRecipient(recipientsNo, mbrSession);
 	}
 	
 	/**

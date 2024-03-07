@@ -1,5 +1,6 @@
 package icube.manage.mbr.recipients.biz;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +12,20 @@ import org.springframework.stereotype.Service;
 
 
 import icube.common.vo.CommonCheckVO;
+import icube.manage.consult.biz.MbrConsltService;
+import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 
 @Service("mbrRecipientsService")
 public class MbrRecipientsService extends CommonAbstractServiceImpl {
 	
+	@Resource(name = "mbrConsltService")
+	private MbrConsltService mbrConsltService;
+	
 	@Resource(name="mbrRecipientsDAO")
 	private MbrRecipientsDAO mbrRecipientsDAO;
+	
 	
 	public List<MbrRecipientsVO> selectMbrRecipientsList(Map<String, Object> paramMap) throws Exception {
 		return mbrRecipientsDAO.selectMbrRecipientsList(paramMap);
@@ -164,6 +172,43 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 		} catch (Exception ex) {
 			resultMap.put("success", false);
 			resultMap.put("msg", "메인 수급자 변경 중 오류가 발생하였습니다");
+		}
+		
+		return resultMap;
+	}
+	
+	//수급자 삭제(update)
+	public Map<String, Object> removeMbrRecipient(int recipientsNo, MbrVO sessionVO) {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		
+		try {
+			//삭제전에 1:1 상담중인지 검사
+			MbrConsltVO mbrConslt = mbrConsltService.selectRecentConsltByRecipientsNo(recipientsNo);
+			if (mbrConslt != null && 
+					("CS01".equals(mbrConslt.getConsltSttus()) ||
+					"CS02".equals(mbrConslt.getConsltSttus()) ||
+					"CS05".equals(mbrConslt.getConsltSttus()) ||
+					"CS07".equals(mbrConslt.getConsltSttus()) ||
+					"CS08".equals(mbrConslt.getConsltSttus()))) {
+				resultMap.put("success", false);
+				resultMap.put("msg", "진행중인 상담이 있습니다");
+				return resultMap;
+			}
+			
+			List<MbrRecipientsVO> mbrRecipientList = selectMbrRecipientsByMbrUniqueId(sessionVO.getUniqueId());
+			MbrRecipientsVO mbrRecipient = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+			
+			//삭제처리
+			mbrRecipient.setDelDt(new Date());
+			mbrRecipient.setDelYn("Y");
+			mbrRecipient.setDelMbrUniqueId(sessionVO.getUniqueId());
+			
+			updateMbrRecipients(mbrRecipient);
+			
+			resultMap.put("success", true);
+		} catch (Exception ex) {
+			resultMap.put("success", false);
+			resultMap.put("msg", "수급자 삭제 중 오류가 발생하였습니다");
 		}
 		
 		return resultMap;
