@@ -250,6 +250,7 @@ public class MMbrController extends CommonAbstractController {
         model.addAttribute("mbrJoinTy", CodeMap.MBR_JOIN_TY2);
         model.addAttribute("mbrRelationCd", CodeMap.MBR_RELATION_CD);
         model.addAttribute("mbrJoinTy3", CodeMap.MBR_JOIN_TY3);
+        model.addAttribute("mbrJoinRcptn2", CodeMap.MBR_JOIN_RCPTN2);
 
         return "/manage/mbr/manage/list";
     }
@@ -967,6 +968,18 @@ public class MMbrController extends CommonAbstractController {
         return "/manage/mbr/manage/favorite";
     }
 
+    protected String convertMbrVo2RcptnYn(MbrVO mbrVO){
+        List<String> list = new ArrayList<>();
+
+        if (EgovStringUtil.equals(mbrVO.getSmsRcptnYn(), "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("SMS_RCPTN_YN"));
+        if (EgovStringUtil.equals(mbrVO.getEmlRcptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("EML_RCPTN_YN"));
+        if (EgovStringUtil.equals(mbrVO.getTelRecptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("TEL_RECPTN_YN"));
+        if (EgovStringUtil.equals(mbrVO.getPushRecptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("PUSH_RECPTN_YN"));
+        if (EgovStringUtil.equals(mbrVO.getEventRecptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("EVENT_RECPTN_YN"));
+
+        return String.join("", list);
+    }
+    
     @RequestMapping("excel")
 	public void excelDownload(
 			HttpServletRequest request
@@ -1007,6 +1020,8 @@ public class MMbrController extends CommonAbstractController {
         mapping.put("회원코드", obj -> ((MbrVO)obj).getUniqueId());
         mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
         mapping.put("휴대폰번호", obj -> ((MbrVO)obj).getMblTelno());
+        mapping.put("정보수신", obj -> convertMbrVo2RcptnYn((MbrVO)obj));
+        mapping.put("테스트여부", obj -> (((MbrVO)obj).getExistsTestYn() + ((MbrVO)obj).getExistsSimpleTestYn() + ((MbrVO)obj).getExistsSimpleCareYn()) > 0 ?"Y":"");
         mapping.put("등록수급자수", obj -> ((MbrVO)obj).getMbrRecipientsList().size());
         mapping.put("관계1", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 0));
         mapping.put("관계2", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 1));

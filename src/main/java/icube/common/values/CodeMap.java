@@ -1100,6 +1100,28 @@ public class CodeMap{
 			put("N", "간편네이버");
 		}
 	};
+
+	//정보수신 종류
+	public static final HashMap<String, String> MBR_JOIN_RCPTN1 = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 7437138482747478941L;
+		{
+			put("SMS_RCPTN_YN", "문자");
+			put("EML_RCPTN_YN", "이메일");
+			put("TEL_RECPTN_YN", "전화");
+			put("PUSH_RECPTN_YN", "푸쉬알림");
+			put("EVENT_RECPTN_YN", "이벤트");
+		}
+	};
+	public static final HashMap<String, String> MBR_JOIN_RCPTN2 = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 7437138482747478941L;
+		{
+			put("SMS_RCPTN_YN", "S");
+			put("EML_RCPTN_YN", "E");
+			put("TEL_RECPTN_YN", "T");
+			put("PUSH_RECPTN_YN", "");
+			put("EVENT_RECPTN_YN", "");
+		}
+	};
 	
 	// 회원 - 수급자 관계 코드 (2023-12-28 관계코드가 변경됨)
 	public static final HashMap<String, String> MBR_RELATION_CD = new LinkedHashMap<String, String>() {
