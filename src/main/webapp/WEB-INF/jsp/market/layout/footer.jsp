@@ -50,8 +50,8 @@
 								</div>
 								<div class="menu_dropdown">
 									<ul>
-										<li><a href="https://www.eroum.co.kr/" target="_blank">이로움ON</a></li>
-										<li><a href="https://eroum.co.kr/market/" target="_blank">이로움ON 마켓</a></li>
+										<li><a href="/" target="_blank">이로움ON</a></li>
+										<li><a href="/market/">이로움ON 마켓</a></li>
 										<li><a href="https://eroumcare.com/" target="_blank">이로움CARE</a></li>
 										<li><a href="https://www.seniortalktalk.com/" target="_blank">시니어톡톡</a></li>
 										<li><a href="https://pro.seniortalktalk.com/" target="_blank">시니어톡톡PRO</a></li>
