@@ -84,6 +84,8 @@
 			<col class="w-28">
 			<col class="w-30">
 			<col class="w-25">
+			<col class="w-25">
+			<col class="w-25">
 			<col class="w-30">
 			<col class="w-30">
 			<col class="w-30">
@@ -100,6 +102,8 @@
 				<th scope="col">회원코드</th>
 				<th scope="col">회원이름</th>
 				<th scope="col">휴대폰번호</th>
+				<th scope="col">정보수신</th>
+				<th scope="col">테스트여부</th>
 				<th scope="col">등록수급자수</th>
 				<th scope="col">관계1</th>
 				<th scope="col">관계2</th>
@@ -120,6 +124,14 @@
 				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.uniqueId}</a></td>
 				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm}</a></td>
 				<td>${resultList.mblTelno}</td>
+				<td>
+					<c:if test="${resultList.smsRcptnYn == 'Y'}">${mbrJoinRcptn2['SMS_RCPTN_YN']}</c:if>
+					<c:if test="${resultList.emlRcptnYn == 'Y'}">${mbrJoinRcptn2['EML_RCPTN_YN']}</c:if>
+					<c:if test="${resultList.telRecptnYn == 'Y'}">${mbrJoinRcptn2['TEL_RECPTN_YN']}</c:if>
+					<c:if test="${resultList.pushRecptnYn == 'Y'}">${mbrJoinRcptn2['PUSH_RECPTN_YN']}</c:if>
+					<c:if test="${resultList.eventRecptnYn == 'Y'}">${mbrJoinRcptn2['EVENT_RECPTN_YN']}</c:if>
+				</td>
+				<td><c:if test="${resultList.existsTestYn > 0 || resultList.existsSimpleTestYn > 0  || resultList.existsSimpleCareYn > 0 }">Y</c:if></td>
 				<td>${resultList.mbrRecipientsList.size()}</td>
 				<td>
 					<c:if test="${resultList.mbrRecipientsList.size() >= 1}">

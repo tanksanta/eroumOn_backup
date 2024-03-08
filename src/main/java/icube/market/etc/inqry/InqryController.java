@@ -186,6 +186,8 @@ public class InqryController extends CommonAbstractController{
 				//첨부파일 등록
 				fileService.creatFileInfo(fileMap, mbrInqryVO.getInqryNo(), "INQRY");
 
+				inqryService.sendMbrInqryEmail(mbrInqryVO);
+
 				javaScript.setMessage(getMsg("action.complete.insert"));
 				javaScript.setLocation("./form");
 				break;

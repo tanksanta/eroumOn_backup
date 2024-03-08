@@ -102,4 +102,8 @@ public class MbrVO extends CommonBaseVO {
 	
 	private List<MbrAuthVO> mbrAuthList;
 	private List<MbrRecipientsVO> mbrRecipientsList;
+
+	private int existsTestYn;
+	private int existsSimpleTestYn;
+	private int existsSimpleCareYn;
 }

@@ -222,6 +222,10 @@
 		/* Query ID : mbr.xml > selectMbrListVO */
 		SELECT
 			<include refid="listColumn"/>
+			, exists(select * from MBR_TEST where unique_id = m.unique_id) exists_test_yn
+			, exists(select * from MBR_SIMPLETEST where unique_id = m.unique_id and test_ty='simple') exists_simple_test_yn
+			, exists(select * from MBR_SIMPLETEST where unique_id = m.unique_id and test_ty='care') exists_simple_care_yn
+		
 		FROM MBR m
 		WHERE 1=1
 			<include refid="searchConditions" />
@@ -241,6 +245,9 @@
 		/* Query ID : mbr.xml > selectMbrListAll */
 		SELECT
 			<include refid="listColumn"/>
+			, exists(select * from MBR_TEST where unique_id = m.unique_id) exists_test_yn
+			, exists(select * from MBR_SIMPLETEST where unique_id = m.unique_id and test_ty='simple') exists_simple_test_yn
+			, exists(select * from MBR_SIMPLETEST where unique_id = m.unique_id and test_ty='care') exists_simple_care_yn
 		FROM MBR m
 		WHERE 1=1
 			<include refid="searchConditions" />

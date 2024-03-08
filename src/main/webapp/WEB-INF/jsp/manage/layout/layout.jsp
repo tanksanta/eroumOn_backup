@@ -34,6 +34,7 @@
     <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/JsHouse2309CodeConvert.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/JsHouse2309PageBase.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
+    <script src="/html/core/script/JsHouse2309PopupBase.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/JsHouse2309Popups.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
 
     <!-- admin -->
