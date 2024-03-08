@@ -155,7 +155,7 @@
 		            <div class="h24"></div>
 		
 		
-		            <a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+		            <a class="waves-effect btn-large btn_default w100p" onclick="clickConsltList();">상담내역 보기</a>
 		
 		          </div>
 	          </c:when>
@@ -353,7 +353,7 @@
 						<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=equip_ctgry&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
 					</c:when>
 					<c:otherwise>
-						<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+						<a class="waves-effect btn-large btn_default w100p" onclick="clickConsltList();">상담내역 보기</a>
 					</c:otherwise>
 				</c:choose>
 	
@@ -423,7 +423,7 @@
 							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=simple_test&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
 						</c:when>
 						<c:otherwise>
-							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+							<a class="waves-effect btn-large btn_default w100p" onclick="clickConsltList();">상담내역 보기</a>
 						</c:otherwise>
 					</c:choose>
 		            
@@ -505,7 +505,7 @@
 							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/infoConfirm?prevPath=care&recipientsNo=${curRecipientInfo.recipientsNo}'">상담하기</a>
 						</c:when>
 						<c:otherwise>
-							<a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">상담내역 보기</a>
+							<a class="waves-effect btn-large btn_default w100p" onclick="clickConsltList();">상담내역 보기</a>
 						</c:otherwise>
 					</c:choose>
 		
@@ -557,6 +557,11 @@
 		//어르신 정보 상세보기 클릭 이벤트
 		function clickRecipientDetail() {
 			location.href = '/matching/membership/recipients/detail?recipientsNo=${curRecipientInfo.recipientsNo}';
+		}
+		
+		//상담 내역 보기 클릭 이벤트
+		function clickConsltList() {
+			location.href='/matching/membership/conslt/list?recipientsNo=${curRecipientInfo.recipientsNo}';
 		}
 		
 		

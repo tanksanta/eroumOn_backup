@@ -1168,9 +1168,19 @@ public class CodeMap{
 	public static final HashMap<String, String> PREV_PATH_FOR_APP = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = 6124276573961021108L;
 		{
-			put("equip_ctgry", "복지용구/관심 복지용구");
-			put("simple_test", "인정등급/인정등급 간편 테스트");
-			put("care", "재가기관/어르신 돌봄");
+			put("equip_ctgry", "관심 복지용구");
+			put("simple_test", "인정등급 간편 테스트");
+			put("care", "어르신 돌봄");
+		}
+	};
+	// 상담 유형 카테고리
+	public static final HashMap<String, String> PREV_PATH_CTGRY = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = -8663527299009480193L;
+		{
+			put("equip_ctgry", "복지용구");
+			put("simple_test", "인정등급");
+			put("test", "인정등급");
+			put("care", "재가기관");
 		}
 	};
 

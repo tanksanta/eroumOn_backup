@@ -89,6 +89,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 		model.addAttribute("prevPath", prevPath);
 		model.addAttribute("recipientInfo", recipientInfo);
 		
+		model.addAttribute("prevPathCtgryMap", CodeMap.PREV_PATH_CTGRY);
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
 		return "/app/matching/membership/conslt/regist/infoConfirm";
@@ -146,6 +147,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 		MbrConsltVO mbrConsltVO = mbrConsltService.selectRecentConsltByRecipientsNo(recipientInfo.getRecipientsNo());
 		
 		model.addAttribute("mbrConsltVO", mbrConsltVO);
+		model.addAttribute("prevPathCtgryMap", CodeMap.PREV_PATH_CTGRY);
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
 		return "/app/matching/membership/conslt/regist/complete";
@@ -164,7 +166,20 @@ public class MatMbrConsltController extends CommonAbstractController {
 	 * 상담내역
 	 */
 	@RequestMapping(value = "list")
-	public String list() throws Exception {
+	public String list(@RequestParam Integer recipientsNo, Model model) throws Exception {
+		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		MbrRecipientsVO recipientInfo = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+		
+		if (recipientInfo == null) {
+			model.addAttribute("appMsg", "잘못된 접근입니다.");
+			return "/app/matching/common/appMsg";
+		}
+		
+		List<MbrConsltVO> mbrConsltList = mbrConsltService.selectMbrConsltByRecipientsNo(recipientInfo.getRecipientsNo());
+		model.addAttribute("mbrConsltList", mbrConsltList);
+		model.addAttribute("prevPathCtgryMap", CodeMap.PREV_PATH_CTGRY);
+		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
+		
 		return "/app/matching/membership/conslt/list";
 	}
 }
