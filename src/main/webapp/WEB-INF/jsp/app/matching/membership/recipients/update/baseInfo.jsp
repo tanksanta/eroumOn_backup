@@ -200,5 +200,20 @@
             	relationCd = updateRelationCd;
             }
             $('#divRelation').text(relationCdMap[updateRelationCd]);
+            
+            
+            //본인일 때 이름, 생년월일 변경 불가
+            if (updateRelationCd === '007') {
+            	var inputName = $('#inputName');
+            	var inputBrdt = $('#inputBrdt');
+            	
+            	inputName.val('${mbrVO.mbrNm}');
+            	<c:if test="${!empty mbrVO.brdt}">
+           		inputBrdt.val('<fmt:formatDate value="${mbrVO.brdt}" pattern="yyyy/MM/dd" />');
+            	</c:if>
+            	
+            	inputName.attr('disabled', true);
+            	inputBrdt.attr('disabled', true);
+            }
 		});
 	</script>
