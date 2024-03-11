@@ -334,8 +334,8 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 			if ("007".equals(mbrRecipient.getRelationCd())) {
 				mbrConsltVO.setRelationCd(mbrRecipient.getRelationCd());
 				mbrConsltVO.setMbrNm(mbrVO.getMbrNm());
-				mbrConsltVO.setMbrTelno(mbrVO.getMblTelno());
-				mbrConsltVO.setAddr(mbrVO.getAddr());
+//				mbrConsltVO.setMbrTelno(mbrVO.getMblTelno());
+//				mbrConsltVO.setAddr(mbrVO.getAddr());
 				if (mbrVO.getBrdt() != null) {
 					mbrConsltVO.setBrdt(dateFormat.format(mbrVO.getBrdt()));
 				}

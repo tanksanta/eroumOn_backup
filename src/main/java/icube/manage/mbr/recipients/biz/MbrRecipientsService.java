@@ -200,10 +200,10 @@ public class MbrRecipientsService extends CommonAbstractServiceImpl {
 			//해당 수급자가 본인인 경우 회원의 정보로 수급자 저장
 			if ("007".equals(updateRecipient.getRelationCd())) {
 				updateRecipient.setRecipientsNm(mbrVO.getMbrNm());
-				updateRecipient.setTel(mbrVO.getMblTelno());
-				updateRecipient.setSido(null);
-				updateRecipient.setSigugun(mbrVO.getAddr());
-				updateRecipient.setDong(null);
+//				updateRecipient.setTel(mbrVO.getMblTelno());
+//				updateRecipient.setSido(null);
+//				updateRecipient.setSigugun(mbrVO.getAddr());
+//				updateRecipient.setDong(null);
 				if (mbrVO.getBrdt() != null) {
 					updateRecipient.setBrdt(dateFormat.format(mbrVO.getBrdt()));
 				}
