@@ -23,7 +23,7 @@
                     <tbody>
                         <tr>
                             <th class="font_sbmr">상담유형</th>
-                            <td class="l_right padR20 color_tp_s font_sbms">${prevPathMap[prevPath]}</td>
+                            <td class="l_right padR20 color_tp_s font_sbms">${prevPathCtgryMap[prevPath]}/${prevPathMap[prevPath]}</td>
                         </tr>
                         <tr>
                             <th class="font_sbmr">신청자 이름</th>

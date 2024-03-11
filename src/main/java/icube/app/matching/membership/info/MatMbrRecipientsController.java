@@ -329,6 +329,26 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 	}
 	
 	/**
+	 * 어르신 상담 정보 수정 페이지
+	 */
+	@RequestMapping(value = "update/consltInfo")
+	public String consltInfo(
+		@RequestParam Integer recipientsNo,
+        Model model) throws Exception {
+		List<MbrRecipientsVO> mbrRecipientsList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		MbrRecipientsVO curRecipientInfo = mbrRecipientsList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
+		
+		if (curRecipientInfo == null) {
+			model.addAttribute("appMsg", "잘못된 접근입니다.");
+			return "/app/matching/common/appMsg";
+		}
+		
+		model.addAttribute("curRecipientInfo", curRecipientInfo);
+		
+		return "/app/matching/membership/recipients/update/consltInfo";
+	}
+	
+	/**
 	 * 어르신 수정 AJAX
 	 */
 	@ResponseBody

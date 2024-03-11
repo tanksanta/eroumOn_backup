@@ -51,7 +51,7 @@
                         <tbody>
                             <tr>
                                 <th class="color_secondary font_sbmr">상담유형</th>
-                                <td class="font_sbmr">${prevPathMap[mbrConsltVO.prevPath]}</td>
+                                <td class="font_sbmr">${prevPathCtgryMap[mbrConsltVO.prevPath]}/${prevPathMap[mbrConsltVO.prevPath]}</td>
                             </tr>
                             <tr>
                                 <th class="color_secondary font_sbmr">신청자 이름</th>

@@ -141,6 +141,7 @@
 	<select id="selectMbrConslt" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		SELECT
 			<include refid="listColumn" />
+			
 		FROM MBR_CONSLT mc
 		WHERE conslt_no = #{consltNo}
 			<include refid="searchConditions" />
@@ -148,10 +149,16 @@
 	
 	<select id="selectMbrConsltAll" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
 		SELECT
-			<include refid="listColumn" />
+			<include refid="listColumn" />,
+			CASE 
+				WHEN mc.RE_CONSLT_DT IS NULL THEN mc.REG_DT
+                WHEN mc.RE_CONSLT_DT > mc.REG_DT THEN mc.RE_CONSLT_DT
+                ELSE mc.RE_CONSLT_DT
+			END AS cur_conslt_dt
 		FROM MBR_CONSLT mc
 		WHERE 1=1
 			<include refid="searchConditions" />
+		ORDER BY cur_conslt_dt DESC
 	</select>
 	
 	<insert id="insertMbrConslt" parameterType="mbrConsltVO">
