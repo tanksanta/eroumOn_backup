@@ -1,6 +1,7 @@
 package icube.app.matching.membership.info;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.values.CodeMap;
+import icube.manage.consult.biz.MbrConsltChgHistVO;
+import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
@@ -29,6 +34,9 @@ import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 @Controller
 @RequestMapping(value="#{props['Globals.Matching.path']}/membership/conslt")
 public class MatMbrConsltController extends CommonAbstractController {
+	
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
 	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
@@ -163,7 +171,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 	
 	
 	/**
-	 * 상담내역
+	 * 상담목록
 	 */
 	@RequestMapping(value = "list")
 	public String list(@RequestParam Integer recipientsNo, Model model) throws Exception {
@@ -181,5 +189,87 @@ public class MatMbrConsltController extends CommonAbstractController {
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
 		
 		return "/app/matching/membership/conslt/list";
+	}
+	
+	/**
+	 * 상담내역
+	 */
+	@RequestMapping(value = "detail")
+	public String detail(@RequestParam Integer consltNo, Model model) throws Exception {
+		MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
+		
+		if (mbrConsltVO == null || !matMbrSession.getUniqueId().equals(mbrConsltVO.getRegUniqueId())) {
+			model.addAttribute("appMsg", "잘못된 접근입니다.");
+			return "/app/matching/common/appMsg";
+		}
+		
+//		MbrVO mbrVO = mbrService.selectMbrByUniqueId(matMbrSession.getUniqueId());
+//		MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
+//		model.addAttribute("mbrVO", mbrVO);
+//		model.addAttribute("mbrRecipientsVO", mbrRecipientsVO);
+		
+		model.addAttribute("mbrConsltVO", mbrConsltVO);
+		
+		//상담에 매칭된 최근 사업소
+		MbrConsltResultVO recentConsltResultVO = null;
+		if (mbrConsltVO.getConsltResultList().size() > 0) {
+			recentConsltResultVO = mbrConsltVO.getConsltResultList().get(mbrConsltVO.getConsltResultList().size() - 1);
+			model.addAttribute("mbrConsltResultVO", recentConsltResultVO);
+		}
+		
+		//상담 신청, 재신청 이력
+		int phaseNum = 1;
+		List<MbrConsltChgHistVO> searchChgList = mbrConsltVO.getConsltChgHistList();
+		MbrConsltChgHistVO reuqestChgHistVO = searchChgList
+			.stream()
+			.filter(f -> "CS01".equals(f.getConsltSttusChg()) || "CS07".equals(f.getConsltSttusChg()))
+			.findFirst()
+			.orElse(null);
+		model.addAttribute("reuqestChgHistVO", reuqestChgHistVO);
+		
+		if (recentConsltResultVO != null) {
+			int searchBplcConsltNo = recentConsltResultVO.getBplcConsltNo();
+			
+			//상담 연결중 이력
+			MbrConsltChgHistVO connectChgHistVO = searchChgList
+				.stream()
+				.filter(f -> f.getBplcConsltNo() != null && f.getBplcConsltNo() == searchBplcConsltNo && ("CS02".equals(f.getConsltSttusChg()) || "CS08".equals(f.getConsltSttusChg())))
+				.findFirst()
+				.orElse(null);
+			model.addAttribute("connectChgHistVO", connectChgHistVO);
+			if (connectChgHistVO != null) {
+				phaseNum = 2;
+			}
+			
+			//상담 진행중 이력
+			MbrConsltChgHistVO progressChgHistVO = searchChgList
+				.stream()
+				.filter(f -> f.getBplcConsltNo() != null && f.getBplcConsltNo() == searchBplcConsltNo && "CS05".equals(f.getConsltSttusChg()))
+				.findFirst()
+				.orElse(null);
+			model.addAttribute("progressChgHistVO", progressChgHistVO);
+			if (progressChgHistVO != null) {
+				phaseNum = 3;
+			}
+			
+			//상담 완료 이력
+			MbrConsltChgHistVO completeChgHistVO = searchChgList
+				.stream()
+				.filter(f -> f.getBplcConsltNo() != null && f.getBplcConsltNo() == searchBplcConsltNo && "CS06".equals(f.getConsltSttusChg()))
+				.findFirst()
+				.orElse(null);
+			model.addAttribute("completeChgHistVO", completeChgHistVO);
+			if (completeChgHistVO != null) {
+				phaseNum = 4;
+			}
+		}
+		model.addAttribute("phaseNum", phaseNum);
+		
+		
+		model.addAttribute("prevPathCtgryMap", CodeMap.PREV_PATH_CTGRY);
+		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
+		model.addAttribute("relationCdMap", CodeMap.MBR_RELATION_CD_FOR_READ);
+		
+		return "/app/matching/membership/conslt/detail";
 	}
 }

@@ -13,7 +13,7 @@
 
 				<c:forEach var="consltInfo" items="${mbrConsltList}" varStatus="status">
 					<%-- 상담 취소 여부 --%>
-					<c:set var="isCancelConslt" value="${consltInfo.consltSttus eq 'CS03' || consltInfo.consltSttus eq 'CS04' || consltInfo.consltSttus eq 'CS09' ? true : false}" />
+					<c:set var="isCancelConslt" value="${consltInfo.consltSttus eq 'CS03' || consltInfo.consltSttus eq 'CS04' || consltInfo.consltSttus eq 'CS09' ? true : false}" scope="request"/>
 				
 					<div class="card waves-effect w100p" onclick="clickConsltDetail(${consltInfo.consltNo});">
 						
