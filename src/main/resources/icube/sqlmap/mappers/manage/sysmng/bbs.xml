@@ -155,6 +155,46 @@
 	</select>
 
 
+	<select id="selectNttListWithSocialWelfareFailVO" parameterType="java.util.HashMap" resultMap="bbsMap">
+		/* Query ID : bbs.ntt.selectNttListWithSocialWelfareFailVO */
+		SELECT
+			<include refid="listColumn"/>
+			<include refid="listAddColumn"/>
+			, (SELECT bbs_ty FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTy
+			, (SELECT bbs_nm FROM BBS_SETUP tbs WHERE tbs.bbs_no = tb.bbs_no) as bbsTyNm
+			, tbc.ctgry_nm
+		FROM BBS tb 
+		LEFT OUTER JOIN BBS_CTGRY tbc ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
+		LEFT OUTER JOIN BBS_ADDCOLUMN ba ON tb.ntt_no = ba.ntt_no AND tb.bbs_no = ba.bbs_no
+		WHERE 1=1
+			<include refid="searchConditions" />
+			<if test="addValueChk01 != null and addValueChk01 != '' ">
+				AND ba.add_value_chk01 = #{addValueChk01}
+			</if>
+			<if test="addValueChk02 != null and addValueChk02 != '' ">
+				AND ba.add_value_chk02 = #{addValueChk02}
+			</if>
+		ORDER BY ntc_yn DESC
+   			, IF(ntt_grp = 0, ba.ntt_no, ntt_grp) DESC
+   			, ntt_ordr ASC
+   			, wrt_ymd DESC
+   			, ba.ntt_no DESC
+		LIMIT #{startNum}, #{endNumMysql}
+	</select>
+	<select id="selectNttCountWithSocialWelfareFailVO" parameterType="java.util.HashMap" resultType="int">
+		/* Query ID : bbs.ntt.selectNttCountWithSocialWelfareFailVO */
+		SELECT COUNT(*)
+		FROM BBS tb
+		WHERE 1=1
+			<include refid="searchConditions" />
+			<if test="addValueChk01 != null and addValueChk01 != '' ">
+				AND tb.ntt_no in (SELECT ntt_no FROM BBS_ADDCOLUMN WHERE add_value_chk01 = #{addValueChk01})
+			</if>
+			<if test="addValueChk02 != null and addValueChk02 != '' ">
+				AND tb.ntt_no in (SELECT ntt_no FROM BBS_ADDCOLUMN WHERE add_value_chk02 = #{addValueChk02})
+			</if>
+	</select>
+
 	<select id="selectNtt" parameterType="java.util.HashMap" resultMap="bbsMap">
 		/* Query ID : bbs.ntt.selectNtt */
 		SELECT

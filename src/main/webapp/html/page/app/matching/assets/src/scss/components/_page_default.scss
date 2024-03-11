@@ -105,7 +105,7 @@ h5.title{
 }
 
 /* 키프레임 이름 = 애니메이션 이름 */
-@-webkit-keyframes tool_ip_ani {
+@keyframes tool_ip_ani {
     0% {
       bottom:45px;
     }
@@ -133,10 +133,7 @@ h5.title{
     overflow: hidden;
     height: 100%;}
 
-.modal .modal-content p{
-    //color: $--Color-text-Primitive-secondary;
-    //@include Suit_Body_MD_Regular;
-}
+
     
 
 
@@ -200,10 +197,6 @@ h5.title{
     .modal-content{
         height:calc(100% - 56px - 72px); //modal_header, modal_footer 높이값 제외
         overflow-y: auto;
-    }
-
-    .modal-footer{
-        //del
     }
 
 }
@@ -526,7 +519,175 @@ h5.title{
         color: $--Color-text-Primitive-selected;
     }
 
+    &.disabled{
+        pointer-events:none;
+        border: 1px solid #E0E0E0;
+        background: $--Color-bg-disabled;
+        color: $--Color-text-disabled;
+    
+    }
+
 }
+
+//복지용구
+.wel_scroll_area{
+    
+    position: relative;
+
+
+    .wel_scroll{
+        position: relative;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        padding:20px 65px 20px 16px; width:100%;font-size: 0;
+        white-space:nowrap;overflow-y: hidden; overflow-x: auto;
+    
+    }
+
+
+    //drop_down 토글
+    .btn_accord_area{
+        position: absolute;
+        top: 0px;right: 0;
+        z-index: 10;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        width:80px;
+        padding-right: 10px;
+
+        background: linear-gradient(270deg, #F5F5F5 58.52%, rgba(255, 255, 255, 0.00) 99.11%);
+
+        .btn_accord{
+            @include flex_center;
+            width: 40px;height: 40px;
+            border-radius: 8px;
+            border: 1px solid $--Color-border-Primitive-secondary;
+            background: $--Color-bg-primary;
+    
+            span{
+                display: inline-block;
+                width: 24px;height: 24px;
+                background-image: url('../images/04icon/chevron-down_thin.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+                transition: 0.3s all;
+    
+            }
+        }
+        
+    }
+
+
+
+    //★★ active_drop_down으로 변환
+    &.active{
+
+        .btn_accord_area{
+
+            width: 50px;
+            background: none;
+
+            .btn_accord{
+                span{
+                    transform: rotateX(180deg);
+                }
+            }
+
+        }
+
+        .wel_scroll{
+            display: block;
+            padding:20px 16px 20px 16px;
+            white-space: initial;
+            overflow: initial;
+            height: auto;
+    
+            .chip_area02{
+                
+                flex-wrap: wrap;
+
+            }
+            
+        }
+
+    }
+
+}
+
+
+
+//chips 02 모음
+.chip_area02{
+    display: flex;
+    gap:8px;
+    
+    & > * {
+        
+        width:auto;height:40px;
+        border: 1px solid $--Color-border-Primitive-secondary;
+        border-radius: 50px;
+        background: $--Color-bg-primary;
+        padding: 0 16px;
+        @include Suit_Body_SM_Regular;
+        @include flex_center;
+        display: inline-flex;
+
+        &.active{
+            color:#fff;
+            border: 1px solid $--Color-border-Primitive-primary-press;
+            background: $--Color-bg-Primitive-primary;
+        }
+
+        &.disabled{
+            pointer-events: none;
+            color: $--Color-text-disabled;
+            border: 1px solid #E0E0E0;
+            background: $--Color-bg-disabled;
+        }
+        
+    }
+    
+}
+
+
+//복지용구 재생박스
+.card.wel_detail_card{
+    
+    .card-content{
+        padding: 16px 20px 24px;
+    
+        .title_area{
+            @include flex_between_center;
+            gap:16px;
+
+            .btn_share{
+                @include flex_center;
+                gap:4px;
+                padding: 12px 0 12px 36px;
+                flex-shrink: 0;
+                color:$--Color-text-Primitive-secondary;
+                @include Suit_Body_SM_SemiBold;
+                background-image: url('../../images/04icon/share.svg');
+                background-repeat: no-repeat;
+                background-position: 16px center;
+                background-size: 16px;
+            }
+        }
+    
+    }
+
+
+    &+.wel_detail_card{margin-top: 16px;}
+}
+
+
+
+
+
 
 
 //시스템 점검
@@ -559,6 +720,17 @@ h5.title{
     }
 
     .card-content{padding: 24px 20px;}
+
+    .card-action{
+        display: flex;
+        padding: 0;
+
+
+        [class*='btn']{
+            border-radius: 0;
+        }
+
+    }
 
 }
 

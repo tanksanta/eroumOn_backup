@@ -43,6 +43,14 @@
 				AND test_ty = #{testTy}
 		)
 	</select>
+	<select id="mbrSimpletestNo" parameterType="java.util.HashMap" resultType="SimpleTestVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_SIMPLETEST
+		WHERE unique_id = #{uniqueId}
+				AND recipients_no = #{recipientsNo}
+				AND mbr_simpletest_no = #{mbrSimpletestNo}
+	</select>
 
 	<insert id="insertSimpleTest" parameterType="SimpleTestVO" useGeneratedKeys="true" keyProperty="mbrSimpletestNo" keyColumn="MBR_SIMPLETEST_NO">
 		INSERT INTO MBR_SIMPLETEST(

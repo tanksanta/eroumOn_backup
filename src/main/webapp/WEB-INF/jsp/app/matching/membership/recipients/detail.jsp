@@ -180,6 +180,11 @@
 		
 		//어르신 삭제
 		async function clickRemoveRecipient() {
+			if (mainYn === 'Y') {
+				showToastMsg('대표 어르신 한 분은 꼭 필요해요');
+				return;
+			}
+			
 			var answer = await showConfirmPopup('정말 어르신을 삭제하시겠어요?', '삭제 후에는 복구가 불가해요');
 			if (answer === 'confirm') {
 				callPostAjaxIfFailOnlyMsg(

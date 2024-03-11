@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>F_SAE_002_wel_detail.html</title>
+
+
+    <!-- jquery -->
+    <script src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css">
+
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .wel_detail_card iframe {
+            width: 100%;
+            height: 180px;
+        }
+    </style>
+    <script>
+
+        $(function () {
+
+            //chip toggle
+            $('.chip_area02 li').on('click', function () {
+
+                if ($(this).hasClass('active') == true) {
+
+                    $(this).removeClass('active');
+
+                }
+
+                else {
+                    $(this).addClass('active');
+                }
+
+            });
+
+            //btn toggle
+            $('.btn_accord').on('click', function () {
+
+                if ($(this).parents('.wel_scroll_area').hasClass('active') == true) {
+                 
+                    $(this).parents('.wel_scroll_area').removeClass('active');
+
+                }
+
+                else {
+                    $(this).parents('.wel_scroll_area').addClass('active');
+                }
+
+            });
+
+
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body class="back_gray">
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="txt">복지용구</span>
+                </a>
+                <a class="waves-effect top_txt" href="#">전체보기</a>
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="default noPad">
+
+                <div class="wel_scroll_area">
+
+                    <div class="btn_accord_area">
+
+                        <div class="btn_accord waves-effect">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                    <div class="wel_scroll">
+
+                        <ul class="chip_area02">
+                            <li class="waves-effect">워커</li>
+                            <li class="waves-effect active">실버카</li>
+                            <li class="waves-effect">롤레이터</li>
+                            <li class="waves-effect">수동휠체어</li>
+                            <li class="waves-effect">지팡이</li>
+                            <li class="waves-effect">안전손잡이 기둥형</li>
+                            <li class="waves-effect">안전손잡이 변기형</li>
+                            <li class="waves-effect">안전손잡이 벽걸이형</li>
+                            <li class="waves-effect">미끄럼방지 매트</li>
+                            <li class="waves-effect">미끄럼방지 양말</li>
+                            <li class="waves-effect">욕창예방 매트리스</li>
+                            <li class="waves-effect">욕창예방 방석</li>
+                            <li class="waves-effect">자세변환용구</li>
+     
+                        </ul>
+
+
+                        
+                    </div>
+                </div>
+
+
+                <div class="pad020">
+                    
+                    <div class="card wel_detail_card">
+                        <iframe src="https://www.youtube-nocookie.com/embed/t2_Op-DpmBU?si=ihL8jQ3JVmeKYgIP&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        
+                        <div class="card-content">
+                            
+                            <div class="title_area">
+                                <div>
+                                    <div class="color_t_s font_ssr">성인용 보행기</div>
+                                    <h4 class="title">실버카</h4>
+                                </div>
+                                <div class="waves-effect btn_share">공유하기</div>
+                            </div>
+
+                            <div class="h20"></div>
+
+                            <div class="font_sbms">앉을 수 있고 수납이 가능하여 야외에서 편하게 이동할 수 있어요</div>
+
+                            <div class="h08"></div>
+
+                            <div class="color_t_s font_sbsr">
+                                 #보행이 불편한 어르신 #이동보조 #실내 #야외
+                            </div>
+                        
+                        </div>
+
+                        <div class="card-action">
+                           
+                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            
+                        </div>
+
+                    </div>
+                    <!-- wel_detail_card end -->
+
+                    
+                    <div class="card wel_detail_card">
+                        <iframe src="https://www.youtube-nocookie.com/embed/F_fRNP-fC2k?si=qULuRU1AyFSM2M3V&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        
+                        <div class="card-content">
+                            
+                            <div class="title_area">
+                                <div>
+                                    <div class="color_t_s font_ssr">성인용 보행기</div>
+                                    <h4 class="title">롤레이터</h4>
+                                </div>
+                                <div class="waves-effect btn_share">공유하기</div>
+                            </div>
+
+                            <div class="h20"></div>
+
+                            <div class="font_sbms">방향 전환이 쉬워 다른 성인용 보행기보다 자유롭게 이동할 수 있어요</div>
+
+                            <div class="h08"></div>
+
+                            <div class="color_t_s font_sbsr">
+                                 #보행이 불편한 어르신 #이동보조 #실내 #야외
+                            </div>
+                        
+                        </div>
+
+                        <div class="card-action">
+                           
+                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            
+                        </div>
+
+                    </div>
+                    <!-- wel_detail_card end -->
+                   
+
+                    <div class="card wel_detail_card">
+                        <iframe src="https://www.youtube-nocookie.com/embed/F_fRNP-fC2k?si=qULuRU1AyFSM2M3V&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        
+                        <div class="card-content">
+                            
+                            <div class="title_area">
+                                <div>
+                                    <div class="color_t_s font_ssr">성인용 보행기</div>
+                                    <h4 class="title">워커</h4>
+                                </div>
+                                <div class="waves-effect btn_share">공유하기</div>
+                            </div>
+
+                            <div class="h20"></div>
+
+                            <div class="font_sbms">수술 전·후에 재활 목적으로 이용할 수 있어요</div>
+
+                            <div class="h08"></div>
+
+                            <div class="color_t_s font_sbsr">
+                                #보행이 불편한 어르신 #이동보조 #실내 #야외
+                            </div>
+                        
+                        </div>
+
+                        <div class="card-action">
+                           
+                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            
+                        </div>
+
+                    </div>
+                    <!-- wel_detail_card end -->
+                   
+
+
+                </div>
+                <!-- pad020 -->
+            </section>
+        </main>
+
+
+
+        <footer class="page-footer bottomNav">
+
+            <ul class="bottomNav_menu">
+
+                <li class="btn_om">
+                    <a class="waves-effect">
+                        <span class="txt">어르신</span>
+                    </a>
+                </li>
+                <li class="btn_wel active">
+                    <a class="waves-effect">
+                        <span class="txt">복지용구</span>
+                    </a>
+                </li>
+                <li class="btn_service">
+                    <a class="waves-effect">
+                        <span class="txt">서비스</span>
+                    </a>
+                </li>
+                <li class="btn_guide">
+                    <a class="waves-effect">
+                        <span class="txt">길잡이</span>
+                    </a>
+                </li>
+                <li class="btn_entier">
+                    <a class="waves-effect">
+                        <span class="txt">전체</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </footer>
+
+
+
+
+
+    </div>
+    <!-- wrapper -->
+
+
+
+
+</body>
+
+</html>

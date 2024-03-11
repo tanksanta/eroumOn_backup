@@ -450,4 +450,65 @@ public class MbrConsltService extends CommonAbstractServiceImpl {
 		}
 		return resultMap;
 	}
+	
+	/**
+	 * 상담 취소 
+	 */
+	public Map<String, Object> cancelConslt(int consltNo, String canclResn, MbrVO sessionVO) throws Exception {
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("success", false);
+	
+		try {
+			MbrConsltVO recipientConslt = selectMbrConsltByConsltNo(consltNo);
+			if (recipientConslt == null) {
+				resultMap.put("msg", "존재하지 않는 상담입니다");
+				return resultMap;
+			}
+			//상담 신청, 재신청 상태일 때만 취소 가능
+			if (!"CS01".equals(recipientConslt.getConsltSttus()) &&
+				!"CS07".equals(recipientConslt.getConsltSttus())) {
+				resultMap.put("msg", "이미 진행중인 상담입니다");
+				return resultMap;
+			}
+			
+			
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("consltSttus", "CS03"); //상담자 취소
+			paramMap.put("canclResn", canclResn);
+			paramMap.put("consltNo", consltNo);
+			int resultCnt = updateCanclConslt(paramMap);
+
+			if(resultCnt > 0) {
+				//1:1 상담 취소 이력 추가(접수, 재접수일 때만 취소가 되므로 사업소 상담 정보는 없음)
+				MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
+				mbrConsltChgHistVO.setConsltNo(consltNo);
+				mbrConsltChgHistVO.setConsltSttusChg("CS03");
+				mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("상담자 취소"));
+				mbrConsltChgHistVO.setMbrUniqueId(sessionVO.getUniqueId());
+				mbrConsltChgHistVO.setMbrId(sessionVO.getMbrId());
+				mbrConsltChgHistVO.setMbrNm(sessionVO.getMbrNm());
+				insertMbrConsltChgHist(mbrConsltChgHistVO);
+
+				resultMap.put("success", true);
+				
+	            try {
+	            	// 상담취소 시 관리자에게 알림 메일 발송
+	                sendCancelConsltEmail(recipientConslt);
+
+	                
+	    			MbrVO mbrVO = mbrService.selectMbrByUniqueId(recipientConslt.getRegUniqueId());
+
+	    			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientConslt.getRecipientsNo());
+	    			//사용자 상담취소
+	    			biztalkConsultService.sendOnTalkCancel(mbrVO, mbrRecipientsVO, consltNo);
+	            } catch (Exception ex) {
+	            	log.error("===== 상담 취소 알림 오류", ex);
+	            }
+			}
+		} catch (Exception ex) {
+			log.error("===== 상담 취소 오류", ex);
+			resultMap.put("msg", "상담 취소에 실패하였습니다.");
+		}
+		return resultMap;
+	}
 }

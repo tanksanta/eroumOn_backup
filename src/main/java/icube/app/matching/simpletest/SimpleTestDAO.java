@@ -17,6 +17,10 @@ public class SimpleTestDAO extends CommonAbstractMapper {
 	public SimpleTestVO selectSimpleTestOne(Map<String,Object> paramMap) {
         return selectOne("mbr.simpletest.selectSimpleTestOne", paramMap);
     }
+    public SimpleTestVO selectSimpleTestNo(Map<String, Object> paramMap) {
+        
+        return selectOne("mbr.simpletest.mbrSimpletestNo", paramMap);
+    }
 
     public Integer insertSimpleTest(SimpleTestVO mbrTestVO) {
         insert("mbr.simpletest.insertSimpleTest", mbrTestVO);

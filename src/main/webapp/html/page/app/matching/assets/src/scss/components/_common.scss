@@ -23,10 +23,21 @@
 .align_center{display: flex;justify-content: center;align-items: center;}
 .align_between_center{display: flex;justify-content: space-between;align-items: center;}
 .inline_flex{display: inline-flex;}
+.flex_shrink_0{flex-shrink: 0;}
 
-.gap02{gap: 2px;}
-.gap04{gap: 4px;}
-.gap08{gap: 8px;}
+
+//gap02~gap16
+@for $i from 1 to 9{
+    $i:$i*2;
+    @if($i < 10){
+        .gap0#{$i}{gap: #{$i} + 'px';}
+    }
+    @else{
+        .gap#{$i}{gap: #{$i} + 'px';}
+    }
+
+}
+
 
 .center{text-align: center;}
 .l_left{text-align: left;}
@@ -45,11 +56,13 @@
 .w100p{width:100% !important;}
 .w50p{width:50% !important;}
 
-.w20{width:20px !important;}
+
+//width 10~200px
+@for $i from 1 to 21{
+    .w#{$i}0{width: #{$i} + '0px' !important;}
+}
+
 .w48{width:48px !important;}
-.w80{width:80px !important;}
-.w120{width:120px !important;}
-.w150{width:150px !important;}
 
 .heightAuto{height: auto !important;}
 
@@ -89,6 +102,8 @@
 .padH12W20{padding: 12px 20px !important;}
 
 .padH24W20{padding: 24px 20px !important;}
+
+.pad_16_20_24{padding: 16px 20px 24px !important;}
 
 .padL8{padding-left: 8px !important;}
 
@@ -275,8 +290,17 @@ hr{border:0; height:1px; background-color: $--Color-bg-Primitive-secondary ;}
 
 }
 
+//리스트 노멀 switch 같이 사용시
+.list_normal{
+    width:100%;
+    background-color: #fff;
+    min-height: 59px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 16px 0;
 
-
+}
 
 //체크박스 예전작업 - 확인하고 없으면 추후 삭제
 [type="checkbox"].filled-in:checked + span:not(.lever):after{
@@ -328,6 +352,11 @@ hr{border:0; height:1px; background-color: $--Color-bg-Primitive-secondary ;}
 
 }
 .chk01_2:checked+label{background-image: url(../images/18icon/chk01_active02.svg);}
+
+
+
+
+
 
 
 .chk02+label{
@@ -605,23 +634,6 @@ hr{border:0; height:1px; background-color: $--Color-bg-Primitive-secondary ;}
 //★★위에 폰트구성과 같음.
 //이름 복잡해서 따로 제작
 //_reset.scss 참조
-.color_white{color: #fff !important;}
-.color_primary{color: $--Color-text-Primitive-primary !important;} // = color_tp_p 주황색
-.color_secondary{color: $--Color-text-secondary !important;} // = color_t_s 회색 #616161
-.color_disable{color: $--Color-text-disabled !important;} // = color_t_d
-.color_danger{color: $--Color-text-danger !important;} // = color_t_d
-
-.c_757575{color: #757575 !important;}
-
-.back_F5F5F5{background-color: $--Color-bg-teritiary !important;}
-.back_FFF5E6{background-color: $--Color-bg-Primitive-selected !important;}
-.back_EFF1FD{background-color: $--Color-bg-brand-sub-subtle !important;}
-.back_EFF6FF{background-color: $--Color-bg-info-subtle !important;}
-.back_E8F5E9{background-color: $--Color-bg-success-subtle !important;}
-.back_FFEBEE{background-color: $--Color-bg-danger-subtle !important;}
-
-
-
 .font_h1{@include Suit_Heading_XL;margin: 0;}
 .font_h2{@include Suit_Heading_LG;margin: 0;}
 .font_h3{@include Suit_Heading_MD;margin: 0;}
@@ -646,11 +658,28 @@ hr{border:0; height:1px; background-color: $--Color-bg-Primitive-secondary ;}
 .font_14_3{@include Suit_Body_SS_Regular;}
 
 
-
-
 .font_12_1{@include Suit_Caption_XS;}
 .font_12_2{@include Suit_Caption_XS_Strike-through;}
  
+
+
+
+
+.color_white{color: #fff !important;}
+.color_primary{color: $--Color-text-Primitive-primary !important;} // = color_tp_p 주황색
+.color_secondary{color: $--Color-text-secondary !important;} // = color_t_s 회색 #616161
+.color_disable{color: $--Color-text-disabled !important;} // = color_t_d
+.color_danger{color: $--Color-text-danger !important;} // = color_t_d
+
+.c_757575{color: #757575 !important;}
+
+.back_F5F5F5{background-color: $--Color-bg-teritiary !important;}
+.back_FFF5E6{background-color: $--Color-bg-Primitive-selected !important;}
+.back_EFF1FD{background-color: $--Color-bg-brand-sub-subtle !important;}
+.back_EFF6FF{background-color: $--Color-bg-info-subtle !important;}
+.back_E8F5E9{background-color: $--Color-bg-success-subtle !important;}
+.back_FFEBEE{background-color: $--Color-bg-danger-subtle !important;}
+
 
 
 
