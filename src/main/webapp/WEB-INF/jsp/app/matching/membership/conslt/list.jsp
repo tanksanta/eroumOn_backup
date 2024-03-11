@@ -35,6 +35,12 @@
 	
 	  
       <script>
+    	//뒤로가기 버튼 클릭 override
+		function backBtnEvent() {
+			popHistoryStack();
+			location.href = "/matching/membership/recipients/subMain?recipientsNo=${recipientInfo.recipientsNo}";
+		}
+      
       	function clickConsltDetail(consltNo) {
       		location.href = '/matching/membership/conslt/detail?consltNo=' + consltNo;
       	}

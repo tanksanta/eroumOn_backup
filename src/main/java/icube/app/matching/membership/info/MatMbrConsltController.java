@@ -185,6 +185,7 @@ public class MatMbrConsltController extends CommonAbstractController {
 		}
 		
 		List<MbrConsltVO> mbrConsltList = mbrConsltService.selectMbrConsltByRecipientsNo(recipientInfo.getRecipientsNo());
+		model.addAttribute("recipientInfo", recipientInfo);
 		model.addAttribute("mbrConsltList", mbrConsltList);
 		model.addAttribute("prevPathCtgryMap", CodeMap.PREV_PATH_CTGRY);
 		model.addAttribute("prevPathMap", CodeMap.PREV_PATH_FOR_APP);
