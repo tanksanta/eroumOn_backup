@@ -977,6 +977,8 @@ public class MMbrController extends CommonAbstractController {
         if (EgovStringUtil.equals(mbrVO.getPushRecptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("PUSH_RECPTN_YN"));
         if (EgovStringUtil.equals(mbrVO.getEventRecptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("EVENT_RECPTN_YN"));
 
+        if (list.size() == 0) return "-";
+        
         return String.join(",", list);
     }
     
@@ -1021,7 +1023,7 @@ public class MMbrController extends CommonAbstractController {
         mapping.put("회원이름", obj -> ((MbrVO)obj).getMbrNm());
         mapping.put("휴대폰번호", obj -> ((MbrVO)obj).getMblTelno());
         mapping.put("정보수신", obj -> convertMbrVo2RcptnYn((MbrVO)obj));
-        mapping.put("테스트여부", obj -> (((MbrVO)obj).getExistsTestYn() + ((MbrVO)obj).getExistsSimpleTestYn() + ((MbrVO)obj).getExistsSimpleCareYn()) > 0 ?"Y":"");
+        mapping.put("등급테스트", obj -> (((MbrVO)obj).getExistsTestYn() + ((MbrVO)obj).getExistsSimpleTestYn() + ((MbrVO)obj).getExistsSimpleCareYn()) > 0 ?"Y":"-");
         mapping.put("등록수급자수", obj -> ((MbrVO)obj).getMbrRecipientsList().size());
         mapping.put("관계1", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 0));
         mapping.put("관계2", obj -> getRelationText(((MbrVO)obj).getMbrRecipientsList(), 1));
