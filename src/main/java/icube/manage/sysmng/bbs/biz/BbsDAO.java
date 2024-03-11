@@ -17,6 +17,10 @@ public class BbsDAO extends CommonAbstractMapper {
 	public CommonListVO selectNttListWithAddColumnVO(CommonListVO listVO) throws Exception {
 		return selectListVO("bbs.ntt.selectNttCount", "bbs.ntt.selectNttListWithAddColumnVO", listVO);
 	}
+	public CommonListVO selectNttListWithSocialWelfareFailVO(CommonListVO listVO) throws Exception {
+		return selectListVO("bbs.ntt.selectNttCountWithSocialWelfareFailVO", "bbs.ntt.selectNttListWithSocialWelfareFailVO", listVO);
+	}
+	
 
 	public BbsVO selectNtt(Map<String, Object> paramMap) throws Exception {
 		return selectOne("bbs.ntt.selectNtt", paramMap);
@@ -27,6 +31,8 @@ public class BbsDAO extends CommonAbstractMapper {
 	public BbsVO selectNttByUniqueText(Map<String, Object> paramMap) throws Exception {
 		return selectOne("bbs.ntt.selectNttByUniqueText", paramMap);
 	}
+
+
 
 	public void insertNtt(BbsVO nttVO) throws Exception {
 		insert("bbs.ntt.insertNtt", nttVO);

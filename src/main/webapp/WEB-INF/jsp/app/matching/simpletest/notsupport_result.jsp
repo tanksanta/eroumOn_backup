@@ -39,27 +39,31 @@
                 <div class="card">
 
                     <div class="card-content"> 
-
-                        <div class="box noPad w56">
-                            <div class="img_area w56">
-                              <img src="/html/page/app/matching/assets/src/images/08etc/money01_40.svg" alt="혜택">
+                        <c:if test="${failList.getListObject().size() > 0}">
+                            <div class="box noPad w56">
+                                <div class="img_area w56">
+                                <img src="/html/page/app/matching/assets/src/images/08etc/money01_40.svg" alt="혜택">
+                                </div>
+                                <div class="ctn_area">
+                                <div class="font_sbmb">어르신 상황에 따라 이러한 혜택을 받을 수 있어요</div>
+                                </div>
                             </div>
-                            <div class="ctn_area">
-                              <div class="font_sbmb">어르신 상황에 따라 이러한 혜택을 받을 수 있어요</div>
-                            </div>
-                        </div>
-                        
-                        <div class="h20"></div>
+                            
+                            <div class="h20"></div>
 
-                        <div class="padL8">
-                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">보청기 구매비 지원</div>
-                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">임플란트 이용 지원</div>
-                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">틀니 비용 지원</div>
-                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">인공관절 수술비 지원</div>
-                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">노인개안 수술비 지원</div>
-                            <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">치매 검사비 지원</div>
-                            <div class="waves-effect list_link bbs_link font_sbmr" bbs_link="">치매 치료비 지원</div>
-                        </div>
+                            <div class="padL8">
+                                <c:forEach var="item" items="${failList.getListObject()}" varStatus="status">
+                                    <div class="waves-effect list_link ntt_no bder_bottom font_sbmr" ntt_no="${item.getNttNo()}">${item.getTtl()}</div>
+                                </c:forEach>
+                                
+                                <!--div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">임플란트 이용 지원</div>
+                                <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">틀니 비용 지원</div>
+                                <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">인공관절 수술비 지원</div>
+                                <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">노인개안 수술비 지원</div>
+                                <div class="waves-effect list_link bbs_link bder_bottom font_sbmr" bbs_link="">치매 검사비 지원</div>
+                                <div class="waves-effect list_link bbs_link font_sbmr" bbs_link="">치매 치료비 지원</div-->
+                            </div>
+                        </c:if>
 
                     </div>
                 </div>
@@ -86,12 +90,12 @@
     $(function () {
         $("body").addClass("back_gray");
 
-        $(".card-content .bbs_link").off('click').on('click', function(){
-            location.href = "/matching/bbs/guide/linkview/"+"linkdfaffda";
+        $(".card-content .ntt_no").off('click').on('click', function(){
+            location.href = "/matching/bbs/socialwelfare/view?nttNo=" + $(this).attr('ntt_no');
         });
     });
 
     function fn_next_click(){
-        location.href = "/matching/bbs/guide/list";
+        location.href = "/matching/bbs/socialwelfare/list";
     }
-</script>    
+</script>     

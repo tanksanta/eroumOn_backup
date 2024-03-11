@@ -50,6 +50,16 @@ public class SimpleTestService extends CommonAbstractServiceImpl {
     	return selectSimpleTestOne(paramMap);
     }
 
+    public SimpleTestVO selectSimpleTestByNo(String uniqueId, int recipientsNo, int mbrSimpletestNo) {
+    	Map<String, Object> paramMap = new HashMap<>();
+
+    	paramMap.put("uniqueId", uniqueId);
+        paramMap.put("recipientsNo", recipientsNo);
+        paramMap.put("mbrSimpletestNo", mbrSimpletestNo);
+
+    	return simpleTestDAO.selectSimpleTestNo(paramMap);
+    }
+
     public Integer insertSimpleTest(int recipientsNo, Map<String,Object> reqMap) throws Exception {
         MbrRecipientsVO  mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
         

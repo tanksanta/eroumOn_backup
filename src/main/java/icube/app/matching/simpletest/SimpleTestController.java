@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.egovframe.rte.fdl.string.EgovStringUtil;
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.app.matching.bbs.MatBbsService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
+import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
+import icube.manage.sysmng.bbs.biz.BbsVO;
 
 @Controller
 @RequestMapping(value={"#{props['Globals.Matching.path']}/simpletest"})
@@ -33,6 +37,9 @@ public class SimpleTestController  extends CommonAbstractController {
 
 	@Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
+
+	@Resource(name= "matBbsService")
+	private MatBbsService matBbsService;
 	
 	@Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
@@ -101,6 +108,8 @@ public class SimpleTestController  extends CommonAbstractController {
 	public String simpleResult(
 		@RequestParam Map<String,Object> reqMap
 		, @RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
+		, @RequestParam(required = false) Integer mbrSimpletestNo/*테스트 번호*/
+		, HttpServletRequest request
 		, Model model) throws Exception {
 
 		model.addAttribute("addTitle", "테스트 결과");
@@ -108,9 +117,16 @@ public class SimpleTestController  extends CommonAbstractController {
 		MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
 		model.addAttribute("mbrRecipientsVO", mbrRecipientsVO);
 
-		SimpleTestVO simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "simple");//"MBR_00000091", recipient.getRecipientsNo()
-		
+		SimpleTestVO simpleTestVO;
+		if (mbrSimpletestNo != null && mbrSimpletestNo > 0){
+			simpleTestVO = simpleTestService.selectSimpleTestByNo(matMbrSession.getUniqueId(), recipientsNo, mbrSimpletestNo);//"MBR_00000091"
+		}else{
+			simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "simple");//"MBR_00000091"
+		}
+
 		if (simpleTestVO == null || EgovStringUtil.equals(simpleTestVO.getGrade().toString(), "0")){
+			CommonListVO commonListVO = matBbsService.selectNttListWithSocialWelfareFailVO(request, "simple");
+			model.addAttribute("failList", commonListVO);
 			return "/app/matching/simpletest/notsupport_result";
 		}
 
@@ -315,6 +331,8 @@ public class SimpleTestController  extends CommonAbstractController {
 	public String careResult(
 		@RequestParam Map<String,Object> reqMap
 		, @RequestParam(required = true) Integer recipientsNo/*수급자 번호*/
+		, @RequestParam(required = false) Integer mbrSimpletestNo/*테스트 번호*/
+		, HttpServletRequest request
 		, Model model) throws Exception {
 
 		model.addAttribute("addTitle", "어르신 돌봄");
@@ -322,9 +340,16 @@ public class SimpleTestController  extends CommonAbstractController {
 		MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(recipientsNo);
 		model.addAttribute("mbrRecipientsVO", mbrRecipientsVO);
 
-		SimpleTestVO simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "care");//"MBR_00000091"
+		SimpleTestVO simpleTestVO;
+		if (mbrSimpletestNo != null && mbrSimpletestNo > 0){
+			simpleTestVO = simpleTestService.selectSimpleTestByNo(matMbrSession.getUniqueId(), recipientsNo, mbrSimpletestNo);//"MBR_00000091"
+		}else{
+			simpleTestVO = simpleTestService.selectSimpleTestByRecipientsNo(matMbrSession.getUniqueId(), recipientsNo, "care");//"MBR_00000091"
+		}
 		
 		if (simpleTestVO == null || EgovStringUtil.equals(simpleTestVO.getGrade().toString(), "0")){
+			model.addAttribute("failList", matBbsService.selectNttListWithSocialWelfareFailVO(request, "care"));
+			
 			return "/app/matching/simpletest/notsupport_result";
 		}
 		
