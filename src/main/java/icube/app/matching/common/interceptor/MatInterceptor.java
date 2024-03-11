@@ -50,6 +50,7 @@ public class MatInterceptor implements HandlerInterceptor {
 			add("/matching/membership/conslt/complete");
 			add("/matching/membership/conslt/list");
 			add("/matching/membership/conslt/detail");
+			add("/matching/membership/conslt/canclConslt.json");
 			add("/matching/membership/recipients/subMain");
 			add("/matching/membership/recipients/detail");
 			add("/matching/membership/recipients/updateMbrRecipient.json");

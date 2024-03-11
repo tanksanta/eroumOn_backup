@@ -322,13 +322,15 @@
                 </div>
                 <!-- box_normal -->
 
-                <div class="h12"></div>
-
-                <div class="box_normal padH12W20">
-
-                    <div class="waves-effect padH16 w100p color_t_s font_sbmr">상담취소</div>
-
-                </div>
+				<c:if test="${mbrConsltVO.consltSttus eq 'CS01' || mbrConsltVO.consltSttus eq 'CS07'}">
+	                <div class="h12"></div>
+	
+	                <div class="box_normal padH12W20">
+	
+	                    <div class="waves-effect padH16 w100p color_t_s font_sbmr" onclick="clickCancelConslt();">상담취소</div>
+	
+	                </div>
+                </c:if>
             </section>
         </main>	    
 	    
@@ -378,6 +380,9 @@
 	
 	
 	<script>
+		var consltNo = ${mbrConsltVO.consltNo};
+		var consltSttus = '${mbrConsltVO.consltSttus}';
+	
 		//전화하기
 		function callWithMobile (tel) {
 			sendDataToMobileApp({ actionName: 'callOpenUrl', url: 'tel:' + tel });
@@ -388,6 +393,25 @@
 			navigator.clipboard.writeText(text);
 		}
 	
+		//상담취소 버튼 클릭 이벤트
+		async function clickCancelConslt() {
+			if (consltSttus !== 'CS01' && consltSttus !== 'CS07') {
+				showAlertPopup('이미 진행중인 상담입니다');
+				return;
+			}
+			
+			var answer = await showConfirmPopup('정말 취소하시겠어요?', '취소 후에는 복구가 불가해요');
+			if (answer === 'confirm') {
+				callPostAjaxIfFailOnlyMsg(
+					'/matching/membership/conslt/canclConslt.json', 
+					{consltNo},
+					function(result) {
+						location.reload();
+					}
+				);
+			}
+		}
+		
 	
 	    $(function () {
 	

@@ -1,13 +1,13 @@
 package icube.app.matching.membership.info;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,6 @@ import icube.manage.consult.biz.MbrConsltResultVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
 import icube.manage.mbr.mbr.biz.MbrService;
-import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 
@@ -271,5 +270,18 @@ public class MatMbrConsltController extends CommonAbstractController {
 		model.addAttribute("relationCdMap", CodeMap.MBR_RELATION_CD_FOR_READ);
 		
 		return "/app/matching/membership/conslt/detail";
+	}
+	
+	/**
+	 * 상담 취소 AJAX
+	 */
+	@RequestMapping(value = "canclConslt.json")
+	@ResponseBody
+	public Map<String, Object> cancelConslt(
+			@RequestParam(value = "consltNo", required=true) int consltNo
+			, HttpServletRequest request
+			) throws Exception {
+		String canclResn = "이로움 돌봄앱에서 취소";
+		return mbrConsltService.cancelConslt(consltNo, canclResn, matMbrSession);
 	}
 }

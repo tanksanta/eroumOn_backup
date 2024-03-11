@@ -182,44 +182,8 @@ public class MbrsConsltController extends CommonAbstractController {
 			, @RequestParam(value = "consltmbrTelno") String consltmbrTelno
 			, HttpServletRequest request
 			) throws Exception {
-
-		boolean result = false;
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("consltSttus", "CS03"); //상담자 취소
-		paramMap.put("canclResn", canclResn);
-		paramMap.put("consltNo", consltNo);
-
-		int resultCnt = mbrConsltService.updateCanclConslt(paramMap);
-
-		if(resultCnt > 0) {
-			result = true;
-			
-			//1:1 상담 취소 이력 추가(접수, 재접수일 때만 취소가 되므로 사업소 상담 정보는 없음)
-			MbrConsltChgHistVO mbrConsltChgHistVO = new MbrConsltChgHistVO();
-			mbrConsltChgHistVO.setConsltNo(consltNo);
-			mbrConsltChgHistVO.setConsltSttusChg("CS03");
-			mbrConsltChgHistVO.setResn(CodeMap.CONSLT_STTUS_CHG_RESN.get("상담자 취소"));
-			mbrConsltChgHistVO.setMbrUniqueId(mbrSession.getUniqueId());
-			mbrConsltChgHistVO.setMbrId(mbrSession.getMbrId());
-			mbrConsltChgHistVO.setMbrNm(mbrSession.getMbrNm());
-			mbrConsltService.insertMbrConsltChgHist(mbrConsltChgHistVO);
-
-			
-            // 상담취소 시 관리자에게 알림 메일 발송
-			MbrConsltVO mbrConsltVO = mbrConsltService.selectMbrConsltByConsltNo(consltNo);
-            mbrConsltService.sendCancelConsltEmail(mbrConsltVO);
-
-            
-			MbrVO mbrVO = mbrService.selectMbrByUniqueId(mbrConsltVO.getRegUniqueId());
-
-			MbrRecipientsVO mbrRecipientsVO = mbrRecipientsService.selectMbrRecipientsByRecipientsNo(mbrConsltVO.getRecipientsNo());
-			//사용자 상담취소
-			biztalkConsultService.sendOnTalkCancel(mbrVO, mbrRecipientsVO, consltNo);
-		}
-
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("result", result);
+		Map<String, Object> resultMap = mbrConsltService.cancelConslt(consltNo, canclResn, mbrSession);
+		resultMap.put("result", resultMap.get("success"));
 		return resultMap;
 	}
 	
