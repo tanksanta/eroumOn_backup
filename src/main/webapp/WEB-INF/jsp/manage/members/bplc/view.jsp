@@ -131,12 +131,12 @@
 					<th scope="row"><label for="bsnmCeregrt">사업자 등록증</th>
 					<td><c:if test="${!empty bplcVO.bsnmCeregrt}">
 							<div class="form-group" style="display: flex;">
-								<a href="/comm/CEREGRT/getFile?fileName=${bplcVO.bsnmCeregrt}">${bplcVO.bsnmCeregrt}</a>&nbsp;&nbsp;
-								<button type="button" class="btn-secondary delBsnmCeregrtBtn"> 삭제</button>
+								<a target="_image" href="${bplcVO.bsnmCeregrt}">${bplcVO.bsnmCeregrt}</a>&nbsp;&nbsp;
+								<!--button type="button" class="btn-secondary delBsnmCeregrtBtn"> 삭제</button-->
 							</div>
 						</c:if>
 						<div id="bsnmCeregrtFileDiv">
-							<div class="row" id="bsnmCeregrt1FileDiv" <c:if test="${!empty bplcVO.bsnmCeregrt }">style="display:none;"</c:if>>
+							<div class="row" id="bsnmCeregrt1FileDiv" style="display:none;" <c:if test="${!empty bplcVO.bsnmCeregrt }"></c:if>>
 								<div class="col-12">
 									<div class="custom-file" id="bsnmCeregrtAttach">
 										<input type="file" class="form-control w-2/3" id="bsnmCeregrt1" name="bsnmCeregrt1" onchange="fileCheck(this);" />
@@ -151,12 +151,12 @@
 					<th scope="row"><label for="bsnmOffcs">사업자 직인</th>
 					<td><c:if test="${!empty bplcVO.bsnmOffcs}">
 							<div class="form-group" style="display: flex;">
-								<a href="/comm/OFFCS/getFile?fileName=${bplcVO.bsnmOffcs}">${bplcVO.bsnmOffcs}</a>&nbsp;&nbsp;
-								<button type="button" class="btn-secondary delBsnmOffcsBtn"> 삭제</button>
+								<a target="_image" href="${bplcVO.bsnmOffcs}">${bplcVO.bsnmOffcs}</a>&nbsp;&nbsp;
+								<!--button type="button" class="btn-secondary delBsnmOffcsBtn"> 삭제</button-->
 							</div>
 						</c:if>
 						<div id="bsnmOffcsFileDiv">
-							<div class="row" id="bsnmOffcs1FileDiv" <c:if test="${!empty bplcVO.bsnmOffcs }">style="display:none;"</c:if>>
+							<div class="row" id="bsnmOffcs1FileDiv" style="display:none;" <c:if test="${!empty bplcVO.bsnmOffcs }"></c:if>>
 								<div class="col-12">
 									<div class="custom-file" id="uptAttach">
 										<input type="file" class="form-control w-2/3" id="bsnmOffcs1" name="bsnmOffcs1" onchange="fileCheck(this);" />
