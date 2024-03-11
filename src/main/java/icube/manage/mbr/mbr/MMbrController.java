@@ -977,7 +977,7 @@ public class MMbrController extends CommonAbstractController {
         if (EgovStringUtil.equals(mbrVO.getPushRecptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("PUSH_RECPTN_YN"));
         if (EgovStringUtil.equals(mbrVO.getEventRecptnYn() , "Y")) list.add(CodeMap.MBR_JOIN_RCPTN2.get("EVENT_RECPTN_YN"));
 
-        return String.join("", list);
+        return String.join(",", list);
     }
     
     @RequestMapping("excel")

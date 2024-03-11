@@ -1116,9 +1116,9 @@ public class CodeMap{
 		private static final long serialVersionUID = 7437138482747478941L;
 		{
 			put("SMS_RCPTN_YN", "S");
-			put("EML_RCPTN_YN", "E");
-			put("TEL_RECPTN_YN", "T");
-			put("PUSH_RECPTN_YN", "");
+			put("EML_RCPTN_YN", "M");
+			put("TEL_RECPTN_YN", "P");
+			put("PUSH_RECPTN_YN", "A");
 			put("EVENT_RECPTN_YN", "");
 		}
 	};

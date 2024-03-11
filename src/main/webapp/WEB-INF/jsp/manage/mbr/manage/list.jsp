@@ -125,11 +125,12 @@
 				<td><a href="./${resultList.uniqueId}/view?${pageParam}" class="btn shadow w-full" style="padding-right: 0.5rem; padding-left: 0.5rem;">${resultList.mbrNm}</a></td>
 				<td>${resultList.mblTelno}</td>
 				<td>
-					<c:if test="${resultList.smsRcptnYn == 'Y'}">${mbrJoinRcptn2['SMS_RCPTN_YN']}</c:if>
-					<c:if test="${resultList.emlRcptnYn == 'Y'}">${mbrJoinRcptn2['EML_RCPTN_YN']}</c:if>
-					<c:if test="${resultList.telRecptnYn == 'Y'}">${mbrJoinRcptn2['TEL_RECPTN_YN']}</c:if>
-					<c:if test="${resultList.pushRecptnYn == 'Y'}">${mbrJoinRcptn2['PUSH_RECPTN_YN']}</c:if>
-					<c:if test="${resultList.eventRecptnYn == 'Y'}">${mbrJoinRcptn2['EVENT_RECPTN_YN']}</c:if>
+					<c:set var="delimiter" value="" />
+					<c:if test="${resultList.smsRcptnYn == 'Y'}">${mbrJoinRcptn2['SMS_RCPTN_YN']}<c:set var="delimiter" value="," /></c:if>
+					<c:if test="${resultList.emlRcptnYn == 'Y'}">${delimiter}${mbrJoinRcptn2['EML_RCPTN_YN']}<c:set var="delimiter" value="," /></c:if>
+					<c:if test="${resultList.telRecptnYn == 'Y'}">${delimiter}${mbrJoinRcptn2['TEL_RECPTN_YN']}<c:set var="delimiter" value="," /></c:if>
+					<c:if test="${resultList.pushRecptnYn == 'Y'}">${delimiter}${mbrJoinRcptn2['PUSH_RECPTN_YN']}<c:set var="delimiter" value="," /></c:if>
+					<c:if test="${resultList.eventRecptnYn == 'Y'}">${delimiter}${mbrJoinRcptn2['EVENT_RECPTN_YN']}</c:if>
 				</td>
 				<td><c:if test="${resultList.existsTestYn > 0 || resultList.existsSimpleTestYn > 0  || resultList.existsSimpleCareYn > 0 }">Y</c:if></td>
 				<td>${resultList.mbrRecipientsList.size()}</td>
