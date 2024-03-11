@@ -195,6 +195,8 @@
 			
 			if (sidoText !== '지역' && sigugunText !== '지역') {
 				$('#modal_eld_apply').modal('open');	
+			} else {
+				showToastMsg('지역을 선택하세요');
 			}
 		}
 		

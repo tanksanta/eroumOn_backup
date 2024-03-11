@@ -124,7 +124,9 @@ public class MatMbrConsltController extends CommonAbstractController {
 		List<MbrRecipientsVO> mbrRecipientList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
 		MbrRecipientsVO recipientInfo = mbrRecipientList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
 		
-		boolean saveRecipientInfo = false;
+		//수급자(어르신) 정보와 동기화 기본 처리
+		boolean saveRecipientInfo = true;
+		
 		MbrConsltVO mbrConsltVO = new MbrConsltVO();
 		mbrConsltVO.setPrevPath(prevPath);
 		mbrConsltVO.setRecipientsNo(recipientInfo.getRecipientsNo());
