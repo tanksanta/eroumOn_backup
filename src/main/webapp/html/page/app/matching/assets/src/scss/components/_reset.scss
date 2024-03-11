@@ -300,6 +300,13 @@ $--Color-icon-Primitive-inverse: #fff;
     align-items: center;
 }
 
+//flex_between_center
+@mixin flex_between_center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 
 
@@ -396,6 +403,21 @@ input:not([type]):disabled, input:not([type])[readonly="readonly"], input[type=t
 input.input_noClass, input.input_noClass:focus{border:none !important;}
 
 
+
+//switch 스위치
+
+.switch label .lever{margin: 0;width:34px;}
+.switch label .lever:before{background-color: #ff81203d;}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: $--Color-icon-Primitive-primary
+}
+
+.switch label input[type=checkbox]:checked+.lever:after{background-color: #fff;}
+
+.switch label input[type=checkbox]:checked+.lever:before, .switch label input[type=checkbox]:checked+.lever:after{left: 16px;}
+
+//modal 모달 
 .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat{margin: 0;}
 
 

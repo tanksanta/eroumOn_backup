@@ -47,7 +47,11 @@
 
         /* 완료 */
         .chk{position: relative;}
-        .chk::before{position: absolute;top:-40px;left:-40px;content: '';width:50px;height:50px;background-color: #D32F2F;transform: rotate(45deg);}
+        .chk::before{position: absolute;top:-10px;left:-10px;content: '';width:0px;height:0px;
+        border: 10px solid transparent;
+        border-top: 10px solid #D32F2F;
+        border-left: 10px solid #D32F2F;
+    }
 
     </style>
 
@@ -113,31 +117,6 @@
             </tbody>
         </table>
 
-        <h5 class="title color_primary">온보딩 / 앱접근권한</h5>
-        <table class="sitemap_table">
-            <tbody>
-
-                <!-- 온보딩 -->
-                <tr>
-                    <td>온보딩</td>
-                    <td>swiper 슬라이드 사용</td>
-                    <td><a class="addr" href="">F_ONB_001_onboard01.html</a></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="sitemap_table">
-            <tbody class="chk">
-
-                <tr>
-                    <td>앱 접근권한</td>
-                    <td></td>
-                    <td><a class="addr" href="">F_ACS_001_appAccess.html</a></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
 
         <h5 class="title color_primary">회원가입 / 로그인</h5>
 
@@ -183,6 +162,35 @@
                 </tr>
             </tbody>
         </table>
+
+
+
+        <h5 class="title color_primary">온보딩 / 앱접근권한</h5>
+        <table class="sitemap_table">
+            <tbody>
+
+                <!-- 온보딩 -->
+                <tr>
+                    <td>온보딩</td>
+                    <td>온보딩</td>
+                    <td><a class="addr" href="">F_ONB_001_onboard01.html</a></td>
+                    <td>swipe 특정 슬라이드 이벤트</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="sitemap_table">
+            <tbody class="chk">
+
+                <tr>
+                    <td>앱 접근권한</td>
+                    <td></td>
+                    <td><a class="addr" href="">F_ACS_001_appAccess.html</a></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
 
         <h5 class="title color_primary">어르신 등록 / 상담 신청</h5>
 
@@ -313,7 +321,7 @@
 
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
 
 
                 <!-- 어르신 메뉴 -->
@@ -344,8 +352,18 @@
                 <!-- 복지용구 알아보기 -->
                 <tr>
                     <td>복지용구 알아보기</td>
+                    <td>복지용구</td>
+                    <td><a class="addr" href="">F_SAE_002_wel_detail.html</a></td>
                     <td></td>
-                    <td><a class="addr" href=""></a></td>
+                </tr>
+                <tr>
+                    <td>*복지용구 영상리스트</td>
+                    <td><a class="addr" href="">F_SAE_002_wel_detail_list.html</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>복지용구 전체보기</td>
+                    <td><a class="addr" href=""> </a></td>
                     <td></td>
                 </tr>
             </tbody>
@@ -483,6 +501,43 @@
             </tbody>
         </table>
 
+
+
+        <h5 class="title color_primary">고객센터/자주묻는질문/공지사항</h5>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>고객센터</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>자주 묻는 질문</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="sitemap_table">
+            <tbody>
+                <tr>
+                    <td>공지사항</td>
+                    <td></td>
+                    <td><a class="addr" href=""></a></td>
+                    <td></td> 
+                </tr>
+            </tbody>
+        </table>
+
         <h5 class="title color_primary">콘텐츠 메뉴</h5>
 
         <table class="sitemap_table">
@@ -502,7 +557,7 @@
         </table>
 
         <table class="sitemap_table">
-            <tbody>
+            <tbody class="chk">
                 <tr>
                     <td>어르신 복지</td>
                     <td>어르신 복지 목록</td>
@@ -542,46 +597,8 @@
             </tbody>
         </table>
 
-        <h5 class="title color_primary">고객센터</h5>
 
-        <table class="sitemap_table">
-            <tbody>
-                <tr>
-                    <td>고객센터</td>
-                    <td></td>
-                    <td><a class="addr" href=""></a></td>
-                    <td></td> 
-                </tr>
-            </tbody>
-        </table>
-
-        <h5 class="title color_primary">자주 묻는 질문</h5>
-
-        <table class="sitemap_table">
-            <tbody>
-                <tr>
-                    <td>자주 묻는 질문</td>
-                    <td></td>
-                    <td><a class="addr" href=""></a></td>
-                    <td></td> 
-                </tr>
-            </tbody>
-        </table>
-
-        <h5 class="title color_primary">공지사항</h5>
-
-        <table class="sitemap_table">
-            <tbody>
-                <tr>
-                    <td>공지사항</td>
-                    <td></td>
-                    <td><a class="addr" href=""></a></td>
-                    <td></td> 
-                </tr>
-            </tbody>
-        </table>
-
-        <h5 class="title color_primary">알림</h5>
+        <h5 class="title color_primary">알림/푸쉬</h5>
 
         <table class="sitemap_table">
             <tbody>
@@ -595,10 +612,11 @@
         </table>
 
 
+
         <h5 class="title color_primary">그 외 기타 기능 및 오류 화면</h5>
 
         <table class="sitemap_table">
-            <tbody class="chk">
+            <tbody>
 
 
                 <!-- 오류 및 예외처리 화면 -->
@@ -606,6 +624,11 @@
                     <td>오류 및 예외처리 화면</td>
                     <td>네트워크 오류</td>
                     <td><a class="addr" href="">ETC_network_error.html</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>공유하기</td>
+                    <td><a class="addr" href=""> </a></td>
                     <td></td>
                 </tr>
 
