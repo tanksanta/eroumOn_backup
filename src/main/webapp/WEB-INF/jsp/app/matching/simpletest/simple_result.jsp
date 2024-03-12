@@ -49,7 +49,7 @@
                             
                             <div class="h20"></div>
 
-                            <a class="waves-effect btn-large btn_default w100p">등급별 혜택 확인하기</a>
+                            <a class="waves-effect btn-large btn_default w100p list_link" link="ltc00001">등급별 혜택 확인하기</a>
 
                         </div>
                     </div>
@@ -79,6 +79,10 @@
 <script>
     $(function () {
         $("body").addClass("back_gray");
+
+        $('.list_link').click(function(){
+            location.href = '/matching/bbs/guide/linkview/' + $(this).attr('link')
+        });
     });
 
     function fn_next_click(){
