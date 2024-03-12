@@ -27,7 +27,6 @@ import icube.common.vo.CommonListVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
-import icube.manage.sysmng.bbs.biz.BbsVO;
 
 @Controller
 @RequestMapping(value={"#{props['Globals.Matching.path']}/simpletest"})
@@ -135,56 +134,6 @@ public class SimpleTestController  extends CommonAbstractController {
         return "/app/matching/simpletest/simple_result";
     }
 
-	protected List<String> SIMPLE_TEST_STEP(){
-		return new ArrayList<String>() {
-			private static final long serialVersionUID = 1L;
-			{
-            add("100");
-            add("200");
-            add("300");
-            add("400");
-			add("500");
-			add("600");
-        }};
-	}
-
-	protected List<String> testStepChoiceListValues(String step){
-		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)
-			|| EgovStringUtil.equals("300", step) || EgovStringUtil.equals("600", step)){
-			return new ArrayList<String>() {
-				private static final long serialVersionUID = 1L;
-				{
-				add("1");
-				add("0");
-			}};
-		}else{
-			return new ArrayList<String>() {
-				private static final long serialVersionUID = 1L;
-				{
-				add("0");
-				add("1");
-			}};
-		}
-	}
-
-	protected List<String> testStepChoiceListTexts(String step){
-		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)){
-			return new ArrayList<String>() {
-				private static final long serialVersionUID = 1L;
-				{
-				add("도움필요");
-				add("도움 없이가능");
-			}};
-		}else{
-			return new ArrayList<String>() {
-				private static final long serialVersionUID = 1L;
-				{
-				add("네");
-				add("아니오");
-			}};
-		}
-		
-	}
 
 	@RequestMapping(value={"/test/{step}"})
 	public String test(
@@ -229,25 +178,6 @@ public class SimpleTestController  extends CommonAbstractController {
         return "/app/matching/simpletest/test_step";
     }
 
-	protected String nextStepUrl(String testTy, String step)throws Exception{
-
-		List<String> list = this.SIMPLE_TEST_STEP();
-
-		String url;
-		if (EgovStringUtil.equals(step, "600")){
-			url = "/matching/simpletest/"+testTy + "/result";
-		}else{
-			url = "/matching/simpletest/test/";
-			int idx = list.indexOf(step);
-			if (idx >= 0){
-				url += list.get(idx+1);
-			}else{
-				throw new Exception();
-			}
-		}
-
-		return url;
-	}
 	
     /**
 	 * 간편테스트 결과 저장
@@ -357,7 +287,77 @@ public class SimpleTestController  extends CommonAbstractController {
 
         return "/app/matching/simpletest/care_result";
     }
+	
+	protected String nextStepUrl(String testTy, String step)throws Exception{
 
+		List<String> list = this.SIMPLE_TEST_STEP();
+
+		String url;
+		if (EgovStringUtil.equals(step, "600")){
+			url = "/matching/simpletest/"+testTy + "/result";
+		}else{
+			url = "/matching/simpletest/test/";
+			int idx = list.indexOf(step);
+			if (idx >= 0){
+				url += list.get(idx+1);
+			}else{
+				throw new Exception();
+			}
+		}
+
+		return url;
+	}
+
+	protected List<String> SIMPLE_TEST_STEP(){
+		return new ArrayList<String>() {
+			private static final long serialVersionUID = 1L;
+			{
+            add("100");
+            add("200");
+            add("300");
+            add("400");
+			add("500");
+			add("600");
+        }};
+	}
+
+	protected List<String> testStepChoiceListValues(String step){
+		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)
+			|| EgovStringUtil.equals("300", step) || EgovStringUtil.equals("600", step)){
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
+				add("1");
+				add("0");
+			}};
+		}else{
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
+				add("0");
+				add("1");
+			}};
+		}
+	}
+
+	protected List<String> testStepChoiceListTexts(String step){
+		if (EgovStringUtil.equals("100", step) || EgovStringUtil.equals("200", step)){
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
+				add("도움필요");
+				add("도움 없이가능");
+			}};
+		}else{
+			return new ArrayList<String>() {
+				private static final long serialVersionUID = 1L;
+				{
+				add("네");
+				add("아니오");
+			}};
+		}
+		
+	}
 	
 	protected static final HashMap<String, HashMap<String, String>> SIMPLE_TEST_STEP_VALUES= new LinkedHashMap<String, HashMap<String, String>>() {
 		private static final long serialVersionUID = 3678269337053606770L;

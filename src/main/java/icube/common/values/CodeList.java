@@ -27,18 +27,6 @@ public class CodeList {
 		}
 	};
 
-	/*복지용구 그룹별 계산 로직 persistPeriodKind*/
-	public static final List<String> WELTOOLS_ITEMGRP_PERSISTPERIODKIND = new ArrayList<String>() {
-		private static final long serialVersionUID = 2L;
-		{
-			add("dayOne");
-			add("dayCnt");
-			add("period");
-			add("rent");
-		}
-	};
-
-
 	/*복지용구 그룹코드 리스트*/
 	public static final List<String> WELTOOLS_ITEMGRP_CDS = new ArrayList<String>() {
 		private static final long serialVersionUID = 2L;
