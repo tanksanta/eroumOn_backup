@@ -235,7 +235,13 @@
 		INNER JOIN BBS_ADDCOLUMN ba ON tb.ntt_no = ba.ntt_no AND tb.bbs_no = ba.bbs_no
 		LEFT OUTER JOIN BBS_CTGRY tbc ON tb.bbs_no = tbc.bbs_no AND tb.ctgry_no = tbc.ctgry_no
 		WHERE ba.ADD_UNIQUE_TEXT01 = #{addUniqueText01}
-			AND tb.bbs_no in (SELECT bbs_no FROM BBS_SETUP WHERE srvc_cd = #{srvcCd} and bbs_cd = #{bbsCd})
+			<if test="srvcCd != null and srvcCd != '' and bbsCd != null and bbsCd != ''">
+				AND tb.bbs_no in (SELECT bbs_no FROM BBS_SETUP WHERE srvc_cd = #{srvcCd} and bbs_cd = #{bbsCd})
+			</if>
+			<if test="bbsNo != null and bbsNo != '' ">
+				AND tb.bbs_no = #{bbsNo}
+		</if>
+			
 	</select>
 
 
