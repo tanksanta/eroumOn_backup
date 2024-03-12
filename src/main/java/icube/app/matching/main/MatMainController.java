@@ -1,12 +1,19 @@
 package icube.app.matching.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import icube.app.matching.main.biz.AppVersionDAO;
+import icube.app.matching.main.biz.AppVersionVO;
 import icube.common.framework.abst.CommonAbstractController;
 
 /**
@@ -15,6 +22,10 @@ import icube.common.framework.abst.CommonAbstractController;
 @Controller
 @RequestMapping(value="#{props['Globals.Matching.path']}")
 public class MatMainController extends CommonAbstractController {
+	
+	@Resource(name = "appVersionDAO")
+	private AppVersionDAO appVersionDAO;
+	
 	
 	@RequestMapping(value = "")
 	public String main() {
@@ -80,5 +91,19 @@ public class MatMainController extends CommonAbstractController {
 	public String systemCheck(
 			Model model) {
 		return "/app/matching/common/screen/systemCheck";
+	}
+	
+	/**
+	 * app 버전 조회 API
+	 */
+	@RequestMapping(value = "/app/version.json")
+	@ResponseBody
+	public Map<String, Object> appVersion() throws Exception {
+		AppVersionVO appVersionVO = appVersionDAO.selectLastAppVersion("dolbom");
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("version", appVersionVO.getVersion());
+		resultMap.put("forceYn", appVersionVO.getForceYn());
+		resultMap.put("regDt", appVersionVO.getRegDt());
+		return resultMap;
 	}
 }
