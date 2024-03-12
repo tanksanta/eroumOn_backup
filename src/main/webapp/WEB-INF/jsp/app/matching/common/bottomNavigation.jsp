@@ -9,7 +9,7 @@
             <span class="txt">어르신</span>
           </a>
         </li>
-        <li class="btn_wel<c:if test="${ param != null && param.menuName == 'welfare' }"> active</c:if>">
+        <li class="btn_wel<c:if test="${ param != null && param.menuName == 'welfare' }"> active</c:if>" onclick="location.href='/matching/welfareinfo/list'">
           <a class="waves-effect">
             <span class="txt">복지용구</span>
           </a>
