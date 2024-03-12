@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.version">
+
+	<sql id="listColumn">
+		av.version_no
+		, av.app_nm
+		, av.version
+		, av.force_yn
+		, av.reg_dt
+	</sql>
+	
+	<sql id="searchConditions">
+		<if test="srchAppNm != null  and srchAppNm != '' ">
+			AND av.app_nm = #{srchAppNm}
+		</if>
+	</sql>
+	
+	
+	<select id="selectLastAppVersion" parameterType="java.util.HashMap" resultType="appVersionVO">
+		/* Query ID : app.version.selectLastAppVersion */
+		SELECT
+			<include refid="listColumn"/>
+		FROM APP_VERSION av 
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY av.reg_dt DESC
+        LIMIT 1;
+	</select>
+
+</mapper>
