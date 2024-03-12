@@ -34,6 +34,12 @@ public class MatWelfareinfoController  extends CommonAbstractController {
     @Resource(name = "mbrConsltService")
 	private MbrConsltService mbrConsltService;
 
+    @RequestMapping(value={"list"})
+	public String list(
+        Model model) throws Exception {
+        return "/app/matching/welfareinfo/list";
+    }
+
 	@RequestMapping(value={"interest/intro"})
 	public String interestIntro(
         @RequestParam(required = false) Integer recipientsNo/*수급자 번호*/

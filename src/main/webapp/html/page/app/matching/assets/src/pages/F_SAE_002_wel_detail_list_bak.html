@@ -31,10 +31,41 @@
             height: 180px;
         }
     </style>
-
     <script>
 
         $(function () {
+
+            //chip toggle
+            $('.chip_area02 > *').on('click', function () {
+
+                if ($(this).hasClass('active') == true) {
+
+                    return;
+
+                }
+
+                else {
+                    $('.chip_area02 > *').removeClass('active');
+
+                    $(this).addClass('active');
+                }
+
+            });
+
+            //btn toggle
+            $('.btn_accord').on('click', function () {
+
+                if ($(this).parents('.wel_scroll_area').hasClass('active') == true) {
+
+                    $(this).parents('.wel_scroll_area').removeClass('active');
+
+                }
+
+                else {
+                    $(this).parents('.wel_scroll_area').addClass('active');
+                }
+
+            });
 
 
 
@@ -63,17 +94,96 @@
         <main>
             <section class="default noPad">
 
-                <br><br><br>
+                <div class="wel_scroll_area">
 
-                <h2 class="title">복지용구 리스트 따로 모음</h2>
-                <br><br>
+                    <div class="btn_accord_area">
+
+                        <div class="btn_accord waves-effect">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                    <div class="wel_scroll">
+
+                        <div class="chip_area02">
+                            <a href="#wel_walker" class="waves-effect">워커</a>
+                            <a href="#wel_sliverCar" class="waves-effect active">실버카</a>
+                            <a href="#wel_rollrator" class="waves-effect">롤레이터</a>
+                            <a href="#wd04" class="waves-effect">수동휠체어</a>
+                            <a href="#wd05" class="waves-effect">지팡이</a>
+                            <a href="#wd06" class="waves-effect">안전손잡이 기둥형</a>
+                            <a href="#wd07" class="waves-effect">안전손잡이 변기형</a>
+                            <a href="#wd08" class="waves-effect">안전손잡이 벽걸이형</a>
+                            <a href="#wd09" class="waves-effect">미끄럼방지 매트</a>
+                            <a href="#wd11" class="waves-effect">미끄럼방지 양말</a>
+                            <a href="#wd12" class="waves-effect">욕창예방 매트리스</a>
+                            <a href="#wd13" class="waves-effect">욕창예방 방석</a>
+                            <a href="#wd14" class="waves-effect">자세변환용구</a>
+                            <a href="#wd15" class="waves-effect">요실금 팬티</a>
+                            <a href="#wd16" class="waves-effect">목욕의자</a>
+                            <a href="#wd17" class="waves-effect">이동변기</a>
+                            <a href="#wd18" class="waves-effect">간이변기</a>
+                            <a href="#wd19" class="waves-effect">경사로</a>
+
+                        </div>
 
 
-                <div class="pad020">
+
+                    </div>
+                </div>
+                <!-- wel scroll areea end -->
 
 
-                    <!-- 실버카 -->
-                    <div class="card wel_detail_card">
+
+                <div class="wel_detail_card_area">
+
+
+
+                    <!-- 워커 wel_walker -->
+                    <div class="card wel_detail_card" id="wel_walker">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/G191PpIvGuc?si=emjWHFGrYkt62Pjk&amp;controls=0"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+
+                        <div class="card-content">
+
+                            <div class="title_area">
+                                <div>
+                                    <div class="color_t_s font_ssr">성인용 보행기</div>
+                                    <h4 class="title">워커</h4>
+                                </div>
+                                <div class="waves-effect btn_share">공유하기</div>
+                            </div>
+
+                            <div class="h20"></div>
+
+                            <div class="font_sbms">수술 전·후에 재활 목적으로 이용할 수 있어요</div>
+
+                            <div class="tag_area02">
+                                <span class="tag">보행이 불편한 어르신</span>
+                                <span class="tag">이동보조</span>
+                                <span class="tag">실내</span>
+                                <span class="tag">야외</span>
+                            </div>
+
+                        </div>
+
+                        <div class="card-action">
+
+                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+
+                        </div>
+
+                    </div>
+                    <!-- wel_detail_card end -->
+
+
+
+                    <!-- 실버카 wel_sliverCar-->
+                    <div class="card wel_detail_card" id="wel_sliverCar">
                         <iframe
                             src="https://www.youtube-nocookie.com/embed/t2_Op-DpmBU?si=ihL8jQ3JVmeKYgIP&amp;controls=0"
                             title="YouTube video player" frameborder="0"
@@ -94,12 +204,12 @@
 
                             <div class="font_sbms">앉을 수 있고 수납이 가능하여 야외에서 편하게 이동할 수 있어요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #보행이 불편한 어르신 #이동보조 #실내 #야외
+                            <div class="tag_area02">
+                                <span class="tag">보행이 불편한 어르신</span>
+                                <span class="tag">이동보조</span>
+                                <span class="tag">실내</span>
+                                <span class="tag">야외</span>
                             </div>
-
                         </div>
 
                         <div class="card-action">
@@ -134,50 +244,11 @@
 
                             <div class="font_sbms">방향 전환이 쉬워 다른 성인용 보행기보다 자유롭게 이동할 수 있어요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #보행이 불편한 어르신 #이동보조 #실내 #야외
-                            </div>
-
-                        </div>
-
-                        <div class="card-action">
-
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
-
-                        </div>
-
-                    </div>
-                    <!-- wel_detail_card end -->
-
-
-                    <!-- 워커 -->
-                    <div class="card wel_detail_card">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/G191PpIvGuc?si=emjWHFGrYkt62Pjk&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
-
-                        <div class="card-content">
-
-                            <div class="title_area">
-                                <div>
-                                    <div class="color_t_s font_ssr">성인용 보행기</div>
-                                    <h4 class="title">워커</h4>
-                                </div>
-                                <div class="waves-effect btn_share">공유하기</div>
-                            </div>
-
-                            <div class="h20"></div>
-
-                            <div class="font_sbms">수술 전·후에 재활 목적으로 이용할 수 있어요</div>
-
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #보행이 불편한 어르신 #이동보조 #실내 #야외
+                            <div class="tag_area02">
+                                <span class="tag">보행이 불편한 어르신</span>
+                                <span class="tag">이동보조</span>
+                                <span class="tag">실내</span>
+                                <span class="tag">야외</span>
                             </div>
 
                         </div>
@@ -213,10 +284,9 @@
 
                             <div class="font_sbms">걸으실 수 없거나 장시간 걷기가 곤란한 경우 이동할 수 있도록 도와드려요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #보행이 불편한 어르신 #이동보조
+                            <div class="tag_area02">
+                                <span class="tag">보행이 불편한 어르신</span>
+                                <span class="tag">이동보조</span>
                             </div>
 
                         </div>
@@ -252,10 +322,10 @@
 
                             <div class="font_sbms">걸어 다니기 불편한 경우 이동할 수 있도록 도와드려요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #보행이 불편한 어르신 #이동보조 #안전사고예방
+                            <div class="tag_area02">
+                                <span class="tag">보행이 불편한 어르신</span>
+                                <span class="tag">이동보조</span>
+                                <span class="tag">안전사고예방</span>
                             </div>
 
                         </div>
@@ -273,11 +343,13 @@
 
                     <!-- 변기형 -->
                     <div class="card wel_detail_card">
+
                         <iframe
-                            src="https://www.youtube-nocookie.com/embed/7Q5oslT9B84?si=UEMW_RZ8SvmySP80&amp;controls=0"
+                            src="https://www.youtube-nocookie.com/embed/__CLaLpP15w?si=v514EvJOd-5yy-gZ&amp;controls=0"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen></iframe>
+
                         <div class="card-content">
 
                             <div class="title_area">
@@ -292,11 +364,11 @@
 
                             <div class="font_sbms">변기에 앉을 때 손잡이를 잡으면 안전하게 앉을 수 있어요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #이동보조 #안전사고예방
+                            <div class="tag_area02">
+                                <span class="tag">이동보조</span>
+                                <span class="tag">안전사고예방</span>
                             </div>
+
 
                         </div>
 
@@ -313,11 +385,13 @@
 
                     <!-- 벽걸이형 -->
                     <div class="card wel_detail_card">
+
                         <iframe
                             src="https://www.youtube-nocookie.com/embed/g4MB7V5j85M?si=MqF8H3DaULUSZ1S3&amp;controls=0"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen></iframe>
+
                         <div class="card-content">
 
                             <div class="title_area">
@@ -332,10 +406,9 @@
 
                             <div class="font_sbms">자주 이동하는 곳에 설치하면 편하게 움직일 수 있어요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #이동보조 #안전사고예방
+                            <div class="tag_area02">
+                                <span class="tag">이동보조</span>
+                                <span class="tag">안전사고예방</span>
                             </div>
 
                         </div>
@@ -372,10 +445,9 @@
 
                             <div class="font_sbms">세로로 된 손잡이로 몸을 지지해줘요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #이동보조 #안전사고예방
+                            <div class="tag_area02">
+                                <span class="tag">이동보조</span>
+                                <span class="tag">안전사고예방</span>
                             </div>
 
                         </div>
@@ -411,10 +483,9 @@
 
                             <div class="font_sbms">미끄러지지 않도록 하여 미끄럼 사고를 예방해요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #이동보조 #안전사고예방
+                            <div class="tag_area02">
+                                <span class="tag">이동보조</span>
+                                <span class="tag">안전사고예방</span>
                             </div>
 
                         </div>
@@ -451,10 +522,9 @@
 
                             <div class="font_sbms">실내에서 미끄러지지 않도록 도와드려요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #이동보조 #안전사고예방
+                            <div class="tag_area02">
+                                <span class="tag">이동보조</span>
+                                <span class="tag">안전사고예방</span>
                             </div>
 
                         </div>
@@ -490,10 +560,8 @@
 
                             <div class="font_sbms">누워서 생활하는 어르신의 체중을 분산 시키고 통풍을 원활하게 해요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #장시간 누워있는 어르신
+                            <div class="tag_area02">
+                                <span class="tag">장시간 누워있는 어르신</span>
                             </div>
 
                         </div>
@@ -529,10 +597,8 @@
 
                             <div class="font_sbms">장시간 앉아 생활하는 어르신의 체중을 분산 시키고 통풍을 원활하게 해요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #장시간 앉아있는 어르신
+                            <div class="tag_area02">
+                                <span class="tag">장시간 앉아있는 어르신</span>
                             </div>
 
                         </div>
@@ -569,10 +635,10 @@
 
                             <div class="font_sbms">장시간 앉아 생활하는 어르신의 자세와 위치를 바꾸기 쉽도록 도와드려요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #장시간 누워있는 어르신 #장시간 앉아있는 어르신 #자세보조
+                            <div class="tag_area02">
+                                <span class="tag">장시간 누워있는 어르신</span>
+                                <span class="tag">장시간 앉아있는 어르신</span>
+                                <span class="tag">자세보조</span>
                             </div>
 
                         </div>
@@ -609,11 +675,11 @@
 
                             <div class="font_sbms">요실금 증상이 있는 어르신이 쾌적한 일상생활을 할 수 있도록 도와드려요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #용변보조 #배뇨
+                            <div class="tag_area02">
+                                <span class="tag">용변보조</span>
+                                <span class="tag">배뇨</span>
                             </div>
+
 
                         </div>
 
@@ -647,12 +713,10 @@
 
                             <div class="h20"></div>
 
-                            <div class="font_sbms">	자세를 유지하도록 하여 편안하게 목욕을 할 수 있어요</div>
+                            <div class="font_sbms"> 자세를 유지하도록 하여 편안하게 목욕을 할 수 있어요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #자세보조
+                            <div class="tag_area02">
+                                <span class="tag">자세보조</span>
                             </div>
 
                         </div>
@@ -671,7 +735,11 @@
 
                     <!-- 이동변기 -->
                     <div class="card wel_detail_card">
-                        <iframe src="https://www.youtube-nocookie.com/embed/e6tB08G39JY?si=ySr7_ef2YmnrmiDn&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/e6tB08G39JY?si=ySr7_ef2YmnrmiDn&amp;controls=0"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
 
                         <div class="card-content">
 
@@ -686,11 +754,13 @@
 
                             <div class="font_sbms">화장실로 이동하기 어려운 어르신이 용변을 볼 수 있게 도와드려요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #보행이 불편한 어르신 #용변보조 #배뇨 #배변
+                            <div class="tag_area02">
+                                <span class="tag">보행이 불편한 어르신</span>
+                                <span class="tag">용변보조</span>
+                                <span class="tag">배뇨</span>
+                                <span class="tag">배변</span>
                             </div>
+
 
                         </div>
 
@@ -708,7 +778,11 @@
 
                     <!-- 간이변기 -->
                     <div class="card wel_detail_card">
-                        <iframe src="https://www.youtube-nocookie.com/embed/4B97NWcjrY4?si=I0Ibf5eh1DM9LT4C&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/4B97NWcjrY4?si=I0Ibf5eh1DM9LT4C&amp;controls=0"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
 
                         <div class="card-content">
 
@@ -723,10 +797,11 @@
 
                             <div class="font_sbms">누워서 생활하시거나 소변 조절이 어려운 어르신이 용변을 볼 수 있게 도와드려요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #장시간 누워있는 어르신 #용변보조 #배뇨 #배변
+                            <div class="tag_area02">
+                                <span class="tag">장시간 누워있는 어르신</span>
+                                <span class="tag">용변보조</span>
+                                <span class="tag">배뇨</span>
+                                <span class="tag">배변</span>
                             </div>
 
                         </div>
@@ -744,7 +819,11 @@
 
                     <!-- 경사로 -->
                     <div class="card wel_detail_card">
-                        <iframe src="https://www.youtube-nocookie.com/embed/oWXzieJdWFE?si=Pmf7DOGOvRtts8xA&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/oWXzieJdWFE?si=Pmf7DOGOvRtts8xA&amp;controls=0"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
 
                         <div class="card-content">
 
@@ -759,10 +838,10 @@
 
                             <div class="font_sbms">실·내외에서 수동휠체어 또는 성인용보행기 이용 시 편하게 이동할 수 있어요</div>
 
-                            <div class="h08"></div>
-
-                            <div class="color_t_s font_sbsr">
-                                #보행이 불편한 어르신 #이동보조 #안전사고예방
+                            <div class="tag_area02">
+                                <span class="tag">보행이 불편한 어르신</span>
+                                <span class="tag">이동보조</span>
+                                <span class="tag">안전사고예방</span>
                             </div>
 
                         </div>
@@ -782,9 +861,59 @@
 
                 </div>
                 <!-- pad020 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
         </main>
 
+
+
+        <footer class="page-footer bottomNav">
+
+            <ul class="bottomNav_menu">
+
+                <li class="btn_om">
+                    <a class="waves-effect">
+                        <span class="txt">어르신</span>
+                    </a>
+                </li>
+                <li class="btn_wel active">
+                    <a class="waves-effect">
+                        <span class="txt">복지용구</span>
+                    </a>
+                </li>
+                <li class="btn_service">
+                    <a class="waves-effect">
+                        <span class="txt">서비스</span>
+                    </a>
+                </li>
+                <li class="btn_guide">
+                    <a class="waves-effect">
+                        <span class="txt">길잡이</span>
+                    </a>
+                </li>
+                <li class="btn_entier">
+                    <a class="waves-effect">
+                        <span class="txt">전체</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </footer>
 
 
 

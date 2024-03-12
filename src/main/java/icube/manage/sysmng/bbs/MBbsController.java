@@ -234,6 +234,19 @@ public class MBbsController extends CommonAbstractController {
 		log.debug("@@@@@@@@@@@@@ 가나다라 : " + nttVO.getCrud());
 
 		JavaScript javaScript = new JavaScript();
+
+		if (reqMap.get("addUniqueText01") != null && reqMap.get("addUniqueText01").toString().length() > 0){
+			BbsVO tempBbsVO = bbsService.selectNttByUniqueText(nttVO.getBbsNo(), reqMap.get("addUniqueText01").toString());
+			if (tempBbsVO != null && nttVO.getNttNo() != tempBbsVO.getNttNo()){
+				BbsSetupVO bbsSetupVO  = bbsSetupService.selectBbsSetup(nttVO.getBbsNo());
+				
+				javaScript.setMessage(bbsSetupVO.getAddUniqueText01() + "가 중복되었습니다.");
+				javaScript.setMethod("window.history.back()");
+				return new JavaScriptView(javaScript);
+			}
+		}
+
+
 		String pageParam = HtmlUtils
 				.htmlUnescape(EgovStringUtil.null2void(CommonUtil.getPageParam(targetParams, reqMap)));
 

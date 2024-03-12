@@ -47,6 +47,13 @@ public class BbsService extends CommonAbstractServiceImpl {
 
 		return bbsDAO.selectNttByUniqueText(paramMap);
 	}
+	public BbsVO selectNttByUniqueText(int bbsNo, String uniqueText) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("bbsNo", bbsNo);
+		paramMap.put("addUniqueText01", uniqueText);
+
+		return bbsDAO.selectNttByUniqueText(paramMap);
+	}
 
 	public void insertNtt(BbsVO nttVO) throws Exception {
 		bbsDAO.insertNtt(nttVO);
