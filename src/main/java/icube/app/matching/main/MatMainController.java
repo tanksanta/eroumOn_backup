@@ -39,12 +39,22 @@ public class MatMainController extends CommonAbstractController {
 	}
 	
 	/**
+	 * app 온보딩 (접근 권한 설정 전)
+	 */
+	@RequestMapping(value = "/onboarding")
+	public String onboarding(
+			@RequestParam String redirectUrl,
+			Model model) {
+		model.addAttribute("redirectUrl", redirectUrl);
+		return "/app/matching/main/onboarding";
+	}
+	
+	/**
 	 * app 접근 권한 설정 페이지
 	 */
 	@RequestMapping(value = "/appAccessSetting")
 	public String appAccessSetting(
 			@RequestParam String redirectUrl,
-			HttpSession session, 
 			Model model) {
 		model.addAttribute("redirectUrl", redirectUrl);
 		return "/app/matching/main/appAccessSetting";
