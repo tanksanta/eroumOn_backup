@@ -74,8 +74,8 @@
                         <div class="h20"></div>
 
                         <div class="padL8">
-                            <div class="waves-effect list_link bder_bottom font_sbmr">주야간보호센터 알아보기</div>
-                            <div class="waves-effect list_link font_sbmr">방문요양 알아보기</div>
+                            <div class="waves-effect list_link bder_bottom font_sbmr" link="cmc00001">주야간보호센터 알아보기</div>
+                            <div class="waves-effect list_link font_sbmr" link="cmc00002">방문요양 알아보기</div>
                         </div>
                     </div>
                 </div>
@@ -99,6 +99,12 @@
 <script>
     $(function () {
         $("body").addClass("back_gray");
+
+        
+        $('.list_link').click(function(){
+            location.href = '/matching/bbs/guide/linkview/' + $(this).attr('link')
+        });
+        
     });
 
     function fn_next_click(){
