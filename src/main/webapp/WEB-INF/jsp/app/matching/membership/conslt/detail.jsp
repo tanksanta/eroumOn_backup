@@ -312,8 +312,18 @@
 
                     <div class="h12"></div>
 
-                    <div class="waves-effect list_link font_sbmr">인정등급 발급 절차</div>
-                    <div class="waves-effect list_link font_sbmr">어떤 혜택을 받을 수 있나요?</div>
+					<c:if test="${mbrConsltVO.prevPath eq 'equip_ctgry'}">
+	                    <div class="waves-effect list_link font_sbmr" onclick="location.href='/matching/bbs/guide/linkview/wfe00001';">복지용구, 실생활에서는 이렇게! 욕실</div>
+	                    <div class="waves-effect list_link font_sbmr" onclick="location.href='/matching/bbs/guide/linkview/wfe00002';">복지용구, 실생활에서는 이렇게! 거실</div>
+                    </c:if>
+                    <c:if test="${mbrConsltVO.prevPath eq 'simple_test'}">
+	                    <div class="waves-effect list_link font_sbmr" onclick="location.href='/matching/bbs/guide/linkview/ltc00002';">인정등급 발급 절차</div>
+	                    <div class="waves-effect list_link font_sbmr" onclick="location.href='/matching/bbs/guide/linkview/ltc00001';">어떤 혜택을 받을 수 있나요?</div>
+                    </c:if>
+                    <c:if test="${mbrConsltVO.prevPath eq 'care'}">
+	                    <div class="waves-effect list_link font_sbmr" onclick="location.href='/matching/bbs/guide/linkview/cmc00001';">주야간보호센터란?</div>
+	                    <div class="waves-effect list_link font_sbmr" onclick="location.href='/matching/bbs/guide/linkview/cmc00002';">방문요양이란?</div>
+                    </c:if>
 
                     <div class="h24"></div>
 
