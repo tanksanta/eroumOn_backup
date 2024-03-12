@@ -20,7 +20,13 @@
           <div class="icon_btn i_share"></div>
        </c:if>
        <c:if test="${param != null && !empty param.addCustom1}">
+        <c:if test="${param != null && !empty param.addCustom1ModalTrigger}">
+          <a class="top_txt modal-trigger" data-target="${param.addCustom1ModalTrigger}">${param.addCustom1Text}</a>
+        </c:if>
+        <c:if test="${param != null && empty param.addCustom1ModalTrigger}">
           <a class="waves-effect top_txt addCustom1">${param.addCustom1Text}</a> 
+        </c:if>
+          
        </c:if>
      </nav>
    </header>
