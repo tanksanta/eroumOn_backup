@@ -70,7 +70,7 @@
                     
                     <div class="h16"></div>
 
-                    <a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/list';">신청 상세보기</a>
+                    <a class="waves-effect btn-large btn_default w100p" onclick="location.href='/matching/membership/conslt/detail?consltNo=${mbrConsltVO.consltNo}';">신청 상세보기</a>
           
                     </div>
                   </div>

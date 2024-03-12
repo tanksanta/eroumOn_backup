@@ -24,6 +24,8 @@ import icube.common.values.CodeMap;
 import icube.common.vo.CommonCheckVO;
 import icube.manage.consult.biz.MbrConsltService;
 import icube.manage.consult.biz.MbrConsltVO;
+import icube.manage.mbr.mbr.biz.MbrService;
+import icube.manage.mbr.mbr.biz.MbrVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsGdsService;
 import icube.manage.mbr.recipients.biz.MbrRecipientsGdsVO;
 import icube.manage.mbr.recipients.biz.MbrRecipientsService;
@@ -36,6 +38,9 @@ import icube.manage.mbr.recipients.biz.MbrRecipientsVO;
 @RequestMapping(value="#{props['Globals.Matching.path']}/membership/recipients")
 public class MatMbrRecipientsController extends CommonAbstractController {
 
+	@Resource(name = "mbrService")
+	private MbrService mbrService;
+	
     @Resource(name= "mbrRecipientsService")
 	private MbrRecipientsService mbrRecipientsService;
 
@@ -306,7 +311,8 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 	public String baseInfo(
 		@RequestParam Integer recipientsNo,
         Model model) throws Exception {
-		List<MbrRecipientsVO> mbrRecipientsList = mbrRecipientsService.selectMbrRecipientsByMbrUniqueId(matMbrSession.getUniqueId());
+		MbrVO mbrVO = mbrService.selectMbrByUniqueId(matMbrSession.getUniqueId());
+		List<MbrRecipientsVO> mbrRecipientsList = mbrVO.getMbrRecipientsList();
 		MbrRecipientsVO curRecipientInfo = mbrRecipientsList.stream().filter(f -> f.getRecipientsNo() == recipientsNo).findAny().orElse(null);
 		
 		if (curRecipientInfo == null) {
@@ -314,6 +320,7 @@ public class MatMbrRecipientsController extends CommonAbstractController {
 			return "/app/matching/common/appMsg";
 		}
 		
+		model.addAttribute("mbrVO", mbrVO);
 		model.addAttribute("curRecipientInfo", curRecipientInfo);
 		model.addAttribute("relationCdMap", CodeMap.MBR_RELATION_CD);
 		

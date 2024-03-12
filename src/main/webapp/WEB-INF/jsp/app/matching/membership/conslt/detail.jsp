@@ -383,6 +383,12 @@
 		var consltNo = ${mbrConsltVO.consltNo};
 		var consltSttus = '${mbrConsltVO.consltSttus}';
 	
+		//뒤로가기 버튼 클릭 override
+		function backBtnEvent() {
+			popHistoryStack();
+			location.href = "/matching/membership/conslt/list?recipientsNo=${mbrConsltVO.recipientsNo}";
+		}
+		
 		//전화하기
 		function callWithMobile (tel) {
 			sendDataToMobileApp({ actionName: 'callOpenUrl', url: 'tel:' + tel });

@@ -588,14 +588,16 @@ public class MbrsInfoController extends CommonAbstractController{
 				
 				//해당 수급자가 본인인 경우 회원의 정보로 수급자 저장
 				recipientsNm = mbrVO.getMbrNm();
-				tel = mbrVO.getMblTelno();
-				sido = null;
-				sigugun = mbrVO.getAddr();
-				dong = null;
 				if (mbrVO.getBrdt() != null) {
 					brdt = dateFormat.format(mbrVO.getBrdt());
 				}
 				gender = mbrVO.getGender();
+				
+				//번호와 지역은 수급자 정보로 별도 관리(2024-03-11)
+//				tel = mbrVO.getMblTelno();
+//				sido = null;
+//				sigugun = mbrVO.getAddr();
+//				dong = null;
 			}
 			if ("001".equals(relationCd)) {
 				boolean alreadyExistSpouse = mbrRecipientList.stream().anyMatch(mr -> "001".equals(mr.getRelationCd()));

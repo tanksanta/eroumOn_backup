@@ -130,7 +130,6 @@
 	<script src="/html/core/script/hangjungdong.js"></script>
 	<script>
 		var sidoCode = '';    //선택된 시/도 코드값
-		var sigugunCode = ''; //선택된 시/군/구 코드값
 	
 		
 		// 시/도 셋팅
@@ -195,6 +194,8 @@
 			
 			if (sidoText !== '지역' && sigugunText !== '지역') {
 				$('#modal_eld_apply').modal('open');	
+			} else {
+				showToastMsg('지역을 선택하세요');
 			}
 		}
 		
@@ -256,5 +257,28 @@
                 }
 
             });
+          	
+          	
+          	// 어르신 정보에 시도, 시군구 정보가 있는 경우 매핑
+            callPostAjaxIfFailOnlyMsg(
+				'/matching/membership/info/getMbrInfo.json', 
+				{},
+				async function(result) {
+					var recipientsNo = Number(getInLocalStorage('consltRecipientsNo'));
+					var recipientInfo = result.mbrRecipients.filter(f => f.recipientsNo === recipientsNo)[0];
+					if (recipientInfo.sido) {
+						$('.region01_btn_evt').text(recipientInfo.sido);
+						
+						var sidoInfo = hangjungdong.sido.filter(f => f.codeNm == '서울특별시')[0];
+						sidoCode = sidoInfo.sido;
+		            	
+		            	// 시/군/구 셋팅
+		                setSigugun();
+					}
+					if (recipientInfo.sigugun) {
+						$('.region02_btn_evt').text(recipientInfo.sigugun);	
+					}
+				}
+			);
 		});
 	</script>
