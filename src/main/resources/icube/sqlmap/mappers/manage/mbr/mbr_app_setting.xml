@@ -22,6 +22,9 @@
 		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
 			AND mas.mbr_unique_id = #{srchMbrUniqueId}
 		</if>
+		<if test="srchPushToken != null and srchPushToken != '' ">
+			AND mas.push_token = #{srchPushToken}
+		</if>
 	</sql>
 	
 	
@@ -66,7 +69,8 @@
 	
 	<update id="updateMbrAppSetting" parameterType="mbrAppSettingVO">
 		UPDATE MBR_APP_SETTING SET
-			push_token = #{pushToken}
+			mbr_unique_id = #{mbrUniqueId}
+			, push_token = #{pushToken}
 			, allow_push_yn = #{allowPushYn}
 			, allow_push_dt = #{allowPushDt}
 			, allow_location_yn = #{allowLocationYn}
@@ -76,6 +80,6 @@
 			, auto_lgn_yn = #{autoLgnYn}
 			, auto_lgn_dt = #{autoLgnDt}
 			, mdfcn_dt = SYSDATE()
-		WHERE mbr_unique_id = #{mbrUniqueId} 
+		WHERE app_setting_no = #{appSettingNo}
 	</update>
 </mapper>

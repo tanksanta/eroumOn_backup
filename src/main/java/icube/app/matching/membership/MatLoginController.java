@@ -22,6 +22,7 @@ import icube.app.matching.membership.mbr.biz.MatMbrService;
 import icube.app.matching.membership.mbr.biz.MatMbrSession;
 import icube.common.framework.abst.CommonAbstractController;
 import icube.common.util.RSA;
+import icube.manage.mbr.mbr.biz.MbrAppSettingVO;
 import icube.manage.mbr.mbr.biz.MbrAuthService;
 import icube.manage.mbr.mbr.biz.MbrAuthVO;
 import icube.manage.mbr.mbr.biz.MbrService;
@@ -167,12 +168,26 @@ public class MatLoginController extends CommonAbstractController {
 	
 	@ResponseBody
 	@RequestMapping("logoutAction")
-	public Map<String, Object> logoutAction() {
-		
-		matMbrSession.logout();
-		
+	public Map<String, Object> logoutAction() throws Exception {
 		Map <String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("success", true);
+		resultMap.put("success", false);
+		
+		try {
+			String mbrUniqueId = matMbrSession.getUniqueId();
+			matMbrSession.logout();
+			
+			MbrAppSettingVO mbrAppSettingVO = matMbrService.selectMbrAppSettingByMbrUniqueId(mbrUniqueId);
+			if (mbrAppSettingVO != null) {
+				mbrAppSettingVO.setMbrUniqueId(null);
+				matMbrService.updateMbrAppSetting(mbrAppSettingVO);
+			}
+			
+			resultMap.put("success", true);
+		}
+		catch (Exception ex){
+			log.error("=====로그아웃 실패 오류 : ", ex);
+		}
+		
 		return resultMap;
 	}
 	

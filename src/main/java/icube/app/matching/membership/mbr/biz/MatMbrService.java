@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.egovframe.rte.fdl.string.EgovStringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import icube.common.framework.abst.CommonAbstractServiceImpl;
 import icube.common.util.WebUtil;
@@ -50,6 +54,9 @@ public class MatMbrService extends CommonAbstractServiceImpl {
 	public MbrAppSettingVO selectMbrAppSettingByMbrUniqueId(String uniqueId) throws Exception {
 		return mbrAppSettingDAO.selectMbrAppSettingByMbrUniqueId(uniqueId);
 	}
+	public MbrAppSettingVO selectMbrAppSettingByPushToken(String pushToken) throws Exception {
+		return mbrAppSettingDAO.selectMbrAppSettingByPushToken(pushToken);
+	}
 	
 	/**
 	 * 매칭앱 설정 등록
@@ -63,6 +70,47 @@ public class MatMbrService extends CommonAbstractServiceImpl {
 	 */
 	public void updateMbrAppSetting(MbrAppSettingVO mbrAppSettingVO) throws Exception {
 		mbrAppSettingDAO.updateMbrAppSetting(mbrAppSettingVO);
+	}
+	
+	/**
+	 * 설정 정보 객체에 매핑
+	 */
+	public MbrAppSettingVO parsePermissionInfo(String json) {
+		MbrAppSettingVO appSetting = new MbrAppSettingVO();
+		
+		String jsonStr = HtmlUtils.htmlUnescape(json);
+		JsonElement element = JsonParser.parseString(jsonStr);
+		
+		JsonElement pushPermission = element.getAsJsonObject().get("pushPermission");
+		if (pushPermission != null && pushPermission.isJsonNull() == false) {
+			boolean isAllow = pushPermission.getAsJsonObject().get("allow").getAsBoolean();
+			
+			//push 토큰 정보 저장
+			if (isAllow) {
+				String pushToken = pushPermission.getAsJsonObject().get("pushToken").getAsString();
+				appSetting.setPushToken(pushToken);
+			}
+			
+			appSetting.setAllowPushYn(isAllow ? "Y" : "N");
+			appSetting.setAllowPushDt(new Date());
+		}
+		
+		JsonElement locationPermission = element.getAsJsonObject().get("locationPermission");
+		if (locationPermission != null && locationPermission.isJsonNull() == false) {
+			boolean isAllow = locationPermission.getAsJsonObject().get("allow").getAsBoolean();
+			
+			//위치 정보 저장
+			if (isAllow) {
+				String latitude = locationPermission.getAsJsonObject().get("latitude").getAsString();
+				String longitude = locationPermission.getAsJsonObject().get("longitude").getAsString();
+				appSetting.setLatitude(latitude);
+				appSetting.setLongitude(longitude);
+			}
+			
+			appSetting.setAllowLocationYn(isAllow ? "Y" : "N");
+			appSetting.setAllowLocationDt(new Date());
+		}
+		return appSetting;
 	}
 	
 	/**

@@ -15,10 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.HtmlUtils;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 import icube.app.matching.common.api.BootpaySocketService;
 import icube.app.matching.membership.mbr.biz.MatMbrService;
@@ -175,6 +171,7 @@ public class MatMbrInfoController extends CommonAbstractController{
 		@RequestParam String permissionInfoJson
 	) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		//저장에 실패해도 그냥 진행하기 위해 true로 설정
 		resultMap.put("success", true);
 		
 		try {
@@ -183,54 +180,41 @@ public class MatMbrInfoController extends CommonAbstractController{
 				return resultMap;
 			}
 			
+			//json 정보 객체로 변환
+			MbrAppSettingVO permissionInfo = matMbrService.parsePermissionInfo(permissionInfoJson);
+			
 			boolean isInsert = false;
-			MbrAppSettingVO appSetting = matMbrService.selectMbrAppSettingByMbrUniqueId(matMbrSession.getUniqueId());
-			if (appSetting == null) {
+			MbrAppSettingVO srchAppSetting = matMbrService.selectMbrAppSettingByMbrUniqueId(matMbrSession.getUniqueId());
+			if (srchAppSetting == null && "Y".equals(permissionInfo.getAllowPushYn())) {
+				//회원이 등록된 설정이 없으면 푸시 토큰으로 한번 더 조회
+				srchAppSetting = matMbrService.selectMbrAppSettingByPushToken(permissionInfo.getPushToken());
+			}
+			if (srchAppSetting == null) {
 				isInsert = true;
-				appSetting = new MbrAppSettingVO();
-				appSetting.setMbrUniqueId(matMbrSession.getUniqueId());
+				srchAppSetting = new MbrAppSettingVO();
 			}
 			
+			srchAppSetting.setMbrUniqueId(matMbrSession.getUniqueId());
+			srchAppSetting.setPushToken(permissionInfo.getPushToken());
+			srchAppSetting.setAllowPushYn(permissionInfo.getAllowPushYn());
+			srchAppSetting.setAllowPushDt(permissionInfo.getAllowPushDt());
+			srchAppSetting.setAllowLocationYn(permissionInfo.getAllowLocationYn());
+			srchAppSetting.setAllowLocationDt(permissionInfo.getAllowLocationDt());
 			
-			String jsonStr = HtmlUtils.htmlUnescape(permissionInfoJson);
-			JsonElement element = JsonParser.parseString(jsonStr);
 			
-			JsonElement pushPermission = element.getAsJsonObject().get("pushPermission");
-			if (pushPermission != null && pushPermission.isJsonNull() == false) {
-				boolean isAllow = pushPermission.getAsJsonObject().get("allow").getAsBoolean();
-				
-				//push 토큰 정보 저장
-				if (isAllow) {
-					String pushToken = pushPermission.getAsJsonObject().get("pushToken").getAsString();
-					appSetting.setPushToken(pushToken);
-				}
-				
-				appSetting.setAllowPushYn(isAllow ? "Y" : "N");
-				appSetting.setAllowPushDt(new Date());
+			//위치 정보 저장
+			if ("Y".equals(permissionInfo.getAllowLocationYn())) {
+				mbrService.updateMbrLocation(matMbrSession.getUniqueId(), permissionInfo.getLatitude(), permissionInfo.getLongitude());
 			}
 			
-			JsonElement locationPermission = element.getAsJsonObject().get("locationPermission");
-			if (locationPermission != null && locationPermission.isJsonNull() == false) {
-				boolean isAllow = locationPermission.getAsJsonObject().get("allow").getAsBoolean();
-				
-				//위치 정보 저장
-				if (isAllow) {
-					String latitude = locationPermission.getAsJsonObject().get("latitude").getAsString();
-					String longitude = locationPermission.getAsJsonObject().get("longitude").getAsString();
-					mbrService.updateMbrLocation(matMbrSession.getUniqueId(), latitude, longitude);
-				}
-				
-				appSetting.setAllowLocationYn(isAllow ? "Y" : "N");
-				appSetting.setAllowLocationDt(new Date());
-			}
 			
 			//앱 설정 회원에 반영하기
 			if (isInsert) {
-				appSetting.setAutoLgnYn("Y");
-				appSetting.setAutoLgnDt(new Date());
-				matMbrService.insertMbrAppSetting(appSetting);
+				srchAppSetting.setAutoLgnYn("Y");
+				srchAppSetting.setAutoLgnDt(new Date());
+				matMbrService.insertMbrAppSetting(srchAppSetting);
 			} else {
-				matMbrService.updateMbrAppSetting(appSetting);
+				matMbrService.updateMbrAppSetting(srchAppSetting);
 			}
 			
 		} catch (Exception ex) {

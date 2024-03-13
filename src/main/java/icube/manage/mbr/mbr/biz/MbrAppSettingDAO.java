@@ -21,6 +21,12 @@ public class MbrAppSettingDAO extends CommonAbstractMapper {
 		return selectOne("mbr.app.setting.selectMbrAppSetting", paramMap);
 	}
 	
+	public MbrAppSettingVO selectMbrAppSettingByPushToken(String pushToken) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchPushToken", pushToken);
+		return selectOne("mbr.app.setting.selectMbrAppSetting", paramMap);
+	}
+	
 	public void insertMbrAppSetting(MbrAppSettingVO mbrAppSettingVO) throws Exception {
 		insert("mbr.app.setting.insertMbrAppSetting", mbrAppSettingVO);
 	}

@@ -38,4 +38,8 @@ public class MbrAppSettingVO {
 	
 	private Date regDt;
 	private Date mdfcnDt;
+	
+	//DB에는 없는 컬럼 parsing용
+	private String latitude;
+	private String longitude;
 }
