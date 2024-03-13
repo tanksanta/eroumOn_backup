@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.simpletest">
+
+	<sql id="listColumn">
+		mbr_simpletest_no,
+		unique_id,
+		recipients_no,
+		test_ty,
+		age,
+
+		grade,
+		score,
+		care_time,
+
+		selected_value,
+		
+		reg_dt,
+		mdfcn_dt
+	</sql>
+
+	<sql id="searchConditions">
+		<if test="srchUniqueId != null and srchUniqueId != '' ">
+			AND unique_id = #{srchUniqueId}
+		</if>
+		<if test="srchRecipientsNo > 0">
+			AND recipients_no = #{srchRecipientsNo}
+		</if>
+		<if test="srchTestTy != null and srchTestTy != '' ">
+			AND test_ty = #{srchTestTy}
+		</if>
+	</sql>
+
+	<select id="selectSimpleTestOne" parameterType="java.util.HashMap" resultType="SimpleTestVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_SIMPLETEST
+		WHERE mbr_simpletest_no in (
+			SELECT max(mbr_simpletest_no)
+			FROM MBR_SIMPLETEST
+			WHERE unique_id = #{uniqueId}
+				AND recipients_no = #{recipientsNo}
+				AND test_ty = #{testTy}
+		)
+	</select>
+
+	<insert id="insertSimpleTest" parameterType="SimpleTestVO" useGeneratedKeys="true" keyProperty="mbrSimpletestNo" keyColumn="MBR_SIMPLETEST_NO">
+		INSERT INTO MBR_SIMPLETEST(
+			unique_id
+			, recipients_no
+			, test_ty
+			, age
+			, grade
+			, score
+			, care_time
+			, selected_value
+		)VALUES(
+			#{uniqueId}
+			, #{recipientsNo}
+			, #{testTy}
+			, #{age}
+			, #{grade}
+			, #{score}
+			, #{careTime}
+			, #{selectedValue}
+		)
+	</insert>
+
+	<update id="updateSimpleTest" parameterType="SimpleTestVO">
+		UPDATE MBR_SIMPLETEST SET
+			grade = #{grade}
+			, score = #{score}
+			, selected_value = #{selectedValue}
+			, mdfcn_dt = SYSDATE()
+		WHERE unique_id = #{uniqueId} AND recipients_no = #{recipientsNo}
+	</update>
+</mapper>

@@ -1,0 +1,104 @@
+
+//footer
+.page-footer{position: fixed;z-index: 101;left:0;bottom:0;width:100%;background-color: #fff;color: $--Color-text-primary;padding: 0 20px 24px;
+
+    &::before{z-index:102;content: '';display: block;position: absolute;top:-20px;left:0; width:100%;width:100%;height:20px;
+        background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 60%);
+    }
+
+    & > .d-flex{
+        display: flex;gap:16px 8px;
+    
+        &.f-column{flex-direction: column;}
+    
+        //& > * {flex: 1 1 30%; }
+    }
+
+}
+
+//footer 하단메뉴
+.page-footer.bottomNav{
+    padding: 0;
+    box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.12);
+    
+    &::before{content: none;}
+
+    .bottomNav_menu{
+        display: flex;align-items: start;justify-content: space-around;
+
+        li{
+            flex-grow: 1;
+            
+
+            a{flex-grow: 1;
+                background-color: fff;
+                background-repeat: no-repeat;
+                background-position: center 8px;
+                background-size: 24px;
+
+                display: flex;align-items: center;justify-content: center;
+                padding: 34px 0 8px;
+                color: $--Color-text-secondary;
+                @include Suit_Caption_XS;
+
+            }
+
+            &.btn_om a{
+                background-image: url('../images/04icon/senior_off.svg');
+            }
+
+            &.btn_wel a{
+                background-image: url('../images/04icon/wel_off.svg');
+            }
+
+            &.btn_service a{
+                background-image: url('../images/04icon/sevice_off.svg');
+            }
+
+            &.btn_guide a{
+                background-image: url('../images/04icon/content_off.svg');
+            }
+
+            &.btn_entier a{
+                background-image: url('../images/04icon/more_off.svg');
+            }
+
+        }
+
+        li.active{
+
+            a{
+                color: $--Color-text-primary;
+                @include Suit_Caption_XS;
+            }
+
+            &.btn_om a{
+                background-image: url('../images/04icon/senior_on.svg');
+            }
+
+            &.btn_wel a{
+                background-image: url('../images/04icon/wel_on.svg');
+            }
+
+            &.btn_service a{
+                background-image: url('../images/04icon/sevice_on.svg');
+            }
+
+            &.btn_guide a{
+                background-image: url('../images/04icon/content_on.svg');
+            }
+
+            &.btn_entier a{
+                background-image: url('../images/04icon/more_on.svg');
+            }
+
+
+        }
+        
+        
+
+
+    }
+
+
+}

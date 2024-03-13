@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+  <title>F_SGN_002_join05_validChk.html</title>
+
+
+  <!-- jquery -->
+  <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+  <!-- materialize -->
+  <script type="text/javascript" src="../js/materialize.js"></script>
+
+  <!-- guide.js -->
+  <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+  <!-- materialize CSS -->
+  <link rel="stylesheet" href="../css/materialize.min.css" />
+
+  <!-- style.css -->
+  <link rel="stylesheet" href="../css/style.css" />
+
+
+  <script>
+
+    //주석 풀면 modal창 열린상태로 로드
+    $(function () {
+      $('.modal').modal();
+    });
+
+  </script>
+
+
+
+</head>
+
+<body>
+  <div class="wrapper">
+
+
+    <header>
+
+    </header>
+
+
+    <main>
+      <section>
+
+        <h3 class="title">
+          휴대폰 번호를<br />입력해주세요
+        </h3>
+
+        <div class="h40"></div>
+        <form action="">
+
+          <label class="input_label">이름</label>
+          <input type="text" class="input_basic bder_danger" value="홍길동">
+          <div class="vaild_txt error">이름을 입력해주세요</div>
+
+          <div class="h32"></div>
+
+
+          <label class="input_label">주민등록번호</label>
+          <div class="d-flex gap08">
+            <input type="number" class="input_basic bder_danger" value="890101">
+            <div class="align_center">-</div>
+            <div class="input_basic input_password bder_danger">
+              <input type="text" class="input_noClass" maxlength="1" oninput="maxLengthCheck(this)" value="2">
+              <div class="img_password"></div>
+            </div>
+            
+          </div>
+          <div class="vaild_txt error">번호를 확인해주세요</div>
+
+
+          <div class="h32"></div>
+
+          <label class="input_label">통신사</label>
+          <a class="input_basic fake_select modal-trigger broad_evt" href="#modal_broad">SKT</a>
+          <div class="h32"></div>
+
+          <label class="input_label">휴대폰 번호</label>
+          <input placeholder="아이디를 입력해주세요." type="tel" class="input_basic bder_danger" value="010-4443-5678">
+          <div class="vaild_txt error">번호를 확인해주세요</div>
+ 
+          <div class="h32"></div>
+
+          <label class="input_label">인증번호</label>
+          <div class="relative">
+            
+            <div class="input_basic bder_danger">
+              <input type="number" class="input_noClass" maxlength="6" oninput="maxLengthCheck(this)" value="294092">
+              <span class="cert_time">02:59</span>
+            </div>
+          </div>
+
+          <div class="vaild_txt error">인증번호를 다시 확인해주세요</div>
+
+          <div class="h08"></div>
+          <div class="l_right">
+            <a class="waves-effect btn btn_cancel">인증번호 재전송</a>
+          </div>
+          
+
+
+
+
+
+        </form>
+
+
+      </section>
+    </main>
+
+    <footer class="page-footer">
+
+      <div class="btn_area d-flex f-column">
+
+        <div class="relative">
+          <a class="waves-effect btn-large btn_primary w100p modal-trigger" href="#modal_memConsent">본인인증하기</a>
+        </div>
+      </div>
+
+
+    </footer>
+
+
+
+
+
+
+
+
+
+  </div>
+  <!-- wrapper -->
+
+
+</body>
+
+</html>

@@ -18,6 +18,12 @@ public class BbsDAO extends CommonAbstractMapper {
 	public BbsVO selectNtt(Map<String, Object> paramMap) throws Exception {
 		return selectOne("bbs.ntt.selectNtt", paramMap);
 	}
+	public BbsVO selectNttByBbsCd(Map<String, Object> paramMap) throws Exception {
+		return selectOne("bbs.ntt.selectNttByBbsCd", paramMap);
+	}
+	public BbsVO selectNttByUniqueText(Map<String, Object> paramMap) throws Exception {
+		return selectOne("bbs.ntt.selectNttByUniqueText", paramMap);
+	}
 
 	public void insertNtt(BbsVO nttVO) throws Exception {
 		insert("bbs.ntt.insertNtt", nttVO);

@@ -717,6 +717,10 @@
         }
     }
     & .payment-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
         @apply text-right pt-2.5
                md:pt-6
                lg:pt-8;
@@ -726,6 +730,11 @@
         & strong {
             @apply relative -top-0.5 pl-1.5 text-3xl
                    md:pl-3 md:text-[1.875rem];
+        }
+
+        & .pay-amount{
+            display: flex;
+            align-items: center;
         }
     }
     & .payment-button {

@@ -159,11 +159,17 @@
 	<definition name=".app_matching_layout" template="/WEB-INF/jsp/app/matching/layout/layout.jsp">
 		<put-attribute name="content" 	value="" />
 	</definition>
+	<definition name="/app/matching/main/cntnts/terms" template="/WEB-INF/jsp/app/matching/main/cntnts/terms.jsp" />
 	<definition name="/app/matching/*" extends=".app_matching_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}.jsp" />
 	</definition>
 	<definition name="/app/matching/*/*" extends=".app_matching_layout">
 		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}/{2}.jsp" />
 	</definition>
-	
+	<definition name="/app/matching/*/*/*" extends=".app_matching_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}/{2}/{3}.jsp" />
+	</definition>
+	<definition name="/app/matching/*/*/*/*" extends=".app_matching_layout">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/app/matching/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
 </tiles-definitions>

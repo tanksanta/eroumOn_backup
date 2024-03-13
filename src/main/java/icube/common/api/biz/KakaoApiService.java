@@ -401,4 +401,60 @@ public class KakaoApiService extends CommonAbstractServiceImpl{
 		
 		return result;
 	}
+	
+	/**
+	 * 지도 api(위도, 경도 -> 주소로 변환)
+	 */
+	@SuppressWarnings("unused")
+	public Map<String, String> convertLocationToAddress(String lat, String lot) throws Exception {
+		Map<String, String> result = null; 
+		
+		try {
+			String urlStr = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=" + lot + "&y=" + lat;
+			URL url = new URL(urlStr);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setRequestMethod("GET");
+			conn.setDoOutput(true);
+			conn.setRequestProperty("Authorization", "KakaoAK " + kakaoApiKey);
+
+			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+			bufferedWriter.flush();
+
+			int responseCode = conn.getResponseCode();
+
+			if(responseCode == HttpURLConnection.HTTP_OK) {
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				String line = "";
+				StringBuilder reponseBody = new StringBuilder();
+
+				while ((line = bufferedReader.readLine()) != null) {
+					reponseBody.append(line);
+				}
+
+				JsonElement element = JsonParser.parseString(reponseBody.toString());
+
+			    JsonArray addressArray = element.getAsJsonObject().get("documents").getAsJsonArray();
+			    JsonElement addressInfo = addressArray.get(1);
+			    String regionType = addressInfo.getAsJsonObject().get("region_type").getAsString();
+			    String code = addressInfo.getAsJsonObject().get("code").getAsString();
+			    String addressName = addressInfo.getAsJsonObject().get("address_name").getAsString();
+			    String region1depthName = addressInfo.getAsJsonObject().get("region_1depth_name").getAsString();
+			    String region2depthName = addressInfo.getAsJsonObject().get("region_2depth_name").getAsString();
+			    String region3depthName = addressInfo.getAsJsonObject().get("region_3depth_name").getAsString();
+			    String region4depthName = addressInfo.getAsJsonObject().get("region_4depth_name").getAsString();
+			    
+			    result = new HashMap<>();
+			    result.put("sido", region1depthName);
+			    result.put("sigugun", region2depthName);
+			    result.put("dong", region3depthName);
+			    
+				bufferedReader.close();
+				bufferedWriter.close();
+			}
+		} catch (Exception ex) {
+			log.error("===== 위경도 주소 변환 에러 ======", ex);
+		}
+		return result;
+	}
 }

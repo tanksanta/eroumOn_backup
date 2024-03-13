@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+    <title>ETC_network_error.html</title>
+
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script type="text/javascript" src="../js/materialize.js"></script>
+
+    <!-- guide.js -->
+    <script type="text/javascript" src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css" />
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+
+    <script>
+
+        $(function () {
+            //주석 풀면 modal창 열린상태로 로드
+            $(function () {
+                $('#modal_net_error').modal('open');
+            });
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <div class="wrapper align_center">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <!-- <span class="txt">상담 신청 완료</span> -->
+                </a>
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="intro">
+
+
+
+
+                <div class="center">
+                    <img src="https://dev.eroum.co.kr/html/page/app/matching/assets/src/images/08etc/page_default.svg"
+                        class="w150" alt="화면을 불러오지 못했어요">
+                    <div class="h12"></div>
+                    <p class="color_t_s font_sblr">화면을 불러오지 못했어요</p>
+                    <div class="h20"></div>
+                    <a class="modal-close waves-effect btn btn-middle btn_primary w120"
+                        onclick="M.toast({html: '네트워크를 확인해주세요'})">다시 시도</a>
+                </div>
+
+
+                <div class="center">
+                    <br><br>
+                    <a class="waves-effect waves-light btn btn_cancel  modal-trigger" href="#modal_net_error">네트워크 연결 팝업</a>
+                    <br />
+                    <a class="iwaves-effect waves-light btn btn_cancel modal-trigger" href="#modal_system_ins">시스템 점검 하단팝업</a>
+                </div>
+
+
+
+            </section>
+        </main>
+
+
+
+        <!-- no_network -->
+        <div id="modal_net_error" class="modal no_network">
+
+            <!-- <div class="modal_header">
+                <h4 class="modal_title">title제목</h4>
+            </div> -->
+
+            <div class="h24"></div>
+
+            <div class="modal-content">
+
+                <p class="color_tp_s font_sbmr">
+                    네트워크가 연결되지 않았어요<br />
+                    Wi-Fi 또는 데이터를 확인해주세요
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn_area d-flex">
+                    <a class="modal-close waves-effect btn btn-large w100p btn_primary">다시 시도</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal modal_system_ins -->
+        <div id="modal_system_ins" class="modal bottom-sheet">
+
+            <div class="modal_header">
+                <h4 class="modal_title"> </h4>
+                <div class="close_x modal-close waves-effect"></div>
+            </div>
+
+            <div class="img_system_ins">
+                <img src="../images/18icon/img_system_ins.png" alt="시스템 점검">
+            </div>
+
+            <div class="modal-content">
+
+                <div class="h24"></div>
+
+                <div class="color_tp_pp font_sblb">[긴급]시스템 점검</div>
+                <div class="color_tp_s font_sbms marT4">2024.1.24 08:00 ~ 2024.1.24 09:00</div>
+
+                <div class="h12"></div>
+                
+                <p class="color_t_s font_sbmr">더 빠르고 안정적인 서비스를 만들기 위해 서버를 점검하고 있습니다</p>
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn_area d-flex">
+                    <a class="modal-close waves-effect btn btn-large w100p btn_primary">확인</a>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+    <!-- wrapper -->
+
+
+</body>
+
+</html>

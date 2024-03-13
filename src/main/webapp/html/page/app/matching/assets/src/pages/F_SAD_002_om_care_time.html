@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>F_SAD_002_om_care_time.html</title>
+
+
+    <!-- jquery -->
+    <script src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- materialize -->
+    <script src="../js/materialize.min.js"></script>
+
+    <!-- guide.js -->
+    <script src="../js/custom/guide.js"></script>
+
+    <!-- materialize CSS -->
+    <link rel="stylesheet" href="../css/materialize.min.css">
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script>
+
+        $(function () {
+
+            //돌봄이 시간 선택
+            $('.care_time_area').click(function(){
+
+                $('.care_time_area').removeClass('active');
+                $(this).addClass('active').find(':radio').prop('checked', true);
+                
+                //하단 버튼 비활성 해제
+                $('.btnEvt_me').removeClass("btn_disable");
+
+            });
+
+
+        });
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+
+        <header>
+            <nav class="top">
+                <a class="btn_back waves-effect" href="#">
+                    <span class="icon"></span>
+                    <span class="txt">어르신 돌봄</span>
+                </a>
+                <div class="icon_area waves-effect">
+                    <div class="icon_btn i_share"></div>
+                </div>
+
+            </nav>
+        </header>
+
+
+        <main>
+            <section class="intro">
+
+                <h3 class="title">
+                    어르신 돌봄이 필요한 시간을<br>
+                    선택하세요
+                </h3>
+
+                <div class="h40"></div>
+
+                <div class="card care_time_area">
+
+                    <div>
+                        <div class="h12"></div>
+                        <input type="radio" name="care_time" id="chk_b1" class="chk01_2">
+                        <label for="chk_b1" class="font_sblr">3시간 이내</label>
+                    </div>
+
+                    <img src="../images/08etc/time01_80.svg" alt="3시간">
+
+                </div>
+
+
+                <div class="card care_time_area">
+
+                    <div>
+                        <div class="h12"></div>
+                        <input type="radio" name="care_time" id="chk_b2" class="chk01_2">
+                        <label for="chk_b2" class="font_sblr">3~8시간</label>
+                    </div>
+
+                    <img src="../images/08etc/time02_80.svg" alt="3~8시간">
+
+                </div>
+
+
+                <div class="card care_time_area">
+
+                    <div>
+                        <div class="h12"></div>
+                        <input type="radio" name="care_time" id="chk_b3" class="chk01_2">
+                        <label for="chk_b3" class="font_sblr">8~10시간</label>
+                        <div class="h08"></div>
+                        <span class="badge_recomm">*직장인 추천</span>
+                    </div>
+
+                    <img src="../images/08etc/time03_80.svg" alt="8~10시간">
+
+                </div>
+                
+
+            </section>
+        </main>
+
+        <footer class="page-footer">
+
+            <a class="waves-effect btn-large btn_primary btnEvt_me btn_disable w100p">다음</a>
+
+        </footer>
+
+
+
+
+
+
+
+    </div>
+    <!-- wrapper -->
+
+
+
+</body>
+
+</html>

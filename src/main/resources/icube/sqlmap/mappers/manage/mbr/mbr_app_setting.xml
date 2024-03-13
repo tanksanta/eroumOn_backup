@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mbr.app.setting">
+
+	<sql id="listColumn">
+		mas.app_setting_no
+		, mas.mbr_unique_id
+		, mas.push_token
+		, mas.allow_push_yn
+		, mas.allow_push_dt
+		, mas.allow_location_yn
+		, mas.allow_location_dt
+		, mas.allow_tel_yn
+		, mas.allow_tel_dt
+		, mas.auto_lgn_yn
+		, mas.auto_lgn_dt
+		, mas.reg_dt
+		, mas.mdfcn_dt
+	</sql>
+	
+	<sql id="searchConditions">
+		<if test="srchMbrUniqueId != null and srchMbrUniqueId != '' ">
+			AND mas.mbr_unique_id = #{srchMbrUniqueId}
+		</if>
+	</sql>
+	
+	
+	<select id="selectMbrAppSetting" parameterType="java.util.HashMap" resultType="mbrAppSettingVO">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_APP_SETTING mas
+		WHERE 1=1
+			<include refid="searchConditions" />
+		ORDER BY mas.reg_dt DESC
+		LIMIT 1;
+	</select>
+	
+
+	<insert id="insertMbrAppSetting" parameterType="mbrAppSettingVO">
+		INSERT INTO MBR_APP_SETTING(
+			mbr_unique_id
+			, push_token
+			, allow_push_yn
+			, allow_push_dt
+			, allow_location_yn
+			, allow_location_dt
+			, allow_tel_yn
+			, allow_tel_dt
+			, auto_lgn_yn
+			, auto_lgn_dt
+			, reg_dt
+		)VALUES(
+			#{mbrUniqueId}
+			, #{pushToken}
+			, #{allowPushYn}
+			, #{allowPushDt}
+			, #{allowLocationYn}
+			, #{allowLocationDt}
+			, #{allowTelYn}
+			, #{allowTelDt}
+			, #{autoLgnYn}
+			, #{autoLgnDt}
+			, SYSDATE()
+		)
+	</insert>
+	
+	<update id="updateMbrAppSetting" parameterType="mbrAppSettingVO">
+		UPDATE MBR_APP_SETTING SET
+			push_token = #{pushToken}
+			, allow_push_yn = #{allowPushYn}
+			, allow_push_dt = #{allowPushDt}
+			, allow_location_yn = #{allowLocationYn}
+			, allow_location_dt = #{allowLocationDt}
+			, allow_tel_yn = #{allowTelYn}
+			, allow_tel_dt = #{allowTelDt}
+			, auto_lgn_yn = #{autoLgnYn}
+			, auto_lgn_dt = #{autoLgnDt}
+			, mdfcn_dt = SYSDATE()
+		WHERE mbr_unique_id = #{mbrUniqueId} 
+	</update>
+</mapper>

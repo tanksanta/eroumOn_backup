@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+
+  <title>테스트01</title>
+
+  <!-- jquery -->
+  <script type="text/javascript" src="../js/jquery/jquery-3.6.0.min.js"></script>
+
+  <!-- animsition.js -->
+  <script src="../js/animsition/animsition.min.js"></script>
+
+  <!-- guide.js -->
+  <script type="text/javascript" src="../js/custom/custom.js"></script>
+
+
+
+  <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+
+  <!-- TW Elements CSS -->
+  <link rel="stylesheet" href="../css/tw-elements.min.css" />
+
+  <!-- animsition.css -->
+  <link rel="stylesheet" href="../css/animsition.min.css">
+
+  <!-- style.css -->
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <script>
+
+    $(function () {
+
+      $('.d01').click(function () {
+
+        alert('testttt');
+
+        $('button').addClass('hello');
+
+      });
+
+
+
+    });
+
+
+
+
+  </script>
+
+
+
+</head>
+
+<body>
+  <div class="wrapper animsition" style="background-color: aqua;">
+
+
+    <nav>
+      test01페이지 첫페이지
+    </nav>
+
+    <div class="d01">테스트버튼</div>
+
+
+    <button type="button"
+      class="animsition-link inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+      
+      onclick="location.href='test02.html'" data-transition="flow" data-animsition-out-class="fade-out-right"
+      data-animsition-out-duration="400">앞페이지(test02)
+    </button>
+
+
+
+  </div>
+  <!-- wrapper -->
+
+
+  <!-- Tailwind -->
+  <script type="text/javascript" src="../js/tw-elements.umd.min.js"></script>
+
+
+</body>
+
+</html>

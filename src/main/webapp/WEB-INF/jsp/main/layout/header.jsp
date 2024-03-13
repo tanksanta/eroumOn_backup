@@ -29,7 +29,22 @@
                     </ul>
                 </div>
             </li>
-        </ul>
+            <%--
+			<li class="nav-item">
+				<a href="http://cms.eroum.co.kr">이로움 정보</a>
+				<div class="nav-sub-items">
+					<ul>
+						<li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6246">오늘의 복지</a></li>
+						<li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6374">오늘의 건강</a></li>
+						<li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6378">오늘의 제품</a></li>
+						<li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6382">오늘의 휴식</a></li>
+						<li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6388">브랜드 이로움</a></li>
+						<li class="nav-sub-item"><a href="http://cms.eroum.co.kr/?page_id=6406">이로움 뉴스</a></li>
+					</ul>
+				</div>
+			</li>
+			--%>
+		</ul>
     </nav>
 	<div id="utility">
 		<ul>
@@ -37,6 +52,7 @@
 				<c:when test="${!_mbrSession.loginCheck}">
 					<li><a href="${_membershipPath}/login?returnUrl=/main">로그인</a></li>
 					<li><a href="${_membershipPath}/regist" class="join">회원가입</a></li>
+
 				</c:when>
 				<c:otherwise>
 					<li><a href="${_membershipPath}/index">마이페이지</a></li>
@@ -45,7 +61,8 @@
 			</c:choose>
 
 			<li>
-				<a href="${_mainPath}/welfare/equip/sub" class="cost">혜택 상담하기​</a>
+				<!-- <a href="${_mainPath}/welfare/equip/sub" class="cost">혜택 상담하기​</a> -->
+				<a href="https://www.eroum.co.kr/market/index" class="onmarket">이로움ON마켓</a>
 			</li>
 		</ul>
 	</div>
@@ -108,6 +125,21 @@
                 </ul>
             </dd>
         </dl>
+		<dl class="menu-item3">
+			<dt><a href="http://cms.eroum.co.kr"><img src="/html/page/index/assets/images/ico-allmenu1.png" alt=""> 이로움 정보</a></dt>
+			<dd>
+				<ul>
+
+					<li><a href="http://cms.eroum.co.kr/?page_id=6246">오늘의 복지</a></li>
+					<li><a href="http://cms.eroum.co.kr/?page_id=6374">오늘의 건강</a></li>
+					<li><a href="http://cms.eroum.co.kr/?page_id=6378">오늘의 제품</a></li>
+					<li><a href="http://cms.eroum.co.kr/?page_id=6382">오늘의 휴식</a></li>
+					<li><a href="http://cms.eroum.co.kr/?page_id=6388">브랜드 이로움</a></li>
+					<li><a href="http://cms.eroum.co.kr/?page_id=6406">이로움 뉴스</a></li>
+
+				</ul>
+			</dd>
+		</dl>
     </div>
 </div>
 <!-- //header -->

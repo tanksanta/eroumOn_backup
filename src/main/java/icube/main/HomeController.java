@@ -23,8 +23,8 @@ public class HomeController extends CommonAbstractController {
 	@Resource(name = "stdgCdService")
 	private StdgCdService stdgCdService;
 	
-	@Resource(name="bokjiService")
-	private BokjiApiService bokjiService;
+	//@Resource(name="bokjiService")
+	//private BokjiApiService bokjiService;
 	
 	// Home 화면
 	@RequestMapping(value={"/"})
@@ -37,22 +37,23 @@ public class HomeController extends CommonAbstractController {
 		model.addAttribute("stdgCdList", stdgCdList);
 		
 		// 복지 제도 개수
-		String bokjisUrl = "/api/partner/v2/bokjis/count";
-		String prvdUrl = "/api/partner/v2/providers/count";
+		//String bokjisUrl = "/api/partner/v2/bokjis/count";
+		//String prvdUrl = "/api/partner/v2/providers/count";
 
-		int bokjisCnt = 0;
-		int prvdCnt = 0;
+		//int bokjisCnt = 0;
+		//int prvdCnt = 0;
 
 		try {// 첫화면 부터 에러나지 않도록..
-			bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
+			//bokjisCnt = bokjiService.getBokjisCnt(bokjisUrl);
 			//prvdCnt = bokjiService.getBokjisCnt(prvdUrl);
 		}catch(Exception e) {
 			log.debug(e.getMessage());
 		}
 
-		int total = bokjisCnt + prvdCnt;
+		//int total = bokjisCnt + prvdCnt;
 
-		model.addAttribute("total", total);
+		//model.addAttribute("total", total);
+		model.addAttribute("total", 0);
 		
 		return "/main/main";
 	}

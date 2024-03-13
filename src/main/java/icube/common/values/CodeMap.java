@@ -1157,9 +1157,18 @@ public class CodeMap{
 	public static final HashMap<String, String> PREV_PATH = new LinkedHashMap<String, String>() {
 		private static final long serialVersionUID = -4615344482467031481L;
 		{
-			put("simpleSearch", "요양정보상담");
-			put("test", "인정등급상담");
 			put("equip_ctgry", "복지용구상담");
+			put("test", "인정등급상담");
+			put("simpleSearch", "요양정보상담");
+		}
+	};
+	// 상담 요청 경로(MVP 앱)
+	public static final HashMap<String, String> PREV_PATH_FOR_APP = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 6124276573961021108L;
+		{
+			put("equip_ctgry", "복지용구/관심 복지용구");
+			put("simple_test", "인정등급/인정등급 간편 테스트");
+			put("care", "재가기관/어르신 돌봄");
 		}
 	};
 
@@ -1225,6 +1234,8 @@ public class CodeMap{
 			put("PROVISION", "개인정보 제공");
 			put("THIRD_PARTIES", "개인정보 제3자 제공");
 			*/
+			put("MARKETING", "마켓팅정보 수신동의");
+			put("NIGHT", "야간 혜택 수신동의");
 		}
 	};
 	
@@ -1259,6 +1270,19 @@ public class CodeMap{
 			put("수동침대", "2060");
 			put("전동침대", "2070");
 			put("수동휠체어", "2080");
+		}
+	};
+	
+	/* 통신사 정보 */
+	public static final HashMap<String, String> CARRIER_CD = new LinkedHashMap<String, String>() {
+		private static final long serialVersionUID = 6079996218394314021L;
+		{
+			put("SKT", "SKT");
+			put("KT", "KT");
+			put("LG U+", "LGT");
+			put("SKT 알뜰폰", "SKT_MVNO");
+			put("KT 알뜰폰", "KT_MVNO");
+			put("LG U+ 알뜰폰", "LGT_MVNO");
 		}
 	};
 }

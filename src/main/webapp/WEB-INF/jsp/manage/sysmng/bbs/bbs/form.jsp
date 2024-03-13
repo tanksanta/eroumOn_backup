@@ -100,100 +100,72 @@
                                         <form:input path="ttl" class="form-control w-full" maxlength="250" />
                                     </td>
                                 </tr>
-								<c:if test="${!empty bbsSetupVO.getAddColumnChk01()}">
-									<tr>
-										<th scope="row"><label for="addValueChk01">${bbsSetupVO.getAddColumnChk01()}</label></th>
-										<td>
-											<div class="form-check">
-												<form:checkbox cssClass="form-check-input" path="addValueChk01" id="addValueChk01" value="Y" />
-											</div>
-										</td>
-									</tr>
-								</c:if>
-								<c:if test="${!empty bbsSetupVO.getAddColumnChk02()}">
-									<tr>
-										<th scope="row"><label for="addValueChk02">${bbsSetupVO.getAddColumnChk02()}</label></th>
-										<td>
-											<div class="form-check">
-												<form:checkbox cssClass="form-check-input" path="addValueChk02" id="addValueChk02" value="Y" />
-											</div>
-										</td>
-									</tr>
-								</c:if>
-								
-								<c:if test="${!empty bbsSetupVO.getAddColumnChk03()}">
-									<tr>
-										<th scope="row"><label for="addValueChk03">${bbsSetupVO.getAddColumnChk03()}</label></th>
-										<td>
-											<div class="form-check">
-												<form:checkbox cssClass="form-check-input" path="addValueChk03" id="addValueChk03" value="Y" />
-											</div>
-										</td>
-									</tr>
-								</c:if>
-								
-								<c:if test="${!empty bbsSetupVO.getAddColumnText01()}">
-									<tr>
-										<th scope="row"><label for="addValueText01">${bbsSetupVO.getAddColumnText01()}</label></th>
-										<td>
-											<form:input path="addValueText01" class="form-control w-full" maxlength="250" />
-										</td>
-									</tr>
-								</c:if>
-								
-								<c:if test="${!empty bbsSetupVO.getAddColumnText02()}">
-									<tr>
-										<th scope="row"><label for="addValueText02">${bbsSetupVO.getAddColumnText02()}</label></th>
-										<td>
-											<form:input path="addValueText02" class="form-control w-full" maxlength="250" />
-										</td>
-									</tr>
-								</c:if>
-								
-								<c:if test="${!empty bbsSetupVO.getAddColumnText03()}">
-									<tr>
-										<th scope="row"><label for="addValueText03">${bbsSetupVO.getAddColumnText03()}</label></th>
-										<td>
-											<form:input path="addValueText03" class="form-control w-full" maxlength="250" />
-										</td>
-									</tr>
-								</c:if>
-								
-								<c:if test="${!empty bbsSetupVO.getAddColumnText04()}">
-									<tr>
-										<th scope="row"><label for="addValueText04">${bbsSetupVO.getAddColumnText04()}</label></th>
-										<td>
-											<form:input path="addValueText04" class="form-control w-full" maxlength="250" />
-										</td>
-									</tr>
-								</c:if>
-								<c:if test="${!empty bbsSetupVO.getAddColumnText05()}">
-									<tr>
-										<th scope="row"><label for="addValueText05">${bbsSetupVO.getAddColumnText05()}</label></th>
-										<td>
-											<form:input path="addValueText05" class="form-control w-full" maxlength="250" />
-										</td>
-									</tr>
-								</c:if>
-								
-								<c:if test="${!empty bbsSetupVO.getAddColumnText06()}">
-									<tr >
-										<th scope="row"><label for="addValueText06">${bbsSetupVO.getAddColumnText06()}</label></th>
-										<td>
-											<form:input path="addValueText06" class="form-control w-full" maxlength="250" />
-										</td>
-									</tr>
-								</c:if>
-								
-								<c:if test="${!empty bbsSetupVO.getAddColumnText07()}">
-									<tr>
-										<th scope="row"><label for="addValueText07">${bbsSetupVO.getAddColumnText07()}</label></th>
-										<td>
-											<form:input path="addValueText07" class="form-control w-full" maxlength="250" />
-										</td>
-									</tr>
-								</c:if>
-								
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnChk01()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueChk01">${bbsSetupVO.getAddColumnChk01()}</label></th>
+                                    <td>
+										<div class="form-check">
+											<form:checkbox cssClass="form-check-input" path="addValueChk01" id="addValueChk01" value="Y" />
+										</div>
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnChk02()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueChk02">${bbsSetupVO.getAddColumnChk02()}</label></th>
+                                    <td>
+										<div class="form-check">
+											<form:checkbox cssClass="form-check-input" path="addValueChk02" id="addValueChk02" value="Y" />
+										</div>
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnChk03()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueChk03">${bbsSetupVO.getAddColumnChk03()}</label></th>
+                                    <td>
+										<div class="form-check">
+											<form:checkbox cssClass="form-check-input" path="addValueChk03" id="addValueChk03" value="Y" />
+										</div>
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnText01()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueText01">${bbsSetupVO.getAddColumnText01()}</label></th>
+                                    <td>
+                                        <form:input path="addValueText01" class="form-control w-full" maxlength="250" />
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnText02()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueText02">${bbsSetupVO.getAddColumnText02()}</label></th>
+                                    <td>
+                                        <form:input path="addValueText02" class="form-control w-full" maxlength="250" />
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnText03()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueText03">${bbsSetupVO.getAddColumnText03()}</label></th>
+                                    <td>
+                                        <form:input path="addValueText03" class="form-control w-full" maxlength="250" />
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnText04()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueText04">${bbsSetupVO.getAddColumnText04()}</label></th>
+                                    <td>
+                                        <form:input path="addValueText04" class="form-control w-full" maxlength="250" />
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnText05()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueText05">${bbsSetupVO.getAddColumnText05()}</label></th>
+                                    <td>
+                                        <form:input path="addValueText05" class="form-control w-full" maxlength="250" />
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnText06()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueText06">${bbsSetupVO.getAddColumnText06()}</label></th>
+                                    <td>
+                                        <form:input path="addValueText06" class="form-control w-full" maxlength="250" />
+                                    </td>
+                                </tr>
+								<tr style="<c:if test="${empty bbsSetupVO.getAddColumnText07()}">display:none</c:if>">
+                                    <th scope="row"><label for="addValueText07">${bbsSetupVO.getAddColumnText07()}</label></th>
+                                    <td>
+                                        <form:input path="addValueText07" class="form-control w-full" maxlength="250" />
+                                    </td>
+                                </tr>
 								<c:if test="${!empty bbsSetupVO.getAddUniqueText01()}">
 									<tr>
 										<th scope="row"><label for="addUniqueText01">${bbsSetupVO.getAddUniqueText01()}</label></th>

@@ -189,7 +189,8 @@ public class BootpayApiService {
 
 	    return returnMap;
 	}
-
+	
+	
 	public int insertLog(BootpayVO vo) throws Exception {
 		return this.logsDAO.insertLogOne(vo);
 	}

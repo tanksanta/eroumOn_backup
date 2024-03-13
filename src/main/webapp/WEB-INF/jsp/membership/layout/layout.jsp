@@ -43,7 +43,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <link rel="stylesheet" href="/html/page/members/assets/style/style.min.css">
+    <link rel="stylesheet" href="/html/page/members/assets/style/style_add.css">
+
     <script src="/html/page/members/assets/script/common.js"></script>
+    <script src="/html/page/members/assets/script/index.js"></script>
+    
     <script src="/html/core/script/hangjungdong.js"></script>
     <script src="/html/core/script/JsCommon.js?v=<spring:eval expression="@version['assets.version']"/>"></script>
     <script src="/html/core/script/JsCallApi.js?v=<spring:eval expression="@version['assets.version']"/>"></script>

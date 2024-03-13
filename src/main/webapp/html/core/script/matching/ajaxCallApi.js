@@ -2,34 +2,77 @@
 
 // 성공 콜백만 인자로 받고 실패시 메세지만 alert 해주는 함수
 var doubleClickCheck = false;
-function callPostAjaxIfFailOnlyMsg(url, param, successCallback) {
+function callPostAjaxIfFailOnlyMsg(url, param, successCallback, ajaxOption) {
 	viewProgressLoadingBar();
 	if (doubleClickCheck) {
 		return;
 	}
 	doubleClickCheck = true;
 
-	$.ajax({
+	var option = {
 		type : "post",
 		url  : url,
 		data : param,
-		dataType : 'json'
-	})
+		dataType : 'json',
+	};
+	if (ajaxOption) {
+		option = {
+			...option,
+			...ajaxOption
+		}
+	}
+
+	$.ajax(option)
 	.done(function(result) {
+		doubleClickCheck = false;
+		hiddenProgressLoadingBar();
+	
 		if(result.success) {
 			successCallback(result);
 		}else{
-			alert(result.msg);
+			if (result.msg) {
+				showAlertPopup(result.msg);
+			}
 		}
-		
-		doubleClickCheck = false;
-		hiddenProgressLoadingBar();
 	})
 	.fail(function(data, status, err) {
-		alert('서버와 연결이 좋지 않습니다.');
+		doubleClickCheck = false;
+		$('#modal_net_error').modal('open');
 	});
 }
 
+
+function callPostMove(uri, data, searched_data){
+	let f = document.createElement('form');
+    
+	let obj;
+
+	if (data != undefined){
+		for (var key in data){
+			obj = document.createElement('input');
+			obj.setAttribute('type', 'hidden');
+			obj.setAttribute('name', key);
+			obj.setAttribute('value', data[key]);
+			
+			f.appendChild(obj);
+		} 
+	}
+	if (searched_data != undefined){
+		obj = document.createElement('input');
+		obj.setAttribute('type', 'hidden');
+		obj.setAttribute('name', "searched_data");
+		obj.setAttribute('value', JSON.stringify(searched_data));
+
+		f.appendChild(obj);
+	}
+
+	f.setAttribute('method', 'post');
+	f.setAttribute('action', uri);
+	
+	document.body.appendChild(f);
+
+	f.submit();
+}
 
 // 로딩바 만들기
 var bodyTagInMatching;
@@ -52,18 +95,18 @@ function createProgressLoadingBar() {
 
 // 로딩바 보이기
 function viewProgressLoadingBar() {
-	LoadingDivInMatching.removeClass('off');
-	bodyTagInMatching.addClass('overlay-wait1');
+	// LoadingDivInMatching.removeClass('off');
+	// bodyTagInMatching.addClass('overlay-wait1');
 }
 
 // 로딩바 숨기기
 function hiddenProgressLoadingBar() {
-	LoadingDivInMatching.addClass('off');
-	bodyTagInMatching.removeClass('overlay-wait1');
+	// LoadingDivInMatching.addClass('off');
+	// bodyTagInMatching.removeClass('overlay-wait1');
 }
 
 
 $(function() {
-	createProgressLoadingBar();
-	hiddenProgressLoadingBar();
+	//createProgressLoadingBar();
+	//hiddenProgressLoadingBar();
 });

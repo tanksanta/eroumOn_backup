@@ -36,6 +36,8 @@
 		, m.eml_rcptn_dt
 		, m.tel_recptn_yn
 		, m.tel_recptn_dt
+		, m.push_recptn_yn
+		, m.push_recptn_dt
 		, m.event_recptn_yn
 		, m.profl_img
 		, m.ci_key
@@ -62,6 +64,10 @@
 		, m.whdwl_ty
 		, m.whdwl_etc
 		, m.sns_regist_dt
+		, m.app_mat_token
+		, m.app_mat_expired_dt
+		, m.lat
+		, m.lot
 		, 'F' as req_ty
 	</sql>
 
@@ -207,6 +213,9 @@
 		<if test="srchWithoutNotSnsExist != null and srchWithoutNotSnsExist != '' ">
 			AND (join_ty = 'E' OR sns_regist_dt IS NOT NULL)
 		</if>
+		<if test="srchAppMatToken != null and srchAppMatToken != '' ">
+			AND app_mat_token = #{srchAppMatToken}
+		</if>
 	</sql>
 
 	<select id="selectMbrListVO" parameterType="java.util.HashMap" resultMap="mbrVOMap">
@@ -295,6 +304,8 @@
 			, eml_rcptn_dt
 			, tel_recptn_yn
 			, tel_recptn_dt
+			, push_recptn_yn
+			, push_recptn_dt
 			, profl_img
 			, trms_agre_dt
 			, itrst_field
@@ -340,6 +351,8 @@
 			, #{emlRcptnDt}
 			, #{telRecptnYn, jdbcType=VARCHAR}
 			, #{telRecptnDt}
+			, #{pushRecptnYn, jdbcType=VARCHAR}
+			, #{pushRecptnDt}
 			, #{proflImg, jdbcType=VARCHAR}
 			, SYSDATE()
 			, #{itrstField, jdbcType=VARCHAR}
@@ -652,5 +665,21 @@
 			human_mail_yn = 'Y'
 		WHERE 1=1
 			<include refid="searchConditions" />
+	</update>
+	
+	<!-- 매칭앱 토큰 정보 업데이트 -->
+	<update id="updateMbrAppTokenInfo" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			app_mat_token = #{appMatToken}
+			, app_mat_expired_dt = #{appMatExpiredDt}
+		WHERE unique_id = #{srchUniqueId}
+	</update>
+	
+	<!-- 회원 위치 정보 업데이트 -->
+	<update id="updateMbrLocation" parameterType="java.util.HashMap">
+		UPDATE MBR SET
+			lat = #{lat}
+			, lot = #{lot}
+		WHERE unique_id = #{srchUniqueId}
 	</update>
 </mapper>

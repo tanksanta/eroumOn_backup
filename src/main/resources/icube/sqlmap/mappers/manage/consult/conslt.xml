@@ -146,6 +146,14 @@
 			<include refid="searchConditions" />
 	</select>
 	
+	<select id="selectMbrConsltAll" parameterType="java.util.HashMap" resultMap="mbrConsltVOMap">
+		SELECT
+			<include refid="listColumn" />
+		FROM MBR_CONSLT mc
+		WHERE 1=1
+			<include refid="searchConditions" />
+	</select>
+	
 	<insert id="insertMbrConslt" parameterType="mbrConsltVO">
 		INSERT INTO MBR_CONSLT(
 			mbr_nm

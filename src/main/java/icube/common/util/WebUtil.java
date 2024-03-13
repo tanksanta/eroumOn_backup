@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -365,4 +366,17 @@ public class WebUtil  {
 		return remoteIp;
 	}
 
+	
+	public static String getCookieValue(HttpServletRequest request, String name) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				//System.out.println(cookie.getName());
+				if (name.equals(cookie.getName())) {
+					return cookie.getValue();
+				}
+			}
+		}
+		return null;
+	}
 }

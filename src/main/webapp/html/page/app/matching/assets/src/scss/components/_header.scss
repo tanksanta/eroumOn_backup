@@ -1,0 +1,66 @@
+
+
+
+
+nav a{color: $--Color-text-primary;}
+
+nav.top{
+    position: fixed;
+    z-index: 100;
+    left:0;
+    top:0;
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    background: #fff;
+    box-shadow: none;
+
+    .title{
+        font-size: 18px;
+        font-weight: 700;
+        color: $--Color-text-primary;
+        padding-left: 20px;
+    }
+
+
+    .btn_back{
+
+        display: flex;
+        align-items: center;
+
+        .txt{
+            height: 48px;
+            color: $--Color-text-Primitive-secondary;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            @include Suit_Body_LG_Bold;
+        }
+
+
+        .icon{
+            display: inline-block;
+            background: url('../images/04icon/chevron-left_thin.svg') no-repeat center center;
+            text-indent: 40px;
+            width: 48px;
+            height: 48px;
+
+            & + .txt{
+                padding: 0 20px 0 0;
+            }
+        }
+
+     }
+
+    //우측 텍스트
+    .top_txt{
+        height: $header_elem;display: flex;align-items: center;
+        padding: 0 16px;
+        color:$--Color-text-Primitive-secondary;
+        @include Suit_Body_MD_Regular;
+    }
+
+    .icon_area{display: inline-block;width: 48px;height: 48px;display: flex;justify-content: center;align-items: center;}
+}

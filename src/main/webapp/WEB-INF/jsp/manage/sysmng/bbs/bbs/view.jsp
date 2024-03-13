@@ -112,6 +112,12 @@
                                 <td>${nttVO.addValueText07}</td>
                             </tr>
                         </c:if>
+                        <c:if test="${!empty bbsSetupVO.getAddUniqueText01()}">
+                            <tr>
+                                <th scope="row">${bbsSetupVO.getAddUniqueText01()}</th>
+                                <td>${nttVO.addUniqueText01}</td>
+                            </tr>
+                        </c:if>
                         <tr>
                             <th scope="row">내용</th>
                             <td>${nttVO.cn}</td>

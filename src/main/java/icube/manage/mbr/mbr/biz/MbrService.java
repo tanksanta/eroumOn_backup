@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -428,6 +429,36 @@ public class MbrService extends CommonAbstractServiceImpl {
 	}
 
 	/**
+	 * 회원의 APP Token 상태 저장
+	 */
+	public String updateMbrAppTokenInfo(String uniqueId) throws Exception {
+		String newToken = generateMbrAppToken(uniqueId);
+		Date now = new Date();
+		Date expiredDate = DateUtil.getDateAdd(now, "date", 3650); //유효기간 10년
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchUniqueId", uniqueId);
+		paramMap.put("appMatToken", newToken);
+		paramMap.put("appMatExpiredDt", expiredDate);
+		
+		mbrDAO.updateMbrAppTokenInfo(paramMap);
+		return newToken;
+	}
+	
+	/**
+	 * 회원의 위치 정보 저장
+	 */
+	public void updateMbrLocation(String uniqueId, String lat, String lot) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("srchUniqueId", uniqueId);
+		paramMap.put("lat", lat);
+		paramMap.put("lot", lot);
+		
+		mbrDAO.updateMbrLocation(paramMap);
+	}
+	
+	
+	/**
 	 * 회원 전환시 포인트, 마일리지 소멸
 	 * @param uniqueId
 	 * @param mberStts
@@ -540,6 +571,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 		}
 		
 		return id;
+	}
+	
+	/*
+	 * 매칭앱 전용 토큰 생성 함수
+	 */
+	public String generateMbrAppToken(String uniqueId) throws Exception {
+		String uuid = UUID.randomUUID().toString();
+		return uniqueId + "_" + uuid;
 	}
 	
 	
@@ -694,8 +733,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
 		
-		PrivateKey rsaKey = (PrivateKey) session.getAttribute(rsaPriKey);
-		String decPw = RSA.decryptRsa(rsaKey, encPw);
+		String decPw = null;
+		try {
+			PrivateKey rsaKey = (PrivateKey) session.getAttribute(RSA_MEMBERSHIP_KEY);
+			decPw = RSA.decryptRsa(rsaKey, encPw);
+		} catch (Exception ex) {
+			log.error("=============password 복호화 오류", ex);
+		}
+		
 		if (EgovStringUtil.isEmpty(decPw)) {
 			resultMap.put("msg", "패스워드 복호화에 실패하였습니다.");
 			return resultMap;
@@ -764,7 +809,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 		String joinTy = snsUserInfo.getJoinTy();
  		String ciKey = snsUserInfo.getCiKey();
  		String prevPath = (String)session.getAttribute("prevSnsPath");
-		
+ 		if (EgovStringUtil.isEmpty(prevPath)) {
+			prevPath = "membership";
+		}
+ 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("valid", false);
 		String rootPath = "";
@@ -779,15 +827,22 @@ public class MbrService extends CommonAbstractServiceImpl {
 		// 매칭앱으로 로그인 한 경우
 		if ("matching".equals(prevPath)) {
 			rootPath = "/" + matchingPath;
-			membershipRootPath = rootPath;
-			registPath = rootPath + "/membership/login";
+			membershipRootPath = rootPath + "/" + membershipPath;
+			
+			if ("K".equals(joinTy)) {
+				registPath = rootPath + "/kakao/login";
+			} else if ("N".equals(joinTy)) {
+				registPath = rootPath + "/naver/login";
+			} else {
+				registPath = rootPath + "/membership/login";
+			}
 		}
 		
 		
 		List<MbrVO> mbrList = new ArrayList<>();
 		
 		//로그인 된 상태로 온 경우는 회원정보수정에서 연결하기를 누른 상황으로 unique_id로 검색
-		if (mbrSession.isLoginCheck()) {
+		if ("membership".equals(prevPath) && mbrSession.isLoginCheck()) {
 			MbrVO mbrVO = selectMbrByUniqueId(mbrSession.getUniqueId());
 			mbrList.add(mbrVO);
 		} else {
@@ -829,8 +884,10 @@ public class MbrService extends CommonAbstractServiceImpl {
 			return resultMap;
 		}
 		
-		
 		MbrVO srchMbrVO = mbrList.get(0);
+		if (srchMbrVO == null) {
+			return resultMap;
+		}
 		resultMap.put("srchMbrVO", srchMbrVO);
 		
 		//탈퇴는 나올수가 없다
@@ -839,15 +896,16 @@ public class MbrService extends CommonAbstractServiceImpl {
 //			resultMap.put("location", rootPath);
 //			return resultMap;
 //		}
-		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
-			resultMap.put("msg", "휴면 회원입니다.");
-			if ("membership".equals(prevPath)) {
-				resultMap.put("location", "/" + membershipPath + "/drmt/view?mbrId=" + srchMbrVO.getMbrId());
-			} else if ("matching".equals(prevPath)) {
-				resultMap.put("location", rootPath);
-			}
-			return resultMap;
-		}
+		//휴면 회원 정책 사라짐
+//		if ("HUMAN".equals(srchMbrVO.getMberSttus())) {
+//			resultMap.put("msg", "휴면 회원입니다.");
+//			if ("membership".equals(prevPath)) {
+//				resultMap.put("location", "/" + membershipPath + "/drmt/view?mbrId=" + srchMbrVO.getMbrId());
+//			} else if ("matching".equals(prevPath)) {
+//				resultMap.put("location", rootPath);
+//			}
+//			return resultMap;
+//		}
 		
 		Map<String, Object> infoParamMap = new HashMap<String, Object>();
 		infoParamMap.put("srchUniqueId", srchMbrVO.getUniqueId());
@@ -873,7 +931,7 @@ public class MbrService extends CommonAbstractServiceImpl {
 			snsUserInfo.setUniqueId(srchMbrVO.getUniqueId());
 			
 			//로그인 된 상태로 온 경우는 회원정보수정에서 연결하기를 누른 상황
-			if (mbrSession.isLoginCheck()) {
+			if ("membership".equals(prevPath) && mbrSession.isLoginCheck()) {
 				//회원 인증정보 등록
 				mbrAuthService.insertMbrAuthWithMbrVO(snsUserInfo);
 				
@@ -881,7 +939,14 @@ public class MbrService extends CommonAbstractServiceImpl {
 			}
 			//로그인 시에 온 경우는 회원 연결페이지로 이동
 			else {
-				mbrSession.setParms(snsUserInfo, false);
+				if ("membership".equals(prevPath)) {
+					mbrSession.setParms(snsUserInfo, false);
+				}
+				if ("matching".equals(prevPath)) {
+					matMbrSession.setProperty(snsUserInfo);
+					matMbrSession.setLoginCheck(false);
+				}
+				
 				//바인딩 페이지로 이동
 				resultMap.put("location", membershipRootPath + "/binding");
 			}
@@ -891,11 +956,19 @@ public class MbrService extends CommonAbstractServiceImpl {
 		//인증수단이 등록되었지만 계정이 다르다면
 		if ("K".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getKakaoAppId(), mbrAuthVO.getKakaoAppId())) {
 			resultMap.put("msg", getAlreadyMbrMsg(mbrAuthVO));
-			resultMap.put("location", membershipRootPath + "/kakao/reAuth");
+			if ("membership".equals(prevPath)) {
+				resultMap.put("location", membershipRootPath + "/kakao/reAuth");
+			} else {
+				resultMap.put("location", registPath);
+			}
 			return resultMap;
 		} else if ("N".equals(joinTy) && !EgovStringUtil.equals(snsUserInfo.getNaverAppId(), mbrAuthVO.getNaverAppId())) {
 			resultMap.put("msg", getAlreadyMbrMsg(mbrAuthVO));
-			resultMap.put("location", membershipRootPath + "/naver/reAuth");
+			if ("membership".equals(prevPath)) {
+				resultMap.put("location", membershipRootPath + "/naver/reAuth");
+			} else {
+				resultMap.put("location", registPath);
+			}
 			return resultMap;
 		}
 		
@@ -1146,8 +1219,11 @@ public class MbrService extends CommonAbstractServiceImpl {
 		mbrAuthService.insertMbrAuthWithMbrVO(mbrVO);
 		
 		// 모든 항목 동의처리 로그
-		mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
-		insertMbrAgreement(mbrAgreementVO);
+		if (mbrAgreementVO != null) {
+			mbrAgreementVO.setMbrUniqueId(mbrVO.getUniqueId());
+			insertMbrAgreement(mbrAgreementVO);
+		}
+		
 
 		// 기본 배송지 등록
 		DlvyVO dlvyVO = new DlvyVO();

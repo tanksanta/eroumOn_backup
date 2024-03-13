@@ -53,6 +53,9 @@ public class MbrVO extends CommonBaseVO {
 	private String telRecptnYn ="N";
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date telRecptnDt;
+	private String pushRecptnYn ="N";
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date pushRecptnDt;
 	private String eventRecptnYn;
 	private String proflImg; // 프로필이미지
 	private Date trmsAgreDt;
@@ -69,6 +72,10 @@ public class MbrVO extends CommonBaseVO {
 	private String whdwlTy;
 	private String whdwlEtc;
 	private Date snsRegistDt;
+	private String appMatToken;
+	private Date appMatExpiredDt;
+	private String lat;
+	private String lot;
 
 	private String ciKey; //ci값 => 휴대폰 본인인증(고유키 리턴)
 	private String diKey; //di값 => 휴대폰 본인인증(고유키 리턴)
@@ -78,7 +85,6 @@ public class MbrVO extends CommonBaseVO {
 
 	private String naverAppId;
 	private String kakaoAppId;
-	private String kakaoAccessToken;
 
 	private String joinTy = "E"; // 가입 구분
 	private String lgnTy;        // 로그인 시 인증타입

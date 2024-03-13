@@ -1,0 +1,18 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M31.1403 11C28.7527 11 26.8092 12.9206 26.7809 15.308L26.4999 39.0119C26.4934 39.5641 26.0404 40.0065 25.4881 39.9999C24.9359 39.9934 24.4935 39.5404 24.5001 38.9881L24.781 15.2843C24.8223 11.8016 27.6573 9 31.1403 9C34.6527 9 37.5 11.8473 37.5 15.3597V20.64C37.5 21.1923 37.0523 21.64 36.5 21.64C35.9477 21.64 35.5 21.1923 35.5 20.64V15.3597C35.5 12.9519 33.5481 11 31.1403 11Z" fill="#BDBDBD"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M31.1719 11C28.7815 11 26.8438 12.9378 26.8438 15.3281V16C26.8438 16.5523 26.396 17 25.8438 17C25.2915 17 24.8438 16.5523 24.8438 16V15.3281C24.8438 11.8332 27.6769 9 31.1719 9C34.6668 9 37.5 11.8332 37.5 15.3281V16C37.5 16.5523 37.0523 17 36.5 17C35.9477 17 35.5 16.5523 35.5 16V15.3281C35.5 12.9378 33.5622 11 31.1719 11Z" fill="url(#paint0_linear_1422_9311)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11 8C10.4477 8 10 8.44772 10 9C10 9.55228 10.4477 10 11 10H15.5V39C15.5 39.5523 15.9477 40 16.5 40C17.0523 40 17.5 39.5523 17.5 39V10H22C22.5523 10 23 9.55228 23 9C23 8.44772 22.5523 8 22 8H11Z" fill="#BDBDBD"/>
+<ellipse cx="16.5105" cy="39.0207" rx="1.01052" ry="1.02072" fill="#333333"/>
+<ellipse cx="25.5105" cy="39.0207" rx="1.01052" ry="1.02072" fill="#333333"/>
+<path d="M13 9H20" stroke="url(#paint1_linear_1422_9311)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<defs>
+<linearGradient id="paint0_linear_1422_9311" x1="28.4033" y1="10.4167" x2="31.4035" y2="17.3298" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF8120"/>
+<stop offset="1" stop-color="#E54304"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1422_9311" x1="14.9687" y1="9.17708" x2="15.0685" y2="10.1942" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF8120"/>
+<stop offset="1" stop-color="#E54304"/>
+</linearGradient>
+</defs>
+</svg>

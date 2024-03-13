@@ -135,7 +135,7 @@ public class MbrsNaverController extends CommonAbstractController{
 				//임시 로그인 처리
 				mbrService.loginTempSnsMbr(session, naverUserInfo, null);
 				
-				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist") : (rootPath + "/login");
+				String registPath = "membership".equals(prevPath) ? (membershipRootPath + "/sns/regist") : (rootPath + "/membership/info/identityVerification?type=regist");
 				javaScript.setLocation(registPath);
 				return new JavaScriptView(javaScript);
 			}
@@ -143,16 +143,34 @@ public class MbrsNaverController extends CommonAbstractController{
 			//검증 통과 여부 확인
 			boolean isValid = (boolean)validationResult.get("valid");
 			if (!isValid) {
-				if (validationResult.containsKey("msg")) {
-					javaScript.setMessage((String)validationResult.get("msg"));
+				if ("matching".equals(prevPath)) {
+					session.setAttribute("appMsg", validationResult.get("msg"));
+					session.setAttribute("appLocation", validationResult.get("location"));
+					javaScript.setLocation("/matching/common/msg");
 				}
-				javaScript.setLocation((String)validationResult.get("location"));
+				else {
+					if (validationResult.containsKey("msg")) {
+						javaScript.setMessage((String)validationResult.get("msg"));
+					}
+					javaScript.setLocation((String)validationResult.get("location"));
+				}
 				return new JavaScriptView(javaScript);
 			}
 			
-			// 최근 로그인 쿠키
-			Cookie recentLgnTyCookie = mbrSession.getRecentLgnTyCookie();
-			response.addCookie(recentLgnTyCookie);
+			
+			// 웹브라우저에서 처리
+			if ("membership".equals(prevPath)) {
+				// 최근 로그인 쿠키
+				Cookie recentLgnTyCookie = mbrSession.getRecentLgnTyCookie();
+				response.addCookie(recentLgnTyCookie);
+			}
+			// 매칭앱에서 처리
+			if ("matching".equals(prevPath)) {
+				//로그인 후처리로 redirect
+				javaScript.setLocation("/matching/membership/loginAfterAction");
+				return new JavaScriptView(javaScript);
+			}
+			
 			
 			//로그인 이후 redirect
 			if(EgovStringUtil.isNotEmpty(returnUrl)) {
