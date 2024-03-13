@@ -4,18 +4,28 @@
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   	
   	<style>
-    /* lottie 결합 */
-    .lottie_comb_img{width: 360px; height: auto; justify-content: flex-end; align-items: flex-start; display: inline-flex;}
-    .lottie_comb_img .clock{top:30px; left:90px; position: relative; z-index:10;}
-    .lottie_comb_img .people{position: relative}
-
-    .touch_lock {
-      position: absolute;
-      width: 100%;
-      display: block;
-      z-index: 10;
-      background: #ff000000;
-    }
+ 	    dotlottie-player{width:100%;height:auto;}
+ 	    
+ 	    .slide_img.lt_01{position: relative;top:9vmin;}
+    	.slide_img.lt_02{position: relative;top:19vmin;}
+    	
+    	.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction{
+      		bottom: 6vh;
+    	}
+    
+  	
+	    /* lottie 결합 */
+	    /* .lottie_comb_img{width: 100%; height: auto; justify-content: flex-end; align-items: flex-start; display: inline-flex;}
+	    .lottie_comb_img .clock{top:30px; left:90px; position: relative; z-index:10;}
+	    .lottie_comb_img .people{position: relative} */
+	
+	    .touch_lock {
+	      position: absolute;
+	      width: 100%;
+	      display: block;
+	      z-index: 10;
+	      background: #ff000000;
+	    }
   	</style>
   	
 
@@ -48,10 +58,8 @@
 	
 	              <div class="color_t_s font_sbmr">간단한 테스트로 예상되는 등급의 지원 금액과 혜택을 확인하세요</div>
 	
-	              <div class="align_center">
-	                <dotlottie-player src="https://lottie.host/28d4e3c1-8668-4cef-b9b0-deb5f5273fa2/gcx3otpy1D.json"
-	                  background="transparent" speed="1" style="width: 360px; height: 320px;" loop
-	                  autoplay></dotlottie-player>
+	              <div class="slide_img lt_01">
+                  	<dotlottie-player src="https://lottie.host/28d4e3c1-8668-4cef-b9b0-deb5f5273fa2/gcx3otpy1D.json" background="transparent" speed="1" loop autoplay></dotlottie-player>
 	              </div>
 	
 	            </div>
@@ -68,10 +76,8 @@
 	
 	              <div class="color_t_s font_sbmr">관심있는 복지용구를 바탕으로 85%~100% 지원 혜택을 받을 수 있는 지 알려드려요</div>
 	
-	              <div class="align_center">
-	                <dotlottie-player src="https://lottie.host/78a6f252-b178-4aa1-838b-ee445aa83697/ZgJx9l3vtp.json"
-	                  background="transparent" speed="1" style="width: 360px; height: 320px;" loop
-	                  autoplay></dotlottie-player>
+	              <div class="slide_img lt_02">
+                  	<dotlottie-player src="https://lottie.host/78a6f252-b178-4aa1-838b-ee445aa83697/ZgJx9l3vtp.json" background="transparent" speed="1" loop autoplay></dotlottie-player>
 	              </div>
 	
 	            </div>
@@ -88,27 +94,9 @@
 	
 	              <div class="color_t_s font_sbmr">어르신에게 맞는 돌봄 서비스를 장기요양금액을 지원받고 이용할 수 있어요</div>
 	
-	              <div class="align_center">
-	
-	                <div class="lottie_comb_img">
-	
-	                  <!-- 시계-->
-	
-	                  <div class="clock">
-	                    <dotlottie-player src="https://lottie.host/41870c02-5168-42e6-8f35-1ee1fd56e768/cHOeVP8giP.json"
-	                      background="transparent" speed="1" style="width: 58px; height: 58px;" loop
-	                      autoplay></dotlottie-player>
-	                  </div>
-	
-	                  <!-- 사람 -->
-	                  <div class="people">
-	                    <dotlottie-player src="https://lottie.host/acb42cc7-2106-457d-8859-cb06124e5a2b/CRs6ukgCFA.json"
-	                      background="transparent" speed="1" style="width: 360px; height: 320px;" loop
-	                      autoplay></dotlottie-player>
-	                  </div>
-	
-	                </div>
-	              </div>
+                  <div class="slide_img lt_03">
+                  	<dotlottie-player src="https://lottie.host/acb42cc7-2106-457d-8859-cb06124e5a2b/CRs6ukgCFA.json" background="transparent" speed="1" loop autoplay></dotlottie-player>
+                  </div>
 	
 	            </div>
 	            <!-- swiper-slide -->
@@ -128,9 +116,9 @@
 	                받을 수 있는 복지 혜택을 이용해보세요
 	              </div>
 	
-	              <div class="align_center">
-	                <dotlottie-player src="https://lottie.host/edb4340d-cc73-4642-8c5c-bb9bbfa64ac0/AQWJ4T2t5B.json" background="transparent" speed="1" style="width: 360px; height: 320px;" loop autoplay></dotlottie-player>
-	              </div>
+	              <div class="slide_img lt_04">
+                  	<dotlottie-player src="https://lottie.host/edb4340d-cc73-4642-8c5c-bb9bbfa64ac0/AQWJ4T2t5B.json" background="transparent" speed="1" loop autoplay></dotlottie-player>
+                  </div>
 	
 	            </div>
 	            <!-- swiper-slide -->
