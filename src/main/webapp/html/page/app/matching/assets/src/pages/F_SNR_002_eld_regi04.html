@@ -89,7 +89,7 @@
 
                 <div class="h40"></div>
 
-                <input type="date" class="input_basic" placeholder="1950/01/01" value="1954-06-30">
+                <input type="text" class="input_basic" value="1959/02/16" id="phoneNum" maxlength="10">
 
 
             </section>
@@ -138,6 +138,41 @@
         </div>
 
     </div>
+
+
+
+
+    <script>
+
+        //생년월일
+    
+        var autoHypenPhone = function (str) {
+            str = str.replace(/[^0-9]/g, "");
+            var tmp = "";
+            if (str.length < 4) {
+                return str;
+            } else {
+                tmp += str.substr(0, 4);
+                tmp += "/";
+                tmp += str.substr(4, 2);
+                tmp += "/";
+                tmp += str.substr(6);
+                return tmp;
+            }
+    
+            return str;
+        };
+    
+        var phoneNum = document.getElementById("phoneNum");
+    
+        phoneNum.onkeyup = function () {
+            console.log(this.value);
+            this.value = autoHypenPhone(this.value);
+        };
+    
+    
+    
+    </script>
 
 
 </body>

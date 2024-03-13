@@ -2321,8 +2321,11 @@ h5.title {
   height: 48px;
 }
 .modal.fullscreen .modal-content {
-  height: calc(100% - 56px - 72px);
+  height: calc(100% - 56px - 75px);
   overflow-y: auto;
+}
+.modal.fullscreen .modal-content.no_footer {
+  height: calc(100% - 56px);
 }
 
 .scrollBox {
@@ -2713,6 +2716,9 @@ h5.title {
   overflow-y: hidden;
   overflow-x: auto;
 }
+.wel_scroll_area .wel_scroll::-webkit-scrollbar {
+  display: none;
+}
 .wel_scroll_area .btn_accord_area {
   position: absolute;
   top: 0px;
@@ -2800,9 +2806,6 @@ h5.title {
   padding: 0 20px;
 }
 
-.card.wel_detail_card {
-  scroll-snap-align: start;
-}
 .card.wel_detail_card .card-content {
   padding: 16px 20px 24px;
 }
@@ -2824,7 +2827,7 @@ h5.title {
   font-weight: 700;
   line-height: 24px;
   letter-spacing: -0.24px;
-  background-image: url("../../images/04icon/share.svg");
+  background-image: url("../images/04icon/share.svg");
   background-repeat: no-repeat;
   background-position: 16px center;
   background-size: 16px;
@@ -2847,8 +2850,18 @@ h5.title {
 .card.wel_detail_card .card-content .tag_area02 .tag:nth-child(2n) {
   margin-left: 2px;
 }
+.card.wel_detail_card .youtube_area {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+.card.wel_detail_card .youtube_area iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 .card.wel_detail_card + .wel_detail_card {
-  margin-top: 16px;
+  margin-top: 24px;
 }
 
 .img_system_ins {
@@ -3250,10 +3263,6 @@ h5.title {
   left: 0;
   z-index: 10;
 }
-.wel_total_area > * .tr_a.active {
-  border-radius: 8px;
-  border: 2px solid #FF8120;
-}
 .wel_total_area > * .img_area {
   position: relative;
   overflow: hidden;
@@ -3312,6 +3321,9 @@ h5.title {
   overflow-y: hidden;
   overflow-x: auto;
   font-size: 0;
+}
+.om_reg_area ul::-webkit-scrollbar {
+  display: none;
 }
 
 .om_reg_area ul li {
@@ -3597,6 +3609,9 @@ h5.title {
 }
 .wel_select_slide .waves-effect img {
   z-index: initial;
+}
+.wel_select_slide::-webkit-scrollbar {
+  display: none;
 }
 .wel_select_slide .ctn {
   padding: 0 6px;

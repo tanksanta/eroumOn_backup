@@ -197,8 +197,14 @@ h5.title{
     }
     
     .modal-content{
-        height:calc(100% - 56px - 72px); //modal_header, modal_footer 높이값 제외
+        height:calc(100% - $header - 75px); //modal_header, modal_footer 높이값 제외
         overflow-y: auto;
+
+        &.no_footer{
+
+            height:calc(100% - $header); //modal_header 높이값 제외
+
+        }
     }
 
 }
@@ -551,6 +557,11 @@ h5.title{
         justify-content: start;
         padding:20px 65px 20px 16px; width:100%;font-size: 0;
         white-space:nowrap;overflow-y: hidden; overflow-x: auto;
+
+                //스크롤바 숨김처리
+                &::-webkit-scrollbar {
+                    display: none; 
+                }
     
     }
 
@@ -663,11 +674,12 @@ h5.title{
 
 
 //복지용구 재생박스
-.wel_detail_card_area{position: relative; padding: 0 20px; 
+.wel_detail_card_area{
+    position: relative; padding: 0 20px; 
 }
 
 .card.wel_detail_card{
-    scroll-snap-align: start;
+    
 
     .card-content{
         padding: 16px 20px 24px;
@@ -683,7 +695,7 @@ h5.title{
                 flex-shrink: 0;
                 color:$--Color-text-Primitive-secondary;
                 @include Suit_Body_SM_SemiBold;
-                background-image: url('../../images/04icon/share.svg');
+                background-image: url('../images/04icon/share.svg');
                 background-repeat: no-repeat;
                 background-position: 16px center;
                 background-size: 16px;
@@ -711,8 +723,20 @@ h5.title{
     
     }
 
+    //유튜브화면 16:9
+    .youtube_area{
 
-    &+.wel_detail_card{margin-top: 16px;}
+        position: relative;width: 100%;padding-bottom: 56.25%;
+
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+
+    &+.wel_detail_card{margin-top: 24px;}
 }
 
 
@@ -1122,11 +1146,6 @@ h5.title{
 
         .tr_a{display: block;width:100%;height:100%;position: absolute;top: 0;left: 0; z-index: 10;
         
-            &.active{
-                border-radius: 8px;
-                border:2px solid $--Color-bg-Primitive-primary;
-
-            }
 
         }
 
@@ -1193,7 +1212,15 @@ h5.title{
 //어르신
 /////어르신 등록 슬라이드
 .om_reg_area{margin:0 -20px;}
-.om_reg_area ul{padding:0 20px; width:100%;white-space:nowrap;overflow-y: hidden; overflow-x: auto;font-size: 0;}
+.om_reg_area ul{
+    padding:0 20px; width:100%;white-space:nowrap;overflow-y: hidden; overflow-x: auto;font-size: 0;
+
+        //스크롤바 숨김처리
+        &::-webkit-scrollbar {
+            display: none; 
+        }
+
+}
 .om_reg_area ul li{
 
     display: inline-block;
@@ -1535,6 +1562,11 @@ h5.title{
     padding: 0 14px;
 
     .waves-effect img{z-index: initial;}
+
+    //스크롤바 숨김처리
+    &::-webkit-scrollbar {
+        display: none; 
+    }
 
     .ctn{
         
