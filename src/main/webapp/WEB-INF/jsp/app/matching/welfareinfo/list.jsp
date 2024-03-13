@@ -984,12 +984,7 @@
                 scrollOffset: 150
             });
 
- 
-            
-            $('.top_txt.addCustom1').on('click', function () {
-                $('a.top_txt.modal-trigger').trigger('click')
-            });
-            
+           
             //chip toggle 클릭시 
             $('.chip_area02 > *').on('click', function () {
 
@@ -1031,7 +1026,7 @@
 				var jobjTarget = $(this).closest("div.card.wel_detail_card");
 				var ctgryCd = jobjTarget.attr("ctgryCd");
 
-				location.href = "/matching/welfareinfo/interest/choice?recipientsNo=124&careCtgryList=" + ctgryCd;
+				location.href = "/matching/welfareinfo/interest/choice?careCtgryList=" + ctgryCd + "#" + ctgryCd;
 			});
 
         });
