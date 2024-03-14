@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/html/core/script/ckeditor5-online-builder/sample/ckview.css?v=<spring:eval expression="@version['assets.version']"/>"/>
+
 
 			<form:form modelAttribute="nttVO" method="post" name="frmNtt" id="frmNtt" enctype="multipart/form-data" action="./action">
 				<form:hidden path="crud" />
@@ -120,7 +122,7 @@
                         </c:if>
                         <tr>
                             <th scope="row">내용</th>
-                            <td>${nttVO.cn}</td>
+                            <td class="ck-content">${nttVO.cn}</td>
                         </tr>
                         <c:if test="${bbsSetupVO.thumbUseYn eq 'Y'}">
 						<tr>
