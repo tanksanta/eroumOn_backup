@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/html/core/script/ckeditor5-online-builder/sample/ckview.css?v=<spring:eval expression="@version['assets.version']"/>"/>
+
 <main id="container">
 	<jsp:include page="../layout/page_header.jsp" >
 		<jsp:param value="자주 묻는 질문" name="pageTitle"/>
@@ -28,7 +30,7 @@
 									<strong>${resultList.ttl}</strong>
 								</a>
 								<div id="collapse-item${status.index}" class="collapse item-body" data-bs-parent="#accordion-question">
-									<div class="container">${resultList.cn}</div>
+									<div class="container ck-content">${resultList.cn}</div>
 								</div>
                     		</div>
 						</div>

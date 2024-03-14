@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/html/core/script/ckeditor5-online-builder/sample/ckview.css?v=<spring:eval expression="@version['assets.version']"/>"/>
+
 <main id="container">
 	<jsp:include page="../../layout/page_header.jsp" >
 		<jsp:param value="공지사항" name="pageTitle"/>
@@ -15,7 +17,7 @@
 						<strong>${nttVO.ttl}</strong> <small><fmt:formatDate value="${nttVO.regDt}" pattern="yyyy-MM-dd" /></small>
 					</div>
 				</div>
-				<div class="detail-body">
+				<div class="detail-body ck-content">
 					${nttVO.cn}
 				</div>
 				<c:if test="${bbsSetupVO.atchfileUseYn eq 'Y' && bbsSetupVO.atchfileCnt > 0}">
