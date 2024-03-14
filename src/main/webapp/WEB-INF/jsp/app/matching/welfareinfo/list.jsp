@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 	<div class="wrapper">
-		<style>
-			.wel_detail_card iframe {
-				width: 100%;
-				height: 180px;
-			}
-		</style>
 
 		<!-- 상단 뒤로가기 버튼 추가 -->
 	    <jsp:include page="/WEB-INF/jsp/app/matching/common/topButton.jsp">
@@ -16,6 +10,7 @@
             <jsp:param value="modal_fullsreen" name="addCustom1ModalTrigger" />
 	    </jsp:include>
 	    
+
         <main>
             <section class="default noPad">
 
@@ -63,16 +58,18 @@
 
                 <div class="wel_detail_card_area">
 
-
-
                     <!-- 워커 wd01 -->
                     <div id="wd01" ctgryCd="10a0" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/G191PpIvGuc?si=emjWHFGrYkt62Pjk&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/G191PpIvGuc?si=emjWHFGrYkt62Pjk&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
 
+                        </div>
+ 
                         <div class="card-content">
 
                             <div class="title_area">
@@ -98,7 +95,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -109,11 +106,16 @@
 
                     <!-- 실버카 wd02-->
                     <div id="wd02" ctgryCd="10a0" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/t2_Op-DpmBU?si=ihL8jQ3JVmeKYgIP&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+                        <div class="youtube_area">
+                        
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/t2_Op-DpmBU?si=ihL8jQ3JVmeKYgIP&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
 
                         <div class="card-content">
 
@@ -139,7 +141,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -149,11 +151,17 @@
 
                     <!-- 롤레이터 -->
                     <div id="wd03" ctgryCd="10a0" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/F_fRNP-fC2k?si=qULuRU1AyFSM2M3V&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/F_fRNP-fC2k?si=qULuRU1AyFSM2M3V&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
 
                         <div class="card-content">
 
@@ -180,7 +188,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -190,11 +198,17 @@
 
                     <!-- 수동휠체어 -->
                     <div id="wd04" ctgryCd="2080" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/aiJEXq1EFIE?si=T_p63i42DCW4Bc4k&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/aiJEXq1EFIE?si=T_p63i42DCW4Bc4k&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
 
                         <div class="card-content">
 
@@ -218,7 +232,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -228,11 +242,17 @@
 
                     <!-- 지팡이 -->
                     <div id="wd05" ctgryCd="1050" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/7Q5oslT9B84?si=UEMW_RZ8SvmySP80&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/7Q5oslT9B84?si=UEMW_RZ8SvmySP80&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
 
                         <div class="card-content">
 
@@ -257,7 +277,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -269,11 +289,17 @@
                     <!-- 변기형 -->
                     <div id="wd07" ctgryCd="1090" class="card wel_detail_card scrollspy">
 
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/__CLaLpP15w?si=v514EvJOd-5yy-gZ&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/__CLaLpP15w?si=v514EvJOd-5yy-gZ&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
 
                         <div class="card-content">
 
@@ -299,7 +325,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -311,11 +337,16 @@
                     <!-- 벽걸이형 -->
                     <div id="wd08" ctgryCd="1090" class="card wel_detail_card scrollspy">
 
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/g4MB7V5j85M?si=MqF8H3DaULUSZ1S3&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+                        <div class="youtube_area">
+
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/g4MB7V5j85M?si=MqF8H3DaULUSZ1S3&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                            
+                        </div>
 
                         <div class="card-content">
 
@@ -340,7 +371,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -351,11 +382,18 @@
 
                     <!-- 기둥형 -->
                     <div id="wd06" ctgryCd="1090" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/IrpP742C7YU?si=TCJRwy1UJ2doOW5Z&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/IrpP742C7YU?si=TCJRwy1UJ2doOW5Z&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
+
                         <div class="card-content">
 
                             <div class="title_area">
@@ -379,7 +417,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -390,11 +428,18 @@
 
                     <!-- 미끄럼방지 매트 -->
                     <div id="wd09" ctgryCd="1080" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/legewNYeMPw?si=Zt_-D21Kl59s0TTW&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/legewNYeMPw?si=Zt_-D21Kl59s0TTW&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        
+                        </div>
+
                         <div class="card-content">
 
                             <div class="title_area">
@@ -417,7 +462,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -429,11 +474,16 @@
 
                     <!-- 미끄럼방지 양말 -->
                     <div id="wd11" ctgryCd="1070" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/BBoI25fi3r8?si=HhuA9xAcy3iDsj3_&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/BBoI25fi3r8?si=HhuA9xAcy3iDsj3_&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
                         <div class="card-content">
 
                             <div class="title_area">
@@ -456,7 +506,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -467,11 +517,16 @@
 
                     <!-- 욕창예방 매트리스 -->
                     <div id="wd12" ctgryCd="1010" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/pixtaOPsOBQ?si=4myEO3cVMnFy8FOU&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/pixtaOPsOBQ?si=4myEO3cVMnFy8FOU&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
                         <div class="card-content">
 
                             <div class="title_area">
@@ -493,7 +548,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -504,11 +559,16 @@
 
                     <!-- 욕창예방 방석 -->
                     <div id="wd13" ctgryCd="1040" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/Bh83vfLkTZs?si=252WLGmXPVthdGVl&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/Bh83vfLkTZs?si=252WLGmXPVthdGVl&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
                         <div class="card-content">
 
                             <div class="title_area">
@@ -530,7 +590,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -541,11 +601,15 @@
 
                     <!-- 자세변환 용구 -->
                     <div id="wd14" ctgryCd="1030" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/gIJwqKjFd3Y?si=mvcn6hZoPTxiM-4n&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/gIJwqKjFd3Y?si=mvcn6hZoPTxiM-4n&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
 
                         <div class="card-content">
 
@@ -570,7 +634,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -581,11 +645,15 @@
 
                     <!-- 요실금 팬티 -->
                     <div id="wd15" ctgryCd="1020" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/sV0W71U4QfI?si=IrcJIZjQLJAsMn04&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/sV0W71U4QfI?si=IrcJIZjQLJAsMn04&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
 
                         <div class="card-content">
 
@@ -610,7 +678,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -621,11 +689,15 @@
 
                     <!-- 목욕의자 -->
                     <div id="wd16" ctgryCd="10b0" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/ndJSSfXLVzg?si=mdu_7v7fnMvhjwcR&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/ndJSSfXLVzg?si=mdu_7v7fnMvhjwcR&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
 
                         <div class="card-content">
 
@@ -648,7 +720,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -660,11 +732,15 @@
 
                     <!-- 이동변기 -->
                     <div id="wd17" ctgryCd="10c0" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/e6tB08G39JY?si=ySr7_ef2YmnrmiDn&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/e6tB08G39JY?si=ySr7_ef2YmnrmiDn&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
 
                         <div class="card-content">
 
@@ -691,7 +767,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -703,11 +779,15 @@
 
                     <!-- 간이변기 -->
                     <div id="wd18" ctgryCd="1060" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/4B97NWcjrY4?si=I0Ibf5eh1DM9LT4C&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/4B97NWcjrY4?si=I0Ibf5eh1DM9LT4C&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
 
                         <div class="card-content">
 
@@ -733,7 +813,7 @@
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -744,11 +824,15 @@
 
                     <!-- 경사로 -->
                     <div id="wd19" ctgryCd="10d0" class="card wel_detail_card scrollspy">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/oWXzieJdWFE?si=Pmf7DOGOvRtts8xA&amp;controls=0"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+
+                        <div class="youtube_area">
+                            <iframe
+                                src="https://www.youtube-nocookie.com/embed/oWXzieJdWFE?si=Pmf7DOGOvRtts8xA&amp;controls=0"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
 
                         <div class="card-content">
 
@@ -768,12 +852,12 @@
                                 <span class="tag">이동보조</span>
                                 <span class="tag">안전사고예방</span>
                             </div>
-
+ 
                         </div>
 
                         <div class="card-action">
 
-                            <a class="waves-effect btn btn-middle btn_primary w100p">관심 설정하기</a>
+                            <a class="waves-effect btn btn-large btn_primary w100p">관심 설정하기</a>
 
                         </div>
 
@@ -811,7 +895,7 @@
           <div class="close_x modal-close waves-effect"></div>
         </div>
   
-        <div class="modal-content">
+        <div class="modal-content no_footer">
 
             <div class="h20"></div>
 
@@ -965,6 +1049,7 @@
     </div>
     <!-- modal_fullsreen -->
   
+  
 
 
 	
@@ -972,7 +1057,7 @@
 		
 
         $(function () {
-
+            $("body").addClass("back_gray");
 
             $('.modal.fullscreen').modal({
                 inDuration: 0,
